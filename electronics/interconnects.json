@@ -1,0 +1,126 @@
+{
+  "revision": "R5",
+  "notation": "PCB.J1:n is an actual numbered PCB pad; other names are module silkscreen roles or explicitly assigned harness labels, never fabricated PCB references.",
+  "nets": [
+    { "name": "CELL+", "endpoints": ["BATT.+", "CHG.BAT+"] },
+    { "name": "CELL-", "endpoints": ["BATT.-", "CHG.BAT-"] },
+    {
+      "name": "OUT+",
+      "endpoints": [
+        "CHG.OUT+",
+        "PCB.J1:1",
+        "PCB.SW@(34,45)",
+        "BUTTON_PLUG.OUT+",
+        "SW_REMOTE.contact_A"
+      ]
+    },
+    { "name": "VSW", "endpoints": ["PCB.J1:2", "BOOST.VIN+", "ESP.5V"] },
+    {
+      "name": "GND",
+      "endpoints": [
+        "CHG.OUT-",
+        "PCB.J1:3",
+        "PCB.J1:6",
+        "BOOST.VIN-",
+        "BOOST.VOUT-",
+        "ESP.GND",
+        "DRV.GND"
+      ]
+    },
+    { "name": "GATE", "endpoints": ["PCB.J1:4", "ESP.LATCH"] },
+    { "name": "SENSE", "endpoints": ["PCB.J1:5", "ESP.BUTTON_ADC"] },
+    {
+      "name": "BTN_N",
+      "endpoints": [
+        "PCB.SW@(40.5,45)",
+        "BUTTON_PLUG.BTN_N",
+        "SW_REMOTE.contact_B"
+      ]
+    },
+    { "name": "+12V", "endpoints": ["BOOST.VOUT+", "LED.+12V"] }
+  ],
+  "board_variants": {
+    "C3": {
+      "primary": true,
+      "LATCH": 3,
+      "BUTTON_ADC": 4,
+      "G": 5,
+      "R": 6,
+      "B": 7,
+      "WW": 10,
+      "CW": 20,
+      "optional_BATTERY_ADC": 1
+    },
+    "S3": {
+      "primary": false,
+      "LATCH": 9,
+      "BUTTON_ADC": 8,
+      "G": 5,
+      "R": 4,
+      "B": 6,
+      "WW": 10,
+      "CW": 11,
+      "optional_BATTERY_ADC": 1
+    }
+  },
+  "channels": [
+    {
+      "channel": "G",
+      "Q": "Q1",
+      "series": "Rg1",
+      "pulldown": "Rp1",
+      "C3_GPIO": 5,
+      "S3_GPIO": 5
+    },
+    {
+      "channel": "R",
+      "Q": "Q2",
+      "series": "Rg2",
+      "pulldown": "Rp2",
+      "C3_GPIO": 6,
+      "S3_GPIO": 4
+    },
+    {
+      "channel": "B",
+      "Q": "Q3",
+      "series": "Rg3",
+      "pulldown": "Rp3",
+      "C3_GPIO": 7,
+      "S3_GPIO": 6
+    },
+    {
+      "channel": "WW",
+      "Q": "Q4",
+      "series": "Rg4",
+      "pulldown": "Rp4",
+      "C3_GPIO": 10,
+      "S3_GPIO": 10
+    },
+    {
+      "channel": "CW",
+      "Q": "Q5",
+      "series": "Rg5",
+      "pulldown": "Rp5",
+      "C3_GPIO": 20,
+      "S3_GPIO": 11
+    }
+  ],
+  "channel_topology": {
+    "PWM": "ESP channel GPIO -> Rg.a (100ohm)",
+    "GATE": "Rg.b -> Q.G -> Rp.a (10k)",
+    "RETURN": "Q.S -> Rp.b -> DRV.GND",
+    "LED_RETURN": "Q.D -> LED channel pad"
+  },
+  "harness": {
+    "button": "Two signal conductors, matched keyed plug/socket, strain relief both ends. PCB solder points selected by net and coordinates, not SW pad number alone.",
+    "power": "Keep high-current VSW/+12V/return wiring short; do not share thin switch pigtail as LED supply",
+    "routing": "Final case-coordinate wire paths are illustrative; measure length against dry assembly with service slack"
+  },
+  "forbidden_connections": [
+    "CHG.BAT- to CHG.OUT- bypasses protection",
+    "+12V to any ESP or latch PCB pad",
+    "BATT.+ directly to ESP.3V3",
+    "SW_REMOTE across GATE and GND",
+    "PCBSW matching four-leg switch installed without resolving pad contact conflict"
+  ]
+}

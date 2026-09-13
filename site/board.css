@@ -1,0 +1,182 @@
+.guide-layout {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 70px;
+  padding-block: 45px 90px;
+}
+.guide-index {
+  align-self: start;
+  position: sticky;
+  top: 30px;
+}
+.guide-label {
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 13px;
+}
+.guide-index nav {
+  display: grid;
+  gap: 6px;
+}
+.guide-index nav a {
+  display: block;
+  text-decoration: none;
+  padding: 9px 0;
+  font-size: 13px;
+}
+.guide-index nav a:hover {
+  color: var(--blue);
+}
+.guide-note {
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  margin-top: 28px;
+  font-size: 12px;
+}
+.assembly-guide {
+  min-width: 0;
+  font-size: 15px;
+}
+.assembly-guide h1 {
+  font-size: clamp(38px, 4vw, 58px);
+  margin-bottom: 28px;
+}
+.assembly-guide h2 {
+  font-size: 32px;
+  margin: 65px 0 24px;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
+  letter-spacing: -0.035em;
+}
+.assembly-guide h3 {
+  font-size: 21px;
+  margin: 32px 0 18px;
+}
+.assembly-guide p {
+  max-width: 88ch;
+}
+.assembly-guide strong {
+  color: var(--ink);
+}
+.assembly-guide a {
+  color: var(--blue);
+}
+.assembly-guide li {
+  margin-bottom: 13px;
+  color: var(--muted);
+  padding-left: 5px;
+}
+.assembly-guide ol,
+.assembly-guide ul {
+  padding-left: 22px;
+  margin-block: 22px;
+}
+.assembly-guide img {
+  width: 100%;
+  border: 1px solid var(--line);
+  margin: 28px 0;
+  background: white;
+}
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  margin: 28px 0;
+  border: 1px solid var(--line);
+  background: white;
+}
+.assembly-guide table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.assembly-guide th {
+  text-align: left;
+  color: var(--ink);
+  background: var(--wash);
+  white-space: nowrap;
+}
+.assembly-guide th,
+.assembly-guide td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  min-width: 72px;
+}
+.assembly-guide td:nth-child(2) {
+  min-width: 110px;
+}
+.assembly-guide code {
+  font-size: 0.88em;
+  color: var(--ink);
+}
+.assembly-guide pre {
+  background: var(--wash);
+  padding: 22px;
+  overflow: auto;
+  border-radius: 6px;
+}
+.assembly-guide pre code {
+  white-space: pre;
+}
+@media (max-width: 1000px) {
+  .guide-layout {
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 35px;
+  }
+}
+@media (max-width: 800px) {
+  .guide-layout {
+    display: block;
+    padding-top: 25px;
+  }
+  .guide-index {
+    position: static;
+    margin-bottom: 40px;
+  }
+  .guide-index nav {
+    grid-template-columns: 1fr 1fr;
+    gap: 0 16px;
+  }
+  .guide-note {
+    display: none;
+  }
+  .assembly-guide h2 {
+    font-size: 28px;
+  }
+}
+@media print {
+  .site-header,
+  .guide-index,
+  .site-footer {
+    display: none;
+  }
+  .guide-layout {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+  .assembly-guide {
+    color: black;
+    font-size: 10pt;
+  }
+  .assembly-guide h1 {
+    font-size: 24pt;
+  }
+  .assembly-guide h2 {
+    break-after: avoid;
+    font-size: 17pt;
+    margin-top: 20pt;
+  }
+  .assembly-guide img {
+    max-height: 210mm;
+    object-fit: contain;
+    break-inside: avoid;
+  }
+  .assembly-guide table {
+    font-size: 8pt;
+  }
+  .table-scroll {
+    overflow: visible;
+  }
+}

@@ -1,0 +1,206 @@
+{
+  "revision": "R5",
+  "schema_version": 1,
+  "status": "Source-derived build instructions; electrical and physical bench validation pending",
+  "coordinate_system": "PCB component-side view: local origin at KiCad (4,4), X right, Y down; all dimensions mm",
+  "board": {
+    "source": "source/power_button_fixed.kicad_pcb",
+    "sha256": "c798650596b9dbe1a9a02e66f729ba90ca6bdb2413234685fccc961d18b5b981",
+    "size_mm": [94, 60, 1.6],
+    "kicad_origin_mm": [4, 4],
+    "pad_data": "pcb-pads.json"
+  },
+  "components": [
+    {
+      "ref": "Db",
+      "value": "1N4148",
+      "kind": "axial_diode",
+      "footprint": "D_DO-35_SOD27_P10.16mm_Horizontal",
+      "center_mm": [67.08, 29.0],
+      "rotation_deg": 0.0,
+      "body_mm": [4.0, 2.0, 2.0],
+      "installed": true,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "H1",
+      "value": "M2.5",
+      "kind": "mounting_hole",
+      "footprint": "MountingHole_2.7mm",
+      "center_mm": [4.0, 4.0],
+      "rotation_deg": 0.0,
+      "body_mm": [2.7, 2.7, 0],
+      "installed": false,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "H2",
+      "value": "M2.5",
+      "kind": "mounting_hole",
+      "footprint": "MountingHole_2.7mm",
+      "center_mm": [90.0, 4.0],
+      "rotation_deg": 0.0,
+      "body_mm": [2.7, 2.7, 0],
+      "installed": false,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "H3",
+      "value": "M2.5",
+      "kind": "mounting_hole",
+      "footprint": "MountingHole_2.7mm",
+      "center_mm": [4.0, 56.0],
+      "rotation_deg": 0.0,
+      "body_mm": [2.7, 2.7, 0],
+      "installed": false,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "H4",
+      "value": "M2.5",
+      "kind": "mounting_hole",
+      "footprint": "MountingHole_2.7mm",
+      "center_mm": [90.0, 56.0],
+      "rotation_deg": 0.0,
+      "body_mm": [2.7, 2.7, 0],
+      "installed": false,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "J1",
+      "value": "OUT+/VSW/GND/LATCH/SENSE/GND",
+      "kind": "header_1x6",
+      "footprint": "PinHeader_1x06_P2.54mm_Vertical",
+      "center_mm": [13.35, 18.0],
+      "rotation_deg": 90.0,
+      "body_mm": [15.24, 2.54, 8.5],
+      "installed": true,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "QL",
+      "value": "BS170",
+      "kind": "TO92",
+      "footprint": "TO-92_Inline",
+      "center_mm": [61.27, 13.0],
+      "rotation_deg": 0.0,
+      "body_mm": [4.8, 3.7, 5.2],
+      "installed": true,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "QP",
+      "value": "SS8550",
+      "kind": "TO92",
+      "footprint": "TO-92_Inline",
+      "center_mm": [29.27, 13.0],
+      "rotation_deg": 0.0,
+      "body_mm": [4.8, 3.7, 5.2],
+      "installed": true,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "Rb",
+      "value": "330",
+      "kind": "axial_resistor",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "center_mm": [49.08, 13.0],
+      "rotation_deg": 0.0,
+      "body_mm": [6.3, 2.5, 2.5],
+      "installed": true,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "Rbe",
+      "value": "100k",
+      "kind": "axial_resistor",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "center_mm": [33.08, 29.0],
+      "rotation_deg": 0.0,
+      "body_mm": [6.3, 2.5, 2.5],
+      "installed": true,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "Rbtn",
+      "value": "1k",
+      "kind": "axial_resistor",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "center_mm": [83.08, 13.0],
+      "rotation_deg": 0.0,
+      "body_mm": [6.3, 2.5, 2.5],
+      "installed": true,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "Rgl",
+      "value": "100k",
+      "kind": "axial_resistor",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "center_mm": [75.08, 36.0],
+      "rotation_deg": 0.0,
+      "body_mm": [6.3, 2.5, 2.5],
+      "installed": true,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "Rs1",
+      "value": "100k",
+      "kind": "axial_resistor",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "center_mm": [65.08, 45.0],
+      "rotation_deg": 0.0,
+      "body_mm": [6.3, 2.5, 2.5],
+      "installed": true,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "Rs2",
+      "value": "100k",
+      "kind": "axial_resistor",
+      "footprint": "R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "center_mm": [83.08, 40.0],
+      "rotation_deg": 0.0,
+      "body_mm": [6.3, 2.5, 2.5],
+      "installed": true,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    },
+    {
+      "ref": "SW",
+      "value": "PWR",
+      "kind": "tact_switch_unpopulated",
+      "footprint": "SW_PUSH_6mm",
+      "center_mm": [37.25, 47.25],
+      "rotation_deg": 0.0,
+      "body_mm": [6, 6, 4.3],
+      "installed": false,
+      "dimensions_status": "footprint nominal; purchased part unmeasured"
+    }
+  ],
+  "modules_file": "modules.json",
+  "wiring_file": "interconnects.json",
+  "remote_button": {
+    "pcb_switch_populated": false,
+    "reason": "SW footprint repeated pad numbers span different assigned nets; do not install its matching four-leg switch",
+    "pcb_endpoints": [
+      ["SW", "1", "OUT+", 34, 45],
+      ["SW", "1", "BTN_N", 40.5, 45]
+    ],
+    "connector": "Inline keyed 2-pin cable pair, not a PCB connector footprint",
+    "contact_requirement": "Remote normally-open contacts: open released, continuity only while pressed",
+    "nominal_switch_mm": [6, 6, 4.3],
+    "daughterboard_mm": [12, 12, 1.6],
+    "connector_envelope_mm": [10, 7, 6],
+    "connector_dimensions_status": "routing allowance only; no purchased connector measured"
+  },
+  "warnings": [
+    "Original hardware/power_button.kicad_pcb has real shorts; use this copied corrected source",
+    "DRC verifies geometry and nets, not transistor pinout, SW contact internals, analog performance or load capacity",
+    "Battery negative goes only to charger BAT-; system return goes only to protected OUT-",
+    "PCB Rbtn is 1k, despite an older wiring document saying 10k",
+    "100k/100k SENSE divider requires analog sensing, not a guaranteed digital HIGH",
+    "Optional raw-battery telemetry divider is omitted to avoid injecting an unpowered MCU input",
+    "SS8550 rail drop, 3.3V BS170 drive, clone regulator dropout and full-load temperatures need bench measurement"
+  ],
+  "driver_layout_file": "driver-layout.json"
+}

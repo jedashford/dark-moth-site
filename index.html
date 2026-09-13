@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f6f7" />
+    <meta
+      name="description"
+      content="Explore the Dark Moth R5 enclosure: original moth artwork, a wired side button, replaceable smoked acrylic, and verified 3D print files."
+    />
+    <title>Dark Moth — Enclosure R5</title>
+    <link rel="icon" href="cad/moth.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="site/style.css" />
+    <script src="vendor/three.min.js" defer></script>
+    <script src="vendor/OrbitControls.js" defer></script>
+    <script src="vendor/GLTFLoader.js" defer></script>
+    <script src="site/scene.js" defer></script>
+    <script src="site/assembly-state.js" defer></script>
+    <script src="site/assembly-viewer.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="#main" aria-label="Dark Moth home">
+        <img src="cad/moth.svg" alt="" width="48" height="32" />
+        <span>Dark Moth <small>Enclosure R5</small></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#explore">Explore in 3D</a>
+        <a href="#build">Build</a>
+        <a href="#downloads">Print files</a>
+        <a href="board.html">Build the board</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">Dark Moth.<br />A considered case.</h1>
+          <p class="lead">
+            The original moth. A wired button on the side. A replaceable smoked face. Explore the complete prototype,
+            down to the board, screws and wiring.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#explore">Explore the complete build</a>
+            <a class="text-link" href="dark-moth-r5-print-pack.zip" download>Download print pack</a>
+          </div>
+          <p class="hero-note">
+            R5 for the v3-button 12 V hand-build.<br />Digitally checked. First physical print pending.
+          </p>
+        </div>
+        <figure class="hero-image">
+          <a href="preview/hero.png" aria-label="Open full-resolution enclosure render">
+            <img
+              src="preview/hero.png"
+              alt="Charcoal Dark Moth enclosure with the faceted moth engraved into its lid, a wired side button, and a smoked front panel."
+              width="1600"
+              height="1200"
+              fetchpriority="high"
+            />
+          </a>
+          <figcaption>Actual CAD geometry. Smoked material appearance is illustrative.</figcaption>
+        </figure>
+      </section>
+
+      <dl class="spec-strip wrap" aria-label="Enclosure specifications">
+        <div>
+          <dt>Case envelope</dt>
+          <dd>111 × 103 × 36 <span>mm</span></dd>
+        </div>
+        <div>
+          <dt>Replaceable face</dt>
+          <dd>3 <span>mm smoked acrylic</span></dd>
+        </div>
+        <div>
+          <dt>Button position</dt>
+          <dd>Left side <span>detachable cable</span></dd>
+        </div>
+        <div>
+          <dt>Original moth</dt>
+          <dd>44 <span>mm, engraved</span></dd>
+        </div>
+      </dl>
+
+      <section id="explore" class="section wrap" aria-labelledby="explore-title">
+        <div class="section-intro">
+          <div>
+            <h2 id="explore-title">Look closer.<br />Take it apart.</h2>
+          </div>
+          <p>
+            The case, populated PCB, modules, screws and harness in one model. Select a part to read its reference, or
+            open the board guide for exact assembly steps.
+          </p>
+        </div>
+        <div class="model-workbench">
+          <div class="model-main">
+            <div class="viewer-toolbar" role="group" aria-label="Model display mode">
+              <button type="button" data-mode="assembled" aria-pressed="true">Assembled</button>
+              <button type="button" data-mode="internals" aria-pressed="false">Inside</button>
+              <button type="button" data-mode="board" aria-pressed="false">PCB</button>
+              <button type="button" data-mode="wiring" aria-pressed="false">Wiring</button>
+              <button type="button" data-mode="exploded" aria-pressed="false">Exploded</button>
+              <button type="button" data-mode="diffuser" aria-pressed="false">Diffuser access</button>
+              <button type="button" data-mode="xray" aria-pressed="false">X-ray</button>
+            </div>
+            <div
+              id="viewer"
+              tabindex="0"
+              aria-label="Interactive 3D enclosure viewer. Drag to rotate, scroll to zoom, or use the view buttons."
+            >
+              <img
+                class="viewer-fallback"
+                src="preview/hero.png"
+                alt="Static assembled view of the complete prototype."
+                width="1600"
+                height="1200"
+                loading="lazy"
+              />
+            </div>
+            <div class="viewer-bottom">
+              <p id="viewer-status" aria-live="polite">Loading the complete prototype…</p>
+              <span>Drag to rotate. Scroll to zoom.</span>
+            </div>
+          </div>
+          <aside class="viewer-controls" aria-label="3D viewer controls">
+            <fieldset>
+              <legend>Viewpoint</legend>
+              <div class="viewpoint-buttons">
+                <button type="button" data-view="front">Front</button>
+                <button type="button" data-view="top">Top</button>
+                <button type="button" data-view="back">Back</button><button type="button" data-view="side">Side</button>
+              </div>
+            </fieldset>
+            <div class="range-control">
+              <label for="explode-range">Separate the parts</label>
+              <input id="explode-range" type="range" min="0" max="100" value="0" step="1" />
+              <div class="range-labels"><span>Assembled</span><span>Exploded</span></div>
+            </div>
+            <div class="part-picker">
+              <label for="part-select">Inspect any part</label>
+              <select id="part-select">
+                <option value="" disabled selected>Choose a component, screw or wire…</option>
+              </select>
+              <div class="part-actions">
+                <button id="focus-part" type="button">Zoom to part</button
+                ><button id="isolate-part" type="button">Isolate</button>
+              </div>
+              <label class="selected-toggle"
+                ><input id="selected-visible" type="checkbox" checked disabled /> Selected part visible</label
+              >
+              <p id="part-count" aria-live="polite">Loading the part inventory…</p>
+            </div>
+            <details class="category-control">
+              <summary>Show or hide groups</summary>
+              <fieldset id="category-toggles" class="part-toggles">
+                <legend class="sr-only">Visible groups</legend>
+              </fieldset>
+            </details>
+            <p id="part-info">Choose a part in the model to inspect it.</p>
+            <button id="reset-view" class="button secondary" type="button">Reset view</button>
+          </aside>
+        </div>
+        <noscript
+          ><p class="notice">
+            The interactive viewer needs JavaScript. The full-resolution images and every download below remain
+            available.
+          </p></noscript
+        >
+        <p class="model-note">
+          All specified prototype assemblies are represented. The PCB comes from KiCad; modules, connector bodies and
+          wire routes use labelled nominal geometry. The unpopulated PCB switch is not part of the build.
+          <a href="board.html">Follow the component-by-component board guide →</a>
+        </p>
+      </section>
+
+      <section id="details" class="section details-section" aria-labelledby="details-title">
+        <div class="wrap">
+          <div class="section-intro">
+            <h2 id="details-title">Familiar character.<br />Better access.</h2>
+            <p>The moth stays unmistakable. The details around it make the case easier to use and service.</p>
+          </div>
+          <div class="detail-copy">
+            <article>
+              <h3>A button where your thumb rests.</h3>
+              <p>
+                The left-side key presses a small tact switch in a captive carrier. A keyed two-pin pigtail lets you
+                unplug the button from the main board.
+              </p>
+            </article>
+            <article>
+              <h3>A face that slides out.</h3>
+              <p>
+                Remove two front screws and lift the rail. The acrylic slides straight up; the electronics lid stays
+                closed. No tape or glue holds the sheet.
+              </p>
+            </article>
+            <article>
+              <h3>The original Dark Moth.</h3>
+              <p>
+                The authentic 44-facet artwork returns as a 44 mm-wide, 0.5 mm-deep engraving. The fit coupon carries
+                the same detail for a first-print check.
+              </p>
+            </article>
+          </div>
+          <div class="gallery">
+            <figure>
+              <a href="preview/top.png" aria-label="Open full-resolution top view"
+                ><img
+                  src="preview/top.png"
+                  alt="Direct top view showing the original moth engraving, uninterrupted moth lid and separate front diffuser rail."
+                  width="1600"
+                  height="1200"
+                  loading="lazy"
+              /></a>
+              <figcaption><span>The top face</span>An uninterrupted moth lid and separate service rail.</figcaption>
+            </figure>
+            <figure>
+              <a href="preview/exploded.png" aria-label="Open full-resolution exploded view"
+                ><img
+                  src="preview/exploded.png"
+                  alt="Exploded CAD view of the lid, diffuser rail, smoked sheet and enclosure body."
+                  width="1600"
+                  height="1200"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <span>The assembly</span>Inspect the case, populated board, wiring and hardware together.
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="preview/internals.png"
+                ><img
+                  src="preview/internals.png"
+                  alt="Complete internal assembly with PCB, battery, modules, side switch and wiring"
+                  width="1600"
+                  height="1200"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <span>Everything inside</span>Individual components and hardware, with their assembly positions.
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="preview/side.png"
+                ><img
+                  src="preview/side.png"
+                  alt="Left side of the case showing the small side button"
+                  width="1600"
+                  height="1200"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <span>The side control</span>A wired, removable switch with a mechanically retained carrier.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="build" class="section wrap build-section" aria-labelledby="build-title">
+        <div class="build-heading">
+          <h2 id="build-title">Start small.<br />Print the coupon.</h2>
+          <p>Check your acrylic and the moth detail before committing to the full case.</p>
+          <a class="button secondary" href="prints/coupon.stl" download>Download fit coupon</a>
+          <div class="sheet-spec">
+            <h3>The default acrylic specimen</h3>
+            <p class="sheet-size">104 × 28 × 3 <span>mm</span></p>
+            <p>
+              Stock dimensions are unconfirmed. The earlier 94.8 mm-wide dark sheet is too narrow for this case. Measure
+              your material before cutting.
+            </p>
+          </div>
+        </div>
+        <ol class="build-steps">
+          <li>
+            <h3>Check the actual sheet.</h3>
+            <p>
+              The supplied files accept 3 mm smoked acrylic in a 3.4 mm channel. Use a deburred corner or small offcut
+              in the coupon’s 3.2, 3.4 and 3.6 mm test slots.
+            </p>
+          </li>
+          <li>
+            <h3>Inspect the first print.</h3>
+            <p>
+              Check sliding fit, the 44 mm moth’s fine facets and antennae, and the surface finish. Use the same
+              material and profile for the final parts.
+            </p>
+          </li>
+          <li>
+            <h3>Print the case parts.</h3>
+            <p>
+              Start with black PETG, a 0.4 mm nozzle, 0.2 mm layers, four walls and 20% infill. The files already have
+              their intended bed orientation.
+            </p>
+            <p class="support-note">
+              Body: normal supports everywhere, including bridges. Build-plate-only supports are insufficient. The other
+              six parts passed reference slicing without supports.
+            </p>
+          </li>
+          <li>
+            <h3>Build the board, then fit it.</h3>
+            <p>
+              Follow the <a href="board.html">PCB assembly guide</a> for exact component positions and wiring. Fit the
+              side-button carrier before the boost module. Verify switch release, acrylic fit and operating temperature
+              on the physical build.
+            </p>
+            <a class="text-link" href="README.md">Open the case assembly guide</a>
+          </li>
+        </ol>
+      </section>
+
+      <section id="downloads" class="section download-section" aria-labelledby="downloads-title">
+        <div class="wrap">
+          <div class="section-intro">
+            <h2 id="downloads-title">The files to make it.</h2>
+            <p>
+              Millimetres throughout. Editable source, portable models, real previews and the assembly instructions.
+            </p>
+          </div>
+          <div class="main-downloads">
+            <a class="download-primary" href="dark-moth-r5-print-pack.zip" download
+              ><span
+                ><strong>Complete print pack</strong><small>STLs, 3MF plates, source, guides and previews</small></span
+              ><span class="file-kind">ZIP</span></a
+            >
+            <a class="download-secondary" href="prints/black-parts.3mf" download
+              ><span><strong>Black parts plate</strong><small>Six individually selectable objects</small></span
+              ><span class="file-kind">3MF</span></a
+            >
+          </div>
+          <p class="download-note">
+            The 3MF files contain portable models, not printer settings or G-code. Review the plate and apply your
+            filament profile before slicing.
+          </p>
+          <div class="download-columns">
+            <div>
+              <h3>Individual print files</h3>
+              <ul class="file-list">
+                <li>
+                  <a href="prints/body.stl" download><span>Body</span><span>STL</span></a>
+                </li>
+                <li>
+                  <a href="prints/lid.stl" download><span>Electronics lid</span><span>STL</span></a>
+                </li>
+                <li>
+                  <a href="prints/rail.stl" download><span>Diffuser rail</span><span>STL</span></a>
+                </li>
+                <li>
+                  <a href="prints/button.stl" download><span>Button key</span><span>STL</span></a>
+                </li>
+                <li>
+                  <a href="prints/switch_carrier.stl" download><span>Switch carrier</span><span>STL</span></a>
+                </li>
+                <li>
+                  <a href="prints/coupon.stl" download><span>Fit and moth coupon</span><span>STL</span></a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3>Acrylic envelope and source</h3>
+              <ul class="file-list">
+                <li>
+                  <a href="prints/diffuser.stl" download><span>Acrylic cutting / fit template</span><span>STL</span></a>
+                </li>
+                <li>
+                  <a href="prints/diffuser-template.3mf" download
+                    ><span>Acrylic template plate</span><span>3MF</span></a
+                  >
+                </li>
+                <li>
+                  <a href="preview/full-assembly.glb" download><span>Complete prototype in 3D</span><span>GLB</span></a>
+                </li>
+                <li>
+                  <a href="cad/enclosure.scad" download><span>Parametric model entry point</span><span>SCAD</span></a>
+                </li>
+                <li>
+                  <a href="prints/manifest.json"><span>Print file checksums</span><span>JSON</span></a>
+                </li>
+              </ul>
+              <p class="material-note">
+                The diffuser template describes purchased acrylic. Opaque black PETG would block the light. The complete
+                pack includes all source dependencies.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="verification" class="section wrap verification-section" aria-labelledby="verification-title">
+        <div class="section-intro">
+          <h2 id="verification-title">Checked in the model.<br />Ready for a first print.</h2>
+          <p>
+            Digital checks support a careful first build. Physical fit, button feel, light quality and thermal behaviour
+            remain to be tested with the actual components.
+          </p>
+        </div>
+        <dl class="verification-stats">
+          <div>
+            <dt>Geometry checks passed</dt>
+            <dd>344</dd>
+          </div>
+          <div>
+            <dt>Parameter-variant checks passed</dt>
+            <dd>547</dd>
+          </div>
+          <div>
+            <dt>Parts reference-sliced</dt>
+            <dd>7</dd>
+          </div>
+        </dl>
+        <div class="document-links">
+          <a href="board.html"
+            ><strong>Build the board</strong><span>Components, PCB positions and every connection</span></a
+          >
+          <a href="REVIEW.md"><strong>Design review</strong><span>Decisions, corrections and tradeoffs</span></a>
+          <a href="VERIFICATION.md"
+            ><strong>Verification record</strong><span>What was checked and what remains</span></a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer wrap">
+      <a class="brand" href="#main"><img src="cad/moth.svg" alt="" width="40" height="28" /><span>Dark Moth</span></a>
+      <p>Enclosure R5 · v3-button 12 V</p>
+      <a href="board.html">Build the board →</a>
+    </footer>
+  </body>
+</html>

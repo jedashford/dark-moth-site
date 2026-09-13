@@ -1,0 +1,150 @@
+{
+  "revision": "R5",
+  "method": "Real Codex browser runtime against localhost; desktop1440px and mobile390px; screenshots visually inspected",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Guide component link selects QP",
+      "passed": true
+    },
+    {
+      "name": "Isolate shows one component",
+      "passed": true
+    },
+    {
+      "name": "Selected part can be hidden",
+      "passed": true
+    },
+    {
+      "name": "Reset restores107 installed parts",
+      "passed": true
+    },
+    {
+      "name": "Inside mode and correct part visibility",
+      "passed": true
+    },
+    {
+      "name": "PCB mode and correct part visibility",
+      "passed": true
+    },
+    {
+      "name": "Wiring mode and correct part visibility",
+      "passed": true
+    },
+    {
+      "name": "Exploded mode and correct part visibility",
+      "passed": true
+    },
+    {
+      "name": "Diffuser access mode and correct part visibility",
+      "passed": true
+    },
+    {
+      "name": "X-ray mode and correct part visibility",
+      "passed": true
+    },
+    {
+      "name": "Assembled mode and correct part visibility",
+      "passed": true
+    },
+    {
+      "name": "Top viewpoint",
+      "passed": true
+    },
+    {
+      "name": "Back viewpoint",
+      "passed": true
+    },
+    {
+      "name": "Side viewpoint",
+      "passed": true
+    },
+    {
+      "name": "Front viewpoint",
+      "passed": true
+    },
+    {
+      "name": "Keyed connector is individually selectable",
+      "passed": true
+    },
+    {
+      "name": "Explosion slider enters exploded mode",
+      "passed": true
+    },
+    {
+      "name": "Canvas click selects the actual PCB root",
+      "passed": true
+    },
+    {
+      "name": "Mobile page has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Mobile exploded control works",
+      "passed": true
+    },
+    {
+      "name": "Mobile guide has no page overflow",
+      "passed": true
+    },
+    {
+      "name": "Guide shows all eight assembly steps",
+      "passed": true
+    },
+    {
+      "name": "Driver instruction navigation reaches its section",
+      "passed": true
+    },
+    {
+      "name": "Guide diagrams load without failures",
+      "passed": true
+    },
+    {
+      "name": "Wire group hides all29 wire groups",
+      "passed": true
+    },
+    {
+      "name": "Wire group restores all29 routes",
+      "passed": true
+    },
+    {
+      "name": "Populated PCB category excludes unsupported switch from checkbox state",
+      "passed": true
+    },
+    {
+      "name": "Unsupported PCB switch is absent from selectable build list",
+      "passed": true
+    },
+    {
+      "name": "Displayed inventory counts107 installed build groups",
+      "passed": true
+    },
+    {
+      "name": "Final internal assembly exposes103 of107 installed groups",
+      "passed": true
+    },
+    {
+      "name": "Final homepage shows side-button revision",
+      "passed": true
+    },
+    {
+      "name": "Final page has no console warnings or errors",
+      "passed": true
+    },
+    {
+      "name": "Final mobile model fits the page",
+      "passed": true
+    }
+  ],
+  "source_sha256": {
+    "index.html": "64f9c4942d5a9113a90a3939891c87510ba4b9543b841d267928ca2f3dd6dde3",
+    "board.html": "754c8fa53bbfce080d780ac3356cd9fdbd74146479f87550245ac5cb4c920a9b",
+    "site/assembly-viewer.js": "d2d93a70fb5ec48ed551b9da206e1896d0b26616dc1f08ab23169e281d584ac2",
+    "site/assembly-state.js": "52225cdec1456a5725c18ab795cead971f4d9d8df1bb377b5084b59e0355adfb",
+    "site/scene.js": "03dcd8d5cbee36e5017ed30d4eb31340814ca67d394ea5b4fc30d44c0a61365f",
+    "site/viewer.css": "2987c6fa2c313892c6d352350cc6f029096ee6ded425750bf68ff786c48f4fcb",
+    "site/board.css": "0278c12e522f0c3cd24d4cde491b4b0b603694712cfcf0883bc44c359d7a87a8",
+    "preview/full-assembly.glb": "5f5ebe56eaf7d54e776f68ed4f8f08647ccc8aee3987e72a4252b777e8deaf3c",
+    "preview/assembly-parts.json": "bc1386f5e972f1676afeb462ed38d717b98d90958e3413ee81fe2fa635ff7adb"
+  }
+}

@@ -1,0 +1,401 @@
+{
+  "files": [
+    {
+      "bytes": 0,
+      "path": ".nojekyll",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 27914,
+      "path": "PCB_GUIDE.md",
+      "sha256": "edc8fd66c41942ba2ba76a23c7152a99fe63583148e838a7274210bf109d05b5"
+    },
+    {
+      "bytes": 14279,
+      "path": "README.md",
+      "sha256": "94dddd1c281163771308cb80a02979cd667e082da2d29fefea5ed2fa958fb38b"
+    },
+    {
+      "bytes": 6212,
+      "path": "REVIEW.md",
+      "sha256": "f58a39ffa08af1ccc3b8f973cad037f72d0c80b12a4ca965b8a3ca5db82ee260"
+    },
+    {
+      "bytes": 8530,
+      "path": "VERIFICATION.md",
+      "sha256": "4c9aef2f9270a4d461c1c5f30a742f08908ee3e7488b2489ef3fe6378d91e453"
+    },
+    {
+      "bytes": 33650,
+      "path": "board.html",
+      "sha256": "754c8fa53bbfce080d780ac3356cd9fdbd74146479f87550245ac5cb4c920a9b"
+    },
+    {
+      "bytes": 3177,
+      "path": "cad/control.scad",
+      "sha256": "da10981dc60fd19a908e9c3d30f128b704db7d0998070bc93a4ad4b6f97beefc"
+    },
+    {
+      "bytes": 1868,
+      "path": "cad/dimensions.scad",
+      "sha256": "cba94e70e428444be12ca4923b4ce6d787189106a97912a69b0a664d0aa148c5"
+    },
+    {
+      "bytes": 1811,
+      "path": "cad/enclosure.scad",
+      "sha256": "63ce5e04d782d34a3c39a2709e5068b7f1cbb3d4a53333f2521c8bd872881ab2"
+    },
+    {
+      "bytes": 13127,
+      "path": "cad/moth.svg",
+      "sha256": "3b0a42d58e14ca9b7dc17e2d2b2e38aaf26578711bb8db84e9760819d8cda6eb"
+    },
+    {
+      "bytes": 1503,
+      "path": "cad/primitives.scad",
+      "sha256": "ad41079d84a48638610304c1b5a94fd552d3988255c384629a221667c5c1e8bd"
+    },
+    {
+      "bytes": 4159,
+      "path": "cad/shell.scad",
+      "sha256": "ed0e849849b1f9f79af0692dc1c9807cf7622778ed0c36ea7ebeebd69a52fd4c"
+    },
+    {
+      "bytes": 23991532,
+      "path": "dark-moth-r5-print-pack.zip",
+      "sha256": "8838f843d5a3ed2da2cba9452b78fdce8ff1e21349f24504336201d820bc71b6"
+    },
+    {
+      "bytes": 7057,
+      "path": "electronics/assembly.json",
+      "sha256": "2048bbafae1b8fbdd5460b5fdaa9013e65cc76d4115f049455130b0afe294a93"
+    },
+    {
+      "bytes": 12264,
+      "path": "electronics/dark-moth-r5-firmware.zip",
+      "sha256": "449bfbca711ac8df4773fa19d5ade96f0c216f07f663016e1dd629a51eb5e160"
+    },
+    {
+      "bytes": 12636,
+      "path": "electronics/draw_guides.py",
+      "sha256": "8a7350898b3dbe533de17747815734ccd6d4ec2755ceedba45944db0f2e9b212"
+    },
+    {
+      "bytes": 3483,
+      "path": "electronics/draw_perfboard.py",
+      "sha256": "1607c497f77fa12bd93e1ac6b4878a83e5ea5f6bc85c88f6301da72fc215c200"
+    },
+    {
+      "bytes": 4132,
+      "path": "electronics/driver-layout.json",
+      "sha256": "b8a241f1f52401c7fbb07c4d62f665b931f58b1090d8ddd542730d79e47b404f"
+    },
+    {
+      "bytes": 14499,
+      "path": "electronics/driver-perfboard.svg",
+      "sha256": "537e15591130f5b95a81b0b54233e0db02b70200ee7776d836d040252f0f441a"
+    },
+    {
+      "bytes": 4490,
+      "path": "electronics/extract_board.py",
+      "sha256": "f49aef0b9407a316f96bbc7c98403b29873f30b8ab6507f6a89eaef659da3252"
+    },
+    {
+      "bytes": 983,
+      "path": "electronics/firmware-builds.json",
+      "sha256": "0e1d95db27ee9277fbd89745b0152769ca49be3dad32932de66abbde2cf64571"
+    },
+    {
+      "bytes": 3179,
+      "path": "electronics/interconnects.json",
+      "sha256": "904425da5590e0bd5c28d946177641f4be425c2af5fada42544b95c38a94fd02"
+    },
+    {
+      "bytes": 9519,
+      "path": "electronics/led-driver.svg",
+      "sha256": "3b0562ab3a5777ee076f74a15330400a483b505ba846a5ec2b97ebbdf2717758"
+    },
+    {
+      "bytes": 3977,
+      "path": "electronics/modules.json",
+      "sha256": "65583ebd931327a5915979a22ecf93460fd41139bf6cc5179e47616592fabc8c"
+    },
+    {
+      "bytes": 1587,
+      "path": "electronics/pcb-pads.json",
+      "sha256": "24b33756d0ae64dd39c0f99976be44767f4ac5db9a299b746970cb4b0853ca93"
+    },
+    {
+      "bytes": 11605,
+      "path": "electronics/pcb-placement.svg",
+      "sha256": "72274519024c418dbc6aa1fd62a8af9aef9bd526bbaae73ce8ad864f1c98f053"
+    },
+    {
+      "bytes": 2285312,
+      "path": "electronics/source/board_full.glb",
+      "sha256": "024a98e530dbf3e176ad623846f69a584118ae04cfa012a561719ad02f488a85"
+    },
+    {
+      "bytes": 513,
+      "path": "electronics/source/power_button_fixed-drc.rpt",
+      "sha256": "e11690fc13ee59d9d6fffe03904a10040cbb21004e4d65f53f57148c0c845ea5"
+    },
+    {
+      "bytes": 66146,
+      "path": "electronics/source/power_button_fixed.kicad_pcb",
+      "sha256": "c798650596b9dbe1a9a02e66f729ba90ca6bdb2413234685fccc961d18b5b981"
+    },
+    {
+      "bytes": 9594,
+      "path": "electronics/source/power_button_fixed.kicad_pro",
+      "sha256": "d72fcdea1ad7a625f6f1b6eba0af9f4f9ae9a2e0b9fbb67f9e484c946806b9b4"
+    },
+    {
+      "bytes": 6052,
+      "path": "electronics/validate.py",
+      "sha256": "957e7be6b2d55140aa4e2a79b9dfc5c9bd27919d7eb30a6b751dcb7985fe9169"
+    },
+    {
+      "bytes": 717,
+      "path": "electronics/verification.json",
+      "sha256": "59d0840a2e3e6efb28c768e108ed4891ac04d18ac5fbb4bab45b24c05daaeccd"
+    },
+    {
+      "bytes": 7197,
+      "path": "electronics/wiring.svg",
+      "sha256": "bf5b2e2cc605c4391e3656ce64ded9d8eca25ba51cda236535e8b9e37114ceef"
+    },
+    {
+      "bytes": 19147,
+      "path": "index.html",
+      "sha256": "64f9c4942d5a9113a90a3939891c87510ba4b9543b841d267928ca2f3dd6dde3"
+    },
+    {
+      "bytes": 63024,
+      "path": "preview/assembly-parts.json",
+      "sha256": "bc1386f5e972f1676afeb462ed38d717b98d90958e3413ee81fe2fa635ff7adb"
+    },
+    {
+      "bytes": 9296488,
+      "path": "preview/assembly.glb",
+      "sha256": "ac99566381db8086863fdcfad89781559805c785fc64205d8739fafeee599593"
+    },
+    {
+      "bytes": 1635644,
+      "path": "preview/board.png",
+      "sha256": "84f561ff1af25d604fccaabc83445afe2c97cac62e99a6e0a829998773d1e388"
+    },
+    {
+      "bytes": 1732236,
+      "path": "preview/exploded.png",
+      "sha256": "92aaaa4d434847a0903a57a0cf5350636e275b5e3f20567b97a9146bd4c758b6"
+    },
+    {
+      "bytes": 13277388,
+      "path": "preview/full-assembly.glb",
+      "sha256": "5f5ebe56eaf7d54e776f68ed4f8f08647ccc8aee3987e72a4252b777e8deaf3c"
+    },
+    {
+      "bytes": 1588230,
+      "path": "preview/hero.png",
+      "sha256": "b7a22967f6c54c046bd4eddde6d500e553c1d1e89bee759adcd9c3fda425d671"
+    },
+    {
+      "bytes": 1854120,
+      "path": "preview/internals.png",
+      "sha256": "1d89ec5d2a1a784871dba7317764769e16af76d8b8ee9f6036579517f196f784"
+    },
+    {
+      "bytes": 5247,
+      "path": "preview/render_manifest.json",
+      "sha256": "418470601b496d9c94408e81b6e9b2fb56aa260aae684e86a5322b0858e336bc"
+    },
+    {
+      "bytes": 1579374,
+      "path": "preview/side.png",
+      "sha256": "74359542af27f60d5ded5890918b12e635d560c7272046a010c45c678a91a74b"
+    },
+    {
+      "bytes": 151143,
+      "path": "preview/site/r5/board-guide.png",
+      "sha256": "70c3b1e1a322f38e52674adc3c76bad46b1bc90835c90b1dcec9295ac1ff3aea"
+    },
+    {
+      "bytes": 3984,
+      "path": "preview/site/r5/browser-checks.json",
+      "sha256": "e7d77c8c0be1b214d3c30eef8def952df3241a5c2bf225cb456855c9edd7d8d5"
+    },
+    {
+      "bytes": 89296,
+      "path": "preview/site/r5/desktop.png",
+      "sha256": "45bfbc46f935c291bdca1323ddb13edb87fef7d16a552bd66a8cea75639b0b07"
+    },
+    {
+      "bytes": 92285,
+      "path": "preview/site/r5/diffuser-access.png",
+      "sha256": "b11517ed86e7aadcdf16bec746add7fe7c58e948561cb7d940b4fc4a02a1e66a"
+    },
+    {
+      "bytes": 103493,
+      "path": "preview/site/r5/exploded.png",
+      "sha256": "4a0ac854b77686075a7494224664a49a191c9a0e991252778325744d12e9af19"
+    },
+    {
+      "bytes": 1911,
+      "path": "preview/site/r5/index.html",
+      "sha256": "40cb5727d9ae7693c510a8f8f56975fe2c384ca1fe63e3db5cb3328da104629e"
+    },
+    {
+      "bytes": 104341,
+      "path": "preview/site/r5/internals.png",
+      "sha256": "e3eb9a13e49fcea58a7fed389d5f194ae186325b8cd127e2be835ea0e5d69620"
+    },
+    {
+      "bytes": 51963,
+      "path": "preview/site/r5/mobile-guide.png",
+      "sha256": "d9a7879f41410b026811b5e54da03347f3b20314753ff662fc6fc33a3e8d194f"
+    },
+    {
+      "bytes": 34659,
+      "path": "preview/site/r5/mobile.png",
+      "sha256": "698c8ad50ebbd10f25ba7161e3212a11cd6b366b4571beec19ca04086479ce6f"
+    },
+    {
+      "bytes": 75775,
+      "path": "preview/site/r5/pcb.png",
+      "sha256": "6e99ca8c5985319e8043ecd02e58b61a4c86f87b542dc52645810788c19e90da"
+    },
+    {
+      "bytes": 99875,
+      "path": "preview/site/r5/wiring.png",
+      "sha256": "d0dc1a2ee141aa214b2b4bbed4ec7b7d3a18b261564df56dedc44fb05687e7ee"
+    },
+    {
+      "bytes": 1571599,
+      "path": "preview/top.png",
+      "sha256": "0d23d260dae6c2288d219371db2dc9b49954eec332dab333080d272085711515"
+    },
+    {
+      "bytes": 3335732,
+      "path": "prints/black-parts.3mf",
+      "sha256": "de6a1d85e9538eeb573cf5086648a5390c7dd22e03d92a59cd9e6b70013ea338"
+    },
+    {
+      "bytes": 316784,
+      "path": "prints/body.stl",
+      "sha256": "8ae1a47d07577e6d90cd437d70f63fc5a70183e04a6c5a5f83deabaab9c109b8"
+    },
+    {
+      "bytes": 39884,
+      "path": "prints/button.stl",
+      "sha256": "1302aa88180f0b9fa59c7f7d416097f51b36345cec8ace85c4e4f767986ce44d"
+    },
+    {
+      "bytes": 6808484,
+      "path": "prints/coupon.stl",
+      "sha256": "a59c4386d7a1519ab4509e56ff0a8522b0b87521e0ce1dcf889387138a2a8b13"
+    },
+    {
+      "bytes": 1021,
+      "path": "prints/diffuser-template.3mf",
+      "sha256": "22e683b7aef17586ecd1149cf3c0d46ed1ab2ae9ff4e8f9ee5b1e4deca5da737"
+    },
+    {
+      "bytes": 684,
+      "path": "prints/diffuser.stl",
+      "sha256": "0f82db68a9db4a6eec038b350ab0609998e9ff519fbf8a36a4e335ee604cbff1"
+    },
+    {
+      "bytes": 6867784,
+      "path": "prints/lid.stl",
+      "sha256": "271821be914414c4b08e965f884a5182a26592d8e5de082eca8665a33ded53fc"
+    },
+    {
+      "bytes": 778,
+      "path": "prints/manifest.json",
+      "sha256": "3d74c4ccc2aa249cb01bbf388e4f2489ad8412d4aca5b61369d4574328f1d186"
+    },
+    {
+      "bytes": 75084,
+      "path": "prints/rail.stl",
+      "sha256": "f5274b22c7c65543222bb244c42abcb7528c62e08edcd931e13bb2a2c695f1c4"
+    },
+    {
+      "bytes": 47384,
+      "path": "prints/switch_carrier.stl",
+      "sha256": "2996f0e6a9f3e31b3475bf4b18e3dbaea53c3900b530166a7ef9ac0a3cbeb2af"
+    },
+    {
+      "bytes": 1347,
+      "path": "site/assembly-state.js",
+      "sha256": "52225cdec1456a5725c18ab795cead971f4d9d8df1bb377b5084b59e0355adfb"
+    },
+    {
+      "bytes": 13500,
+      "path": "site/assembly-viewer.js",
+      "sha256": "d2d93a70fb5ec48ed551b9da206e1896d0b26616dc1f08ab23169e281d584ac2"
+    },
+    {
+      "bytes": 3148,
+      "path": "site/board.css",
+      "sha256": "0278c12e522f0c3cd24d4cde491b4b0b603694712cfcf0883bc44c359d7a87a8"
+    },
+    {
+      "bytes": 3452,
+      "path": "site/scene.js",
+      "sha256": "03dcd8d5cbee36e5017ed30d4eb31340814ca67d394ea5b4fc30d44c0a61365f"
+    },
+    {
+      "bytes": 5605,
+      "path": "site/sections.css",
+      "sha256": "a2a423e1dfd87ebdd46570612344603ff14fc897f34c50e31e5abbd9ee192a1f"
+    },
+    {
+      "bytes": 5240,
+      "path": "site/style.css",
+      "sha256": "3aedf374335b9b5445ae575a1bc35829a5e57f3a9ea71d087754c5df20bbefdb"
+    },
+    {
+      "bytes": 4783,
+      "path": "site/viewer.css",
+      "sha256": "2987c6fa2c313892c6d352350cc6f029096ee6ded425750bf68ff786c48f4fcb"
+    },
+    {
+      "bytes": 7193,
+      "path": "tests/audit_full_assembly.py",
+      "sha256": "12fe78256a2e25950f88651145758113c93277dadab8f7a11da724ba457efe57"
+    },
+    {
+      "bytes": 40747,
+      "path": "vendor/GLTFLoader.js",
+      "sha256": "f0f6c23741b786fbcfd76cf56b54b44b7d7071979595f40cf03036ffa1b1364e"
+    },
+    {
+      "bytes": 1081,
+      "path": "vendor/LICENSE-three.txt",
+      "sha256": "7dddf7c5b8fd10ee654db8857d75d104b5557889aa5a91fc4ca545ea7c07062f"
+    },
+    {
+      "bytes": 11550,
+      "path": "vendor/OrbitControls.js",
+      "sha256": "f10ee488705325bab6493c3f4852e499c21f25afe1959618a32e1bd0dfb5e458"
+    },
+    {
+      "bytes": 397,
+      "path": "vendor/README.md",
+      "sha256": "b578b9e1683f63c099a61cfa1aef25b3a1b5e514fb9f9ac32983422618c4e797"
+    },
+    {
+      "bytes": 603445,
+      "path": "vendor/three.min.js",
+      "sha256": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2"
+    },
+    {
+      "bytes": 25295,
+      "path": "verification-summary.json",
+      "sha256": "daf969f920af8bbcb78f635528ada47512692f2355c4b9e621e9002621f27a03"
+    }
+  ],
+  "revision": "a9768599db2dd0405eba8cd72361c9d59a1481ea",
+  "schema_version": 1
+}

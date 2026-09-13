@@ -1,0 +1,28 @@
+{
+  "revision": "R5",
+  "arduino_esp32_core": "3.3.8",
+  "source_sha256": {
+    "dark_moth_ble_v3.ino": "16d065398dd35e3c289293e1f85e22d44bb7fa8c894fa08915a4458d288335fc",
+    "button_sense.h": "9083f57a4aa237a85dba087aa8cd332390e849d03080b30911acf22ef342ec42"
+  },
+  "battery_sense_enabled_default": false,
+  "battery_characteristic_without_divider": "Present, empty payload, no ADC read or notifications",
+  "button_adc_press_mv": 1000,
+  "button_adc_release_mv": 500,
+  "host_cpp_test": "passed, Clang C++11 -Wall -Wextra -Werror",
+  "C3": {
+    "fqbn": "esp32:esp32:esp32c3:CDCOnBoot=cdc",
+    "passed": true,
+    "flash_bytes": 643587,
+    "ram_bytes": 19148
+  },
+  "S3": {
+    "fqbn": "esp32:esp32:esp32s3:USBMode=hwcdc,CDCOnBoot=cdc",
+    "passed": true,
+    "flash_bytes": 620252,
+    "ram_bytes": 28240
+  },
+  "upload_performed": false,
+  "physical_button_test_performed": false,
+  "firmware_zip_sha256": "449bfbca711ac8df4773fa19d5ade96f0c216f07f663016e1dd629a51eb5e160"
+}

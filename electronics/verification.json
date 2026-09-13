@@ -1,0 +1,20 @@
+{
+  "revision": "R5",
+  "pcb_sha256": "c798650596b9dbe1a9a02e66f729ba90ca6bdb2413234685fccc961d18b5b981",
+  "source_footprints": 15,
+  "source_pads": 34,
+  "exact_pad_coordinates_and_nets_match": true,
+  "remote_switch_unpopulated": true,
+  "driver_component_leads": 35,
+  "driver_nominal_bodies": 15,
+  "driver_nominal_body_minimum_gap_mm": 1.092,
+  "driver_nominal_assembled_height_mm": 9.2,
+  "driver_gate_source_pwm_drain_nodes_isolated": true,
+  "physical_validation": false,
+  "firmware_zip_matches_compiled_source": true,
+  "limitations": [
+    "Nominal body clearance excludes bent leads and solder",
+    "Purchased parts and wire routes unmeasured",
+    "Electrical load and thermal behavior untested"
+  ]
+}

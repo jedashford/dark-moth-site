@@ -1,0 +1,137 @@
+{
+  "revision": "R5",
+  "dimension_policy": "Dimensions are nominal repository envelopes, not measurements of purchased parts. Pin labels are electrical roles; module pad positions vary by supplier.",
+  "modules": [
+    {
+      "ref": "BATT",
+      "value": "1S 3.7V LiPo, 4.2V maximum charge",
+      "body_mm": [65, 36, 11],
+      "pins": ["+", "-"],
+      "status": "required; allowance includes cell thickness uncertainty"
+    },
+    {
+      "ref": "CHG",
+      "value": "USB-C TP4056 charger with DW01/dual-FET protection",
+      "body_mm": [25, 16.5, 6],
+      "pins": ["BAT+", "BAT-", "OUT+", "OUT-"],
+      "status": "required; verify actual protection circuit and cell charge rating"
+    },
+    {
+      "ref": "BOOST",
+      "value": "MT3608 adjustable boost module set to12.0V",
+      "body_mm": [36, 17, 14],
+      "pins": ["VIN+", "VIN-", "VOUT+", "VOUT-"],
+      "status": "required; adjust before connecting LEDs"
+    },
+    {
+      "ref": "ESP",
+      "value": "ESP32-C3 SuperMini",
+      "body_mm": [22.5, 18, 12],
+      "pins": [
+        "5V",
+        "GND",
+        "GPIO3",
+        "GPIO4",
+        "GPIO5",
+        "GPIO6",
+        "GPIO7",
+        "GPIO10",
+        "GPIO20"
+      ],
+      "status": "primary; actual regulator and USB orientation unverified"
+    },
+    {
+      "ref": "ESP_S3",
+      "value": "ESP32-S3 SuperMini",
+      "body_mm": [27, 18, 12],
+      "pins": [
+        "5V",
+        "GND",
+        "GPIO9",
+        "GPIO8",
+        "GPIO5",
+        "GPIO4",
+        "GPIO6",
+        "GPIO10",
+        "GPIO11"
+      ],
+      "status": "alternate toESP, not installed together"
+    },
+    {
+      "ref": "DRV",
+      "value": "Separate hand-wired five-channel LED driver",
+      "body_mm": [35, 15, 10],
+      "pins": [
+        "GND",
+        "IN_G",
+        "IN_R",
+        "IN_B",
+        "IN_WW",
+        "IN_CW",
+        "OUT_G",
+        "OUT_R",
+        "OUT_B",
+        "OUT_WW",
+        "OUT_CW"
+      ],
+      "status": "proposed perfboard envelope; isolated-pad perfboard layout in driver-layout.json; unmeasured body heights"
+    },
+    {
+      "ref": "LED",
+      "value": "12V common-anode Yuji RGBWW strip,100mm",
+      "body_mm": [100, 12, 2.5],
+      "pins": ["+12V", "G", "R", "B", "WW", "CW"],
+      "status": "verify printed strip pad labels; CW may be marked W; positions not specified"
+    },
+    {
+      "ref": "SW_REMOTE",
+      "value": "Normally-open6x6 tact switch on12x12 daughterboard",
+      "body_mm": [6, 6, 4.3],
+      "pins": ["contact_A", "contact_B"],
+      "status": "required; select isolated contacts with continuity test"
+    },
+    {
+      "ref": "BUTTON_PLUG",
+      "value": "Matched keyed inline two-pin cable pair",
+      "body_mm": [10, 7, 6],
+      "pins": ["OUT+", "BTN_N"],
+      "status": "routing allowance only; procurement and actual envelope must be confirmed"
+    }
+  ],
+  "driver_parts": [
+    {
+      "refs": ["Q1", "Q2", "Q3", "Q4", "Q5"],
+      "quantity": 5,
+      "value": "BS170",
+      "body_mm": [4.8, 3.7, 5.2],
+      "pins": ["D", "G", "S"],
+      "dimensions_status": "nominal TO92; identify purchased manufacturer and leads"
+    },
+    {
+      "refs": ["Rg1", "Rg2", "Rg3", "Rg4", "Rg5"],
+      "quantity": 5,
+      "value": "100 ohm,0.25W,1%",
+      "body_mm": [6.3, 2.5, 2.5],
+      "status": "series from each PWM GPIO to corresponding MOSFET gate"
+    },
+    {
+      "refs": ["Rp1", "Rp2", "Rp3", "Rp4", "Rp5"],
+      "quantity": 5,
+      "value": "10k ohm,0.25W,1%",
+      "body_mm": [6.3, 2.5, 2.5],
+      "status": "pulldown from each MOSFET gate to source/GND"
+    }
+  ],
+  "optional_unpopulated": [
+    {
+      "refs": ["Rd1", "Rd2"],
+      "value": "100k each",
+      "reason": "Raw BAT+ divider can inject an unpowered GPIO; recommended BATTERY_SENSE_ENABLED=0"
+    },
+    {
+      "refs": ["SW"],
+      "value": "PCB SW_PUSH_6mm footprint",
+      "reason": "Different nets assigned to identical pad numbers: direct switch installation is unsupported"
+    }
+  ]
+}
