@@ -57,7 +57,10 @@ module diffuser() {
 module coupon() {
     difference() {
         translate([0,0,0]) prism(58,52,2.4,3);
-        translate([0,4,1.9]) linear_extrude(0.6) moth();
+        // Match the lid's bed-facing 0.5 mm recess, including its printed Y flip.
+        // Slot banks stay upright; inspect the moth on the underside after printing.
+        translate([0,4,-0.1]) linear_extrude(logo_depth+0.1)
+            mirror([0,1,0]) moth();
     }
     // Slot bank: insert a corner of real stock; nominal thickness + 0.2/0.4/0.6.
     for(i=[0:2]) translate([-23+i*17,-23,2.4]) difference() {

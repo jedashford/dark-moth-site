@@ -6,15 +6,17 @@ The case is **111 × 103 × 36 mm**, with the side key projecting another **0.8 
 
 ![Actual CAD, unlit smoked panel](preview/hero.png)
 
-[Complete R5 print and assembly pack](dark-moth-r5-print-pack.zip) · [Electronics assembly guide](PCB_GUIDE.md) · [Verification](VERIFICATION.md) · [Design review](REVIEW.md)
+[Complete R5 print and assembly pack](dark-moth-r5-print-pack.zip) · [Print setup guide](print.html) · [Electronics assembly guide](PCB_GUIDE.md) · [Verification](VERIFICATION.md) · [Design review](REVIEW.md)
 
 ## Start with the coupon
 
-Print [coupon.stl](prints/coupon.stl) using the same black PETG and profile intended for the case. It checks the original 44 mm moth deboss and **3.2 / 3.4 / 3.6 mm** open-top diffuser slots, left to right with the moth upright and slots nearest you. Test a deburred corner or offcut of the actual acrylic; each slot is 12 mm wide.
+Print [coupon.stl](prints/coupon.stl) using the same black PETG, plate and profile intended for the lid. The updated coupon puts the original 44 mm moth deboss **against the bed**, matching the lid. The **3.2 / 3.4 / 3.6 mm** open-top diffuser slots face upward, left to right when viewed from above with the slot banks nearest you. Test a deburred corner or offcut of the actual acrylic; each slot is 12 mm wide.
 
 The default sheet is **104 × 28 × 3 mm**. The remembered [earlier dark-sheet case](https://github.com/jedashford/lights/blob/main/hardware/case_v2/case.scad) accepted an approximately **94.8 × 77.4 × 3 mm** sheet. That pre-cut sheet is **too narrow** for this 100 mm light window. The actual stock remains unmeasured; confirm it before cutting.
 
 ## Print files and settings
+
+For Bambu Studio, the [body support project](profiles/body-p1s-petg.3mf) and [button support project](profiles/button-p1s-petg.3mf) save the tested settings. Open as projects. They target **P1S / 0.4 mm / Generic PETG / Textured PEI**; select your actual machine and material, recheck supports and re-slice. Follow the [print setup guide](print.html). These unsliced projects are separate from the portable geometry-only plates below.
 
 All STL units are millimetres and print orientation is already applied. [black-parts.3mf](prints/black-parts.3mf) contains six separate objects on a portable plate. It contains no printer profile, filament settings or G-code.
 
@@ -25,12 +27,12 @@ All STL units are millimetres and print orientation is already applied. [black-p
 | [rail.stl](prints/rail.stl)                     | Black PETG; outside face down                                       |          1 |
 | [button.stl](prints/button.stl)                 | Black PETG; visible side-key face down                              |          1 |
 | [switch_carrier.stl](prints/switch_carrier.stl) | PETG; flat carrier back down, retaining lips up                     |          1 |
-| [coupon.stl](prints/coupon.stl)                 | Same profile as the body                                            |    1 first |
+| [coupon.stl](prints/coupon.stl)                 | Moth down, slot banks up; same profile as lid                       |    1 first |
 | [diffuser.stl](prints/diffuser.stl)             | Acrylic cutting/fit template; optional translucent-print experiment | 1 template |
 
 [diffuser-template.3mf](prints/diffuser-template.3mf) provides the **104 × 28 × 3 mm** cutting envelope separately. The intended diffuser is purchased smoked acrylic. Printing that shape in opaque black PETG blocks the light.
 
-Starting profile: **0.4 mm nozzle, 0.2 mm layers, four walls, six top/bottom layers, 20% gyroid**. Use the filament manufacturer's temperature settings. **Enable normal automatic supports everywhere for the body, including bridges.** Build-plate-only supports are insufficient. The other six parts passed reference slicing with supports off. Inspect supports near grooves, USB openings and the side-button cradle before printing; see [the actual slicing evidence](VERIFICATION.md).
+Starting profile: **0.4 mm nozzle, 0.2 mm layers, four walls, six top/bottom layers, 20% gyroid**. Use the filament manufacturer's temperature settings. **Enable normal automatic supports everywhere for the body and button, including bridges.** Build-plate-only supports are insufficient. Check actual support paths in Preview; enabling supports can suppress the warning even when none are generated. The button’s small flange also needs support underneath and a physical release check. See the [per-part print setup](print.html), [all-seven-part review](PRINTABILITY.md) and [slicing evidence](VERIFICATION.md).
 
 ## Replace the diffuser
 
@@ -101,7 +103,9 @@ python3 -m venv .venv
 .venv/bin/python tools/build.py
 .venv/bin/python tests/verify.py
 .venv/bin/python tests/verify_variants.py
+.venv/bin/python tests/test_printability.py
 .venv/bin/python tools/slice_check.py
+.venv/bin/python tools/build_print_project.py
 /Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python3 electronics/validate.py
 .venv/bin/python tools/build_guide.py
 /Applications/Blender.app/Contents/MacOS/Blender --background --python tools/render.py

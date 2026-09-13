@@ -11,9 +11,19 @@
       "sha256": "edc8fd66c41942ba2ba76a23c7152a99fe63583148e838a7274210bf109d05b5"
     },
     {
-      "bytes": 14279,
+      "bytes": 11058,
+      "path": "PRINTABILITY.md",
+      "sha256": "daa75f68113d000a13e765beefecbb341fa4ad108c670744f4a970ca51ec9c7c"
+    },
+    {
+      "bytes": 8510,
+      "path": "PRINT_GUIDE.md",
+      "sha256": "ebd41e78100b85bbcf8d2c0b7e6be104292a748ac6ab7b0db1a70f2bd3352987"
+    },
+    {
+      "bytes": 15055,
       "path": "README.md",
-      "sha256": "94dddd1c281163771308cb80a02979cd667e082da2d29fefea5ed2fa958fb38b"
+      "sha256": "0b2a353917571abf169393e9eb296778a1d9aa7477d5001bf0dbaf210ec4faa8"
     },
     {
       "bytes": 6212,
@@ -21,9 +31,9 @@
       "sha256": "f58a39ffa08af1ccc3b8f973cad037f72d0c80b12a4ca965b8a3ca5db82ee260"
     },
     {
-      "bytes": 8530,
+      "bytes": 10656,
       "path": "VERIFICATION.md",
-      "sha256": "4c9aef2f9270a4d461c1c5f30a742f08908ee3e7488b2489ef3fe6378d91e453"
+      "sha256": "d4e3412d70cc46a45a95a21eb3fd419efbda49e15a000e5a33f58b250278e24e"
     },
     {
       "bytes": 33650,
@@ -31,9 +41,9 @@
       "sha256": "754c8fa53bbfce080d780ac3356cd9fdbd74146479f87550245ac5cb4c920a9b"
     },
     {
-      "bytes": 3177,
+      "bytes": 3386,
       "path": "cad/control.scad",
-      "sha256": "da10981dc60fd19a908e9c3d30f128b704db7d0998070bc93a4ad4b6f97beefc"
+      "sha256": "370fd64e03a05e66979b12587b53dfd3d830d9d72ffed3d664bcbc3300c6d4f5"
     },
     {
       "bytes": 1868,
@@ -61,9 +71,9 @@
       "sha256": "ed0e849849b1f9f79af0692dc1c9807cf7622778ed0c36ea7ebeebd69a52fd4c"
     },
     {
-      "bytes": 23991532,
+      "bytes": 24369009,
       "path": "dark-moth-r5-print-pack.zip",
-      "sha256": "8838f843d5a3ed2da2cba9452b78fdce8ff1e21349f24504336201d820bc71b6"
+      "sha256": "461b8b5bf15633f69f06ace49db82b6e9e2646ca2c33a8f85b223341320bc33d"
     },
     {
       "bytes": 7057,
@@ -166,9 +176,9 @@
       "sha256": "bf5b2e2cc605c4391e3656ce64ded9d8eca25ba51cda236535e8b9e37114ceef"
     },
     {
-      "bytes": 19147,
+      "bytes": 20056,
       "path": "index.html",
-      "sha256": "64f9c4942d5a9113a90a3939891c87510ba4b9543b841d267928ca2f3dd6dde3"
+      "sha256": "93539eccfc9e27a9e6682cb2b23ad8b3bdf929f8fb4cbb8785f6913da351b7e1"
     },
     {
       "bytes": 63024,
@@ -221,9 +231,9 @@
       "sha256": "70c3b1e1a322f38e52674adc3c76bad46b1bc90835c90b1dcec9295ac1ff3aea"
     },
     {
-      "bytes": 3984,
+      "bytes": 4320,
       "path": "preview/site/r5/browser-checks.json",
-      "sha256": "e7d77c8c0be1b214d3c30eef8def952df3241a5c2bf225cb456855c9edd7d8d5"
+      "sha256": "c66393672fb4d6d0156e513031d4ca9078738378ad92765d9653fa3347db47cc"
     },
     {
       "bytes": 89296,
@@ -241,9 +251,9 @@
       "sha256": "4a0ac854b77686075a7494224664a49a191c9a0e991252778325744d12e9af19"
     },
     {
-      "bytes": 1911,
+      "bytes": 2650,
       "path": "preview/site/r5/index.html",
-      "sha256": "40cb5727d9ae7693c510a8f8f56975fe2c384ca1fe63e3db5cb3328da104629e"
+      "sha256": "9a0118d887f5a97fa369a826238f82a2c363063b0aaa995bdfe40e8463a2d15e"
     },
     {
       "bytes": 104341,
@@ -266,6 +276,31 @@
       "sha256": "6e99ca8c5985319e8043ecd02e58b61a4c86f87b542dc52645810788c19e90da"
     },
     {
+      "bytes": 76139,
+      "path": "preview/site/r5/print-before.png",
+      "sha256": "bb5de4e6762704b0ac4f37d94ea27f0a2048fc6709ac37bc521271268a35b402"
+    },
+    {
+      "bytes": 114428,
+      "path": "preview/site/r5/print-build.png",
+      "sha256": "897dcec2841acc840ff94fa86876587a348e3a95997fb25dbb30b81335677d83"
+    },
+    {
+      "bytes": 92186,
+      "path": "preview/site/r5/print-downloads.png",
+      "sha256": "6514afbca864ca5b207a6ea6cb2be8ab7076e14a593a0848074ca359e05b574c"
+    },
+    {
+      "bytes": 123766,
+      "path": "preview/site/r5/print-guide.png",
+      "sha256": "585a5f83fee027251c556185276f6f29520d879f2bff60cbff3f1de621a975b9"
+    },
+    {
+      "bytes": 52533,
+      "path": "preview/site/r5/print-mobile.png",
+      "sha256": "bef178096b2d5fd177345c7a0655490f31c9826356b1eeddb8da7c6af1f4bab3"
+    },
+    {
       "bytes": 99875,
       "path": "preview/site/r5/wiring.png",
       "sha256": "d0dc1a2ee141aa214b2b4bbed4ec7b7d3a18b261564df56dedc44fb05687e7ee"
@@ -276,9 +311,14 @@
       "sha256": "0d23d260dae6c2288d219371db2dc9b49954eec332dab333080d272085711515"
     },
     {
-      "bytes": 3335732,
+      "bytes": 10476,
+      "path": "print.html",
+      "sha256": "e0fa8db732bb5d70165bd63f4973ca690072e071edb21fb0e7f3f26b05aaf74f"
+    },
+    {
+      "bytes": 3342010,
       "path": "prints/black-parts.3mf",
-      "sha256": "de6a1d85e9538eeb573cf5086648a5390c7dd22e03d92a59cd9e6b70013ea338"
+      "sha256": "9cb6653801a0f62fa491750d4c2601bf21f35dc27c20850ddf93ec4d80839ae6"
     },
     {
       "bytes": 316784,
@@ -291,9 +331,9 @@
       "sha256": "1302aa88180f0b9fa59c7f7d416097f51b36345cec8ace85c4e4f767986ce44d"
     },
     {
-      "bytes": 6808484,
+      "bytes": 6800684,
       "path": "prints/coupon.stl",
-      "sha256": "a59c4386d7a1519ab4509e56ff0a8522b0b87521e0ce1dcf889387138a2a8b13"
+      "sha256": "91058e7f56b668d7cc52e7ec633fd870d0cfee86f33e08450297b3b9d59ed7ed"
     },
     {
       "bytes": 1021,
@@ -313,7 +353,7 @@
     {
       "bytes": 778,
       "path": "prints/manifest.json",
-      "sha256": "3d74c4ccc2aa249cb01bbf388e4f2489ad8412d4aca5b61369d4574328f1d186"
+      "sha256": "8fd27246f20bdb28d047f2fd2747a225a54e4e3e4e4356b0d5bdd414b81544b0"
     },
     {
       "bytes": 75084,
@@ -324,6 +364,21 @@
       "bytes": 47384,
       "path": "prints/switch_carrier.stl",
       "sha256": "2996f0e6a9f3e31b3475bf4b18e3dbaea53c3900b530166a7ef9ac0a3cbeb2af"
+    },
+    {
+      "bytes": 93569,
+      "path": "profiles/body-p1s-petg.3mf",
+      "sha256": "163cf918d5c1b34168c0552b046c2a0b9e68fe6a935dd4c499b5caee50e2057c"
+    },
+    {
+      "bytes": 32338,
+      "path": "profiles/button-p1s-petg.3mf",
+      "sha256": "5e74f4799240d96a3861c7c85dd71e3d44225318e125018a25eeecd6ec2c5747"
+    },
+    {
+      "bytes": 6798,
+      "path": "profiles/manifest.json",
+      "sha256": "1fb43867dd704e8e9d00c2ccfdbb588fe7101ed2ea0ece469353202cabee9ef9"
     },
     {
       "bytes": 1347,
@@ -391,11 +446,11 @@
       "sha256": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2"
     },
     {
-      "bytes": 25295,
+      "bytes": 33041,
       "path": "verification-summary.json",
-      "sha256": "daf969f920af8bbcb78f635528ada47512692f2355c4b9e621e9002621f27a03"
+      "sha256": "82836ce290065229c47b5a906abd3e39b68216ccfa3de7e2496db73162010d9c"
     }
   ],
-  "revision": "a9768599db2dd0405eba8cd72361c9d59a1481ea",
+  "revision": "eca8f828c764bc166dcc9b390f74bd7243348704",
   "schema_version": 1
 }

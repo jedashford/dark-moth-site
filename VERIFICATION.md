@@ -12,7 +12,9 @@ Use the Python environment and separate CAD applications described in [README.md
 python tools/build.py
 python tests/verify.py
 python tests/verify_variants.py
+python tests/test_printability.py
 python tools/slice_check.py
+python tools/build_print_project.py
 /Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python3 electronics/validate.py
 python tools/build_guide.py
 /Applications/Blender.app/Contents/MacOS/Blender --background --python tools/render.py
@@ -23,7 +25,7 @@ python -m unittest discover -s tests -p 'test_*.py'
 node --test tests/test_assembly_state.mjs
 ```
 
-Reference runtimes: Python 3.14.7, OpenSCAD 2026.06.12 with Manifold and hard warnings, Blender 4.5.2 LTS, and Bambu Studio 02.08.01.55. Detailed generation logs live in ignored `build/`; no generated G-code is included in the pack.
+Reference runtimes: Python 3.14.7, OpenSCAD 2026.06.12 with Manifold and hard warnings, Blender 4.5.2 LTS, and Bambu Studio 02.08.02.61 for the printability follow-up (original R5 run: 02.08.01.55). Detailed generation logs live in ignored `build/`; no generated G-code is included in the pack.
 
 ## Enclosure geometry
 
@@ -60,15 +62,25 @@ The nominal driver board is lifted 0.8 mm for insulated underside jumpers. Its m
 
 Every logical model group carries provenance and confidence metadata. Commodity module layouts are illustrative; coverage is of the specified BOM, not an unavailable supplier inventory of every SMD. Wires identify electrical endpoints but do not establish cut lengths or validated physical routing. Their exploded display retains assembled routes.
 
+## Printability follow-up
+
+The reported floating-cantilever warning was reproduced with the body supports off. A second negative control enabled build-plate-only supports and generated zero support material while suppressing the warning. The revised gate requires both the specified support settings and positive support extrusion for the body and button. [The measured review](PRINTABILITY.md) covers all seven parts; [the print guide](print.html) gives the settings and removal sequence.
+
+Four new actual-mesh regression tests verify the coupon’s 44 bed-facing recesses, exact 0.5 mm depth, agreement with the lid’s printed orientation, unchanged stock slots and connected first layers. The former face-up coupon failed the two logo tests. The updated coupon passes all four. All six assembly meshes retain their original render hashes.
+
 ## Reference slicing
 
 Each STL was sliced on its own temporary plate using bundled **P1S / 0.4 mm / Generic PETG** settings: **0.2 mm layers, four walls, six top/bottom layers and 20% gyroid**. Settings were read back from generated G-code. All seven final parts passed without geometry warnings.
 
-**Body: normal automatic supports everywhere, including bridges.** The R5 run generated **186 support toolpath sections**. Build-plate-only support is insufficient. The remaining six parts sliced without supports. Inspect the slicer's support interfaces near the side cradle, ports and acrylic grooves. Slicer success does not establish support removal quality or dimensional fit.
+**Body and button: normal automatic supports everywhere, including bridges.** The body generates **186 support toolpath sections** and the button **11**. Build-plate-only support is insufficient for the body. The remaining five parts are sliced without supports. Inspect the slicer's support interfaces near the side cradle, ports and acrylic grooves. Slicer success does not establish support removal quality or dimensional fit.
+
+The two [native Bambu project records](profiles/manifest.json) identify the body/button source hashes, embedded reference settings, archive contents and isolated round-trip slices. Both projects generate actual support material when reopened with no external process settings. Their P1S/0.4 mm/PETG/Textured PEI profile is a reference, not a claim about the user's printer. Packaging rejects stale projects, missing support extrusion and sliced G-code payloads.
 
 ## Website and packaging checks
 
-The site serves six Blender views (`hero`, `exploded`, `top`, `internals`, `board`, `side`), the enclosure-only GLB, the full model and its selectable catalog. **33/33 real-browser checks pass** for the final R5 sources, covering desktop and mobile, the new modes, part selection/visibility, reset, guide links, loading and console state. The current [browser record](preview/site/r5/browser-checks.json) includes source hashes, with [screenshots in preview/site/r5](preview/site/r5). Other R4 screenshots/results under preview/site are historical.
+The site serves six Blender views (`hero`, `exploded`, `top`, `internals`, `board`, `side`), the enclosure-only GLB, the full model and its selectable catalog. **25/25 real-browser checks pass** for the printability update, covering desktop and mobile print instructions, both native-project download links, all seven 3D modes, part selection/visibility, reset, the board guide and console state. The current [browser record](preview/site/r5/browser-checks.json) includes source hashes. [Desktop print setup](preview/site/r5/print-guide.png), [mobile print setup](preview/site/r5/print-mobile.png) and [updated downloads](preview/site/r5/print-downloads.png) show the reviewed changes. Other screenshots under preview/site are historical R4/R5 captures.
+
+The final regression run passes **53 Python tests**, **5 Node tests** and **33 deployment tests**. This includes temporary native-project fixtures that reject missing presets, sliced G-code, stale coupon evidence and support-enabled projects without actual support extrusion. The two real Bambu round-trip runs also pass; their saved settings and generated material are recorded in [profiles/manifest.json](profiles/manifest.json).
 
 Five dependency-free Node tests exercise the new viewer's pure assembly-state logic. They do not mock DOM/Three or validate WebGL pixels; the actual viewer is checked separately in the browser. HTTP tests use ephemeral servers and temporary files to check GET/HEAD, MIME types, cache bypass, safe mount routing and the old R4 ZIP redirect. The current site's actual assets are also served and checked against their bytes. Package tests use temporary evidence and artifacts to verify stale-input rejection and archive contents.
 

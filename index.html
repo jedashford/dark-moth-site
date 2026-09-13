@@ -260,8 +260,9 @@
       <section id="build" class="section wrap build-section" aria-labelledby="build-title">
         <div class="build-heading">
           <h2 id="build-title">Start small.<br />Print the coupon.</h2>
-          <p>Check your acrylic and the moth detail before committing to the full case.</p>
-          <a class="button secondary" href="prints/coupon.stl" download>Download fit coupon</a>
+          <p>The body and button need supports. Check the setup and print the matching moth coupon first.</p>
+          <a class="button secondary" href="print.html">Open the print setup guide</a>
+          <p><a href="prints/coupon.stl" download>Download the updated fit coupon</a></p>
           <div class="sheet-spec">
             <h3>The default acrylic specimen</h3>
             <p class="sheet-size">104 × 28 × 3 <span>mm</span></p>
@@ -282,8 +283,8 @@
           <li>
             <h3>Inspect the first print.</h3>
             <p>
-              Check sliding fit, the 44 mm moth’s fine facets and antennae, and the surface finish. Use the same
-              material and profile for the final parts.
+              The updated coupon prints moth-down, just like the lid, with its slot banks up. Turn it over to check the
+              fine facets and surface finish. Use the same plate, material and profile for the lid.
             </p>
           </li>
           <li>
@@ -293,8 +294,9 @@
               their intended bed orientation.
             </p>
             <p class="support-note">
-              Body: normal supports everywhere, including bridges. Build-plate-only supports are insufficient. The other
-              six parts passed reference slicing without supports.
+              Body and button: enable normal automatic supports, turn “On build plate only” off, and turn “Don’t support
+              bridges” off. Check actual supports in Preview.
+              <a href="print.html#1-set-up-the-body">Fix the floating-cantilever warning →</a>
             </p>
           </li>
           <li>
@@ -324,13 +326,19 @@
               ><span class="file-kind">ZIP</span></a
             >
             <a class="download-secondary" href="prints/black-parts.3mf" download
-              ><span><strong>Black parts plate</strong><small>Six individually selectable objects</small></span
+              ><span><strong>Black parts plate</strong><small>Geometry only · set body and button supports</small></span
               ><span class="file-kind">3MF</span></a
             >
           </div>
           <p class="download-note">
-            The 3MF files contain portable models, not printer settings or G-code. Review the plate and apply your
-            filament profile before slicing.
+            The portable 3MF files do not enable supports. Select your printer and filament, then follow the
+            <a href="print.html">per-part print setup</a>. The body and button require supports; keep the moth coupon
+            face-down.
+          </p>
+          <p class="download-note">
+            Bambu projects with supports saved: <a href="profiles/body-p1s-petg.3mf" download>Body · P1S / PETG</a> ·
+            <a href="profiles/button-p1s-petg.3mf" download>Button · P1S / PETG</a>. Reference: 0.4 mm nozzle, Textured
+            PEI. Open as projects, select your actual printer and re-slice.
           </p>
           <div class="download-columns">
             <div>
@@ -412,7 +420,12 @@
           <a href="board.html"
             ><strong>Build the board</strong><span>Components, PCB positions and every connection</span></a
           >
-          <a href="REVIEW.md"><strong>Design review</strong><span>Decisions, corrections and tradeoffs</span></a>
+          <a href="print.html"
+            ><strong>Print setup</strong><span>Support settings, orientation and all seven parts</span></a
+          >
+          <a href="PRINTABILITY.md"
+            ><strong>Printability review</strong><span>Measured overhangs and first-print limits</span></a
+          >
           <a href="VERIFICATION.md"
             ><strong>Verification record</strong><span>What was checked and what remains</span></a
           >
