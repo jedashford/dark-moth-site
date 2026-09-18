@@ -1,0 +1,138 @@
+{
+  "revision": "R5 perfboard guide",
+  "checked_at": "2026-09-18T20:38:40.625Z",
+  "method": "Playwright Chromium, isolated ephemeral HTTP server; desktop 1440x1100, mobile390x844; live WebGL and fallback paths",
+  "passed": true,
+  "checks": [
+    {
+      "name": "3D loads real holes, components and controls",
+      "passed": true
+    },
+    {
+      "name": "Part selection names every transistor role and exact hole",
+      "passed": true
+    },
+    {
+      "name": "Shared ground includes all sources and pulldowns without gates",
+      "passed": true
+    },
+    {
+      "name": "Selecting green gate excludes red gate and ground",
+      "passed": true
+    },
+    {
+      "name": "Solder side preserves mirrored hole identities",
+      "passed": true
+    },
+    {
+      "name": "Independent layer controls work",
+      "passed": true
+    },
+    {
+      "name": "latch: every component leg and wire is rendered in tables",
+      "passed": true
+    },
+    {
+      "name": "latch: stepper places every part then each exact wire cumulatively",
+      "passed": true
+    },
+    {
+      "name": "driver: every component leg and wire is rendered in tables",
+      "passed": true
+    },
+    {
+      "name": "driver: stepper places every part then each exact wire cumulatively",
+      "passed": true
+    },
+    {
+      "name": "Diode stripe orientation and latch limits are explicit",
+      "passed": true
+    },
+    {
+      "name": "All four printable maps and CSVs respond",
+      "passed": true
+    },
+    {
+      "name": "Mobile workbench has no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "name": "WebGL failure leaves working exact tables and worksheets",
+      "passed": true
+    },
+    {
+      "name": "Geometry initialization error displays a usable fallback without a second exception",
+      "passed": true
+    },
+    {
+      "name": "Existing complete-device assembled mode remains selectable",
+      "passed": true
+    },
+    {
+      "name": "Existing complete-device internals mode remains selectable",
+      "passed": true
+    },
+    {
+      "name": "Existing complete-device board mode remains selectable",
+      "passed": true
+    },
+    {
+      "name": "Existing complete-device wiring mode remains selectable",
+      "passed": true
+    },
+    {
+      "name": "Existing complete-device exploded mode remains selectable",
+      "passed": true
+    },
+    {
+      "name": "Existing complete-device diffuser mode remains selectable",
+      "passed": true
+    },
+    {
+      "name": "Existing complete-device xray mode remains selectable",
+      "passed": true
+    },
+    {
+      "name": "Home and etched-PCB guide point to blank-board instructions",
+      "passed": true
+    },
+    {
+      "name": "No browser exceptions or failed local asset requests",
+      "passed": true
+    }
+  ],
+  "source_sha256": {
+    "index.html": "b7edd267697b06ffe353a79563db8ec1161e7d8d0ad5e1a549f66450b0b51aab",
+    "board.html": "8a84f68e9ddeb0401b5febf511bb03e4422f49a8ac84e8d7df538e0ba54a38ab",
+    "print.html": "e0fa8db732bb5d70165bd63f4973ca690072e071edb21fb0e7f3f26b05aaf74f",
+    "perfboard.html": "135b6fe3ac7a08f79ebd61eb0897f085128039f90778cfa60fa4aa5e90902d38",
+    "PCB_GUIDE.md": "21f8c6c25ce9c26431e1abf9080936c9e7ce7c40494fd562f3cf2f422e274283",
+    "PERFBOARD_GUIDE.md": "3c52f72e1b73e50fa287ced1793f904d56bd3fc113ac77f84b4e3da5032c677b",
+    "PERFBOARD_REVIEW.md": "e5986b6a0a7667a2e6f63ae846b24de64d9444849a110909a50b84eacb69e88f",
+    "electronics/perfboard-layout.json": "a81cbb8f8c54c02adf426d979d2b6381deea1737441611749aad6e7432c30408",
+    "electronics/perfboard-components.csv": "db6f5096db42561b4933e4781c173e78e82177d425169d03e50f60a6671b7beb",
+    "electronics/perfboard-connections.csv": "3869c9c45ebadc21af898579ecd1ca980fd2d16d6f28172780382243f4e799c2",
+    "site/perfboard-state.js": "7a212666a4fb07ebdc37dd4864c38cac41312243da9e5acc7896c4b56a53ec97",
+    "site/perfboard-guide.js": "c195f40c54e87c284d369b45937522a4f90ac19ff9207c4cad388a14f885c22e",
+    "site/perfboard-geometry.js": "4cacc511f4f57a8086e55d9843d1fdb587b40650935a9b43cfc0207614fa63a0",
+    "site/perfboard-scene.js": "522d96f7325d5553978cd74c786826dcc6f49bf48709b9b4eebd1c72a7900bc8",
+    "site/perfboard.css": "c135a7b4664ea15fd690b3460ef119ace2c9de1ac5d5597c00424b1e457554d2",
+    "site/perfboard-template.html": "873aa89d607118f978265884fb89af0d17ed6d331d5f144190f3809d37d3176c",
+    "site/style.css": "3aedf374335b9b5445ae575a1bc35829a5e57f3a9ea71d087754c5df20bbefdb",
+    "site/viewer.css": "2987c6fa2c313892c6d352350cc6f029096ee6ded425750bf68ff786c48f4fcb",
+    "site/sections.css": "a2a423e1dfd87ebdd46570612344603ff14fc897f34c50e31e5abbd9ee192a1f",
+    "site/board.css": "0278c12e522f0c3cd24d4cde491b4b0b603694712cfcf0883bc44c359d7a87a8",
+    "site/assembly-state.js": "52225cdec1456a5725c18ab795cead971f4d9d8df1bb377b5084b59e0355adfb",
+    "site/assembly-viewer.js": "d2d93a70fb5ec48ed551b9da206e1896d0b26616dc1f08ab23169e281d584ac2",
+    "site/scene.js": "03dcd8d5cbee36e5017ed30d4eb31340814ca67d394ea5b4fc30d44c0a61365f",
+    "tools/build_guide.py": "9b4f0cc7d51cd6610037c93193fd27527876296a4944cbf4def5b5bde3ce6bde",
+    "tools/build_perfboard_layout.py": "c2c6ccc491c156a4e1f064ef4c577e9b317c187ed35ac4d9f51dd2643a0290dd",
+    "tools/build_perfboard_worksheets.py": "98727f606a622add8791ace68c2bad12ac6e640fc494a84ab881a965ecd7c6f6",
+    "tests/test_perfboard_browser.mjs": "f94b8bfaa2f1864cf9e699adbfbd85a966f470c23ffe139de8985d8f1da92c83",
+    "electronics/perfboard-driver-top.svg": "d8ca603fed8ebc3fff07a84bd84ade99a5dc9981e9842dc57ed70252e2b81d5f",
+    "electronics/perfboard-driver-bottom.svg": "ee2de3ed4f3c05ad371135f000a37d4834da140987243469ee4a981618508aec",
+    "electronics/perfboard-latch-top.svg": "a5e8fb12e9cb4d967f945b4d8f0752b92b3fc6be5cb873f571cab4ba6b83e583",
+    "electronics/perfboard-latch-bottom.svg": "4e0763a3f7c145df6813eba5ed8d79a4de044c9145d1f2cbc2f2ce5646ff2153"
+  },
+  "physical_hardware_tested": false
+}

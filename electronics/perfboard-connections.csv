@@ -1,0 +1,70 @@
+board,kind,id,net,from,to_C3,to_S3,side,notes
+latch,jumper,latch-J01,BTN_DIO,latch.H22,latch.K18,latch.K18,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J02,BTN_N,latch.K22,latch.K25,latch.K25,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J03,BTN_N,latch.K25,latch.N18,latch.N18,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J04,GATE,latch.A18,latch.E18,latch.E18,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J05,GATE,latch.E18,latch.H18,latch.H18,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J06,GATE,latch.H18,latch.H12,latch.H12,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J07,GND,latch.E19,latch.H16,latch.H16,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J08,GND,latch.H16,latch.R14,latch.R14,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J09,GND,latch.R14,latch.R12,latch.R12,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J10,GND,latch.R12,latch.R10,latch.R10,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J11,GND,latch.R10,latch.R6,latch.R6,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J12,GND,latch.R6,latch.R2,latch.R2,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J13,GND,latch.R2,latch.Q22,latch.Q22,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J14,LDRV,latch.E17,latch.H11,latch.H11,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J15,OUT+,latch.A2,latch.B4,latch.B4,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J16,OUT+,latch.B4,latch.E4,latch.E4,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J17,OUT+,latch.E4,latch.A25,latch.A25,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J18,PB,latch.B8,latch.E5,latch.E5,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J19,PB,latch.E5,latch.H7,latch.H7,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J20,SENSE,latch.N22,latch.R24,latch.R24,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J21,SENSE,latch.R24,latch.Q18,latch.Q18,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J22,VSW,latch.A10,latch.A13,latch.A13,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,jumper,latch-J23,VSW,latch.A13,latch.E6,latch.E6,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+latch,terminal,CHARGER_POS,OUT+,latch.A2,CHG.OUT+,CHG.OUT+,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+latch,terminal,BOOST_POS,VSW,latch.A10,BOOST.VIN+,BOOST.VIN+,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+latch,terminal,ESP_POWER,VSW,latch.A13,ESP.5V / VIN,ESP.5V / VIN,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+latch,terminal,BUTTON_PLUS,OUT+,latch.A25,BUTTON_PLUG.OUT+ → SW_REMOTE.contact_A,BUTTON_PLUG.OUT+ → SW_REMOTE.contact_A,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+latch,terminal,BUTTON_RETURN,BTN_N,latch.K25,BUTTON_PLUG.BTN_N → SW_REMOTE.contact_B,BUTTON_PLUG.BTN_N → SW_REMOTE.contact_B,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+latch,terminal,CHARGER_GND,GND,latch.R2,CHG.OUT- (not BAT-),CHG.OUT- (not BAT-),external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+latch,terminal,ESP_GND,GND,latch.R6,ESP.GND,ESP.GND,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+latch,terminal,BOOST_GND,GND,latch.R10,BOOST.VIN-,BOOST.VIN-,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+latch,terminal,BOOST_OUT_GND,GND,latch.R12,BOOST.VOUT-,BOOST.VOUT-,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+latch,terminal,DRIVER_GND,GND,latch.R14,Driver C13 / GND,Driver C13 / GND,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+latch,terminal,LATCH_GPIO,GATE,latch.A18,ESP GPIO3,ESP GPIO9,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+latch,terminal,SENSE_GPIO,SENSE,latch.R24,ESP GPIO4,ESP GPIO8,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+driver,jumper,driver-J01,GATE_G,driver.B2,driver.D3,driver.D3,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J02,GATE_G,driver.D3,driver.E3,driver.E3,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J03,GND,driver.C2,driver.E2,driver.E2,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J04,GATE_R,driver.B4,driver.D5,driver.D5,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J05,GATE_R,driver.D5,driver.E5,driver.E5,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J06,GND,driver.C4,driver.E4,driver.E4,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J07,GATE_B,driver.B6,driver.D7,driver.D7,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J08,GATE_B,driver.D7,driver.E7,driver.E7,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J09,GND,driver.C6,driver.E6,driver.E6,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J10,GATE_WW,driver.B8,driver.D9,driver.D9,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J11,GATE_WW,driver.D9,driver.E9,driver.E9,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J12,GND,driver.C8,driver.E8,driver.E8,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J13,GATE_CW,driver.B10,driver.D11,driver.D11,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J14,GATE_CW,driver.D11,driver.E11,driver.E11,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J15,GND,driver.C10,driver.E10,driver.E10,bottom,Insulated span; solder only the two named pads. Crossings do not join.
+driver,jumper,driver-J16,GND,driver.C2,driver.C4,driver.C4,bottom,Insulated span; solder only the two named pads. Crossings do not join. Segment of one continuous ground wire; strip a small window at each named pad.
+driver,jumper,driver-J17,GND,driver.C4,driver.C6,driver.C6,bottom,Insulated span; solder only the two named pads. Crossings do not join. Segment of one continuous ground wire; strip a small window at each named pad.
+driver,jumper,driver-J18,GND,driver.C6,driver.C8,driver.C8,bottom,Insulated span; solder only the two named pads. Crossings do not join. Segment of one continuous ground wire; strip a small window at each named pad.
+driver,jumper,driver-J19,GND,driver.C8,driver.C10,driver.C10,bottom,Insulated span; solder only the two named pads. Crossings do not join. Segment of one continuous ground wire; strip a small window at each named pad.
+driver,jumper,driver-J20,GND,driver.C10,driver.C13,driver.C13,bottom,Insulated span; solder only the two named pads. Crossings do not join. Segment of one continuous ground wire; strip a small window at each named pad.
+driver,terminal,PWM_G,PWM_G,driver.D2,ESP GPIO5,ESP GPIO5,external harness,"lap-solder to the resistor lead underneath; no second inserted conductor; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+driver,terminal,LED_G,LED_G,driver.A2,LED.G,LED.G,external harness,"lap-solder to drain lead underneath; no second inserted conductor; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+driver,terminal,PWM_R,PWM_R,driver.D4,ESP GPIO6,ESP GPIO4,external harness,"lap-solder to the resistor lead underneath; no second inserted conductor; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+driver,terminal,LED_R,LED_R,driver.A4,LED.R,LED.R,external harness,"lap-solder to drain lead underneath; no second inserted conductor; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+driver,terminal,PWM_B,PWM_B,driver.D6,ESP GPIO7,ESP GPIO6,external harness,"lap-solder to the resistor lead underneath; no second inserted conductor; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+driver,terminal,LED_B,LED_B,driver.A6,LED.B,LED.B,external harness,"lap-solder to drain lead underneath; no second inserted conductor; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+driver,terminal,PWM_WW,PWM_WW,driver.D8,ESP GPIO10,ESP GPIO10,external harness,"lap-solder to the resistor lead underneath; no second inserted conductor; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+driver,terminal,LED_WW,LED_WW,driver.A8,LED.WW,LED.WW,external harness,"lap-solder to drain lead underneath; no second inserted conductor; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+driver,terminal,PWM_CW,PWM_CW,driver.D10,ESP GPIO20,ESP GPIO11,external harness,"lap-solder to the resistor lead underneath; no second inserted conductor; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+driver,terminal,LED_CW,LED_CW,driver.A10,LED.CW,LED.CW,external harness,"lap-solder to drain lead underneath; no second inserted conductor; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+driver,terminal,SYSTEM_GND,GND,driver.C13,Latch R14 / protected CHG.OUT-,Latch R14 / protected CHG.OUT-,external harness,"dedicated solder pad; insulate and strain-relieve the wire. Reciprocal board-terminal rows describe the same cable, not a second cable."
+modules,module,module-CELL+,CELL+,BATT.+,CHG.BAT+,CHG.BAT+,external harness,Board-independent module harness; no perfboard hole. Verify module labels and LED voltage.
+modules,module,module-CELL-,CELL-,BATT.-,CHG.BAT-,CHG.BAT-,external harness,Board-independent module harness; no perfboard hole. Verify module labels and LED voltage.
+modules,module,module-+12V,+12V,BOOST.VOUT+,LED.+12V,LED.+12V,external harness,Board-independent module harness; no perfboard hole. Verify module labels and LED voltage.

@@ -1,5 +1,7 @@
 # Dark Moth R5 — electronics assembly
 
+**Using blank green perfboard?** Use the [interactive perfboard guide](perfboard.html). This page assumes an etched PCB with built-in copper tracks; its pad positions are not a blank-board layout.
+
 Build this guide around the **corrected 94 × 60 mm through-hole power-latch PCB**, an **ESP32-C3 SuperMini**, the separate five-channel LED driver, and **one remote button connected by a removable two-wire plug**. ESP32-S3 pin substitutions appear below. R5 changes the case and button arrangement; the copied board remains the earlier corrected copper design.
 
 This is a source-checked assembly plan. It is **not a physically assembled or load-tested electronics release**. The checks below are necessary before enclosing a battery-powered prototype.

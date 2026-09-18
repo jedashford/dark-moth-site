@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Build Dark Moth on green isolated-pad perfboard: inspect every component leg, hole and underside wire in 3D, with printable top and bottom maps."
+    />
+    <title>Build on perfboard — Dark Moth</title>
+    <link rel="icon" href="cad/moth.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="site/style.css" />
+    <link rel="stylesheet" href="site/board.css" />
+    <link rel="stylesheet" href="site/perfboard.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#workbench">Skip to interactive board</a>
+    <header class="site-header wrap">
+      <a class="brand" href="index.html"
+        ><img src="cad/moth.svg" alt="" width="48" height="32" /><span
+          >Dark Moth <small>The soldering bench</small></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="index.html#explore">Complete device</a><a href="#written-guide">Assembly guide</a
+        ><a href="board.html">Etched PCB version</a>
+      </nav>
+    </header>
+    <main class="wrap perfboard-page">
+      <section class="bench-intro" aria-labelledby="page-title">
+        <p class="eyebrow">A hole. A leg. A connection.</p>
+        <h1 id="page-title">See exactly what joins where.</h1>
+        <p>
+          These green boards have <strong>separate copper pads</strong>. Putting two legs near each other does not
+          connect them. The underside wires make the circuit.
+        </p>
+        <div class="bench-note">
+          <strong>Reference layout — confirm your board first.</strong> Assumes isolated pads on a 2.54 mm grid. Actual
+          board size, transistor pin order and case fit are unconfirmed. Build one unpowered prototype first;
+          <a href="PERFBOARD_REVIEW.md">the existing power circuit needs qualification</a> before a powered batch.
+        </div>
+      </section>
+      <section id="workbench" class="workbench" aria-label="Interactive perfboard assembly">
+        <div class="bench-toolbar">
+          <label
+            >Board<select id="board-select">
+              <option value="driver">Five-channel LED driver</option>
+              <option value="latch">Power &amp; button latch</option>
+            </select></label
+          >
+          <label
+            >Controller<select id="esp-select">
+              <option value="C3">ESP32-C3 · reference</option>
+              <option value="S3">ESP32-S3 · alternate</option>
+            </select></label
+          >
+          <div class="view-buttons" aria-label="Board view">
+            <button type="button" data-view="angle" aria-pressed="true">3D</button
+            ><button type="button" data-view="top" aria-pressed="false">Component side</button
+            ><button type="button" data-view="bottom" aria-pressed="false">Solder side</button>
+          </div>
+        </div>
+        <div class="bench-grid">
+          <div class="board-stage">
+            <div class="stage-caption">
+              <span id="board-dimensions">Loading reference layout…</span
+              ><span id="view-caption">Drag to rotate · scroll to zoom · select any part</span>
+            </div>
+            <div id="board-canvas">
+              <p id="loading-message">Loading the board. Printable maps and written instructions are below.</p>
+            </div>
+            <div class="stage-footer">
+              <label
+                >Show<select id="layer-select">
+                  <option value="all">Parts + wires</option>
+                  <option value="components">Components only</option>
+                  <option value="wiring">Underside wires only</option>
+                </select></label
+              ><button type="button" id="show-ground">Trace shared ground</button
+              ><button type="button" id="clear-selection">Show everything</button>
+            </div>
+          </div>
+          <aside class="board-inspector" aria-label="Selected component or connection">
+            <div class="selection-controls">
+              <label
+                >Inspect a part<select id="part-select">
+                  <option value="">Choose a component…</option>
+                </select></label
+              ><label
+                >Trace a connection<select id="net-select">
+                  <option value="">Choose a net…</option>
+                </select></label
+              >
+            </div>
+            <div id="inspection" aria-live="polite">
+              <p>Select a component, leg, copper pad or wire to see its exact connections.</p>
+            </div>
+          </aside>
+        </div>
+        <div class="assembly-stepper">
+          <div class="step-heading">
+            <p class="eyebrow">Build it one connection at a time</p>
+            <button type="button" id="start-steps">Start assembly steps</button>
+          </div>
+          <div id="step-controls" hidden>
+            <div class="step-nav">
+              <button type="button" id="previous-step">← Back</button
+              ><label>Assembly step<select id="step-select"></select></label
+              ><button type="button" id="next-step">Next →</button>
+            </div>
+            <p id="step-text" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
+      <section class="connection-lesson" aria-labelledby="ground-title">
+        <div>
+          <p class="eyebrow">The useful shortcut</p>
+          <h2 id="ground-title">One ground bus. Every ground leg connected.</h2>
+          <p>
+            All five MOSFET sources and the ground ends of their five 10 kΩ resistors can join one wire network. Every
+            one still needs a soldered connection to it. That network returns to the charger’s <strong>OUT−</strong>.
+          </p>
+        </div>
+        <div>
+          <h3>Each channel keeps its own two resistors.</h3>
+          <p><strong>GPIO → 100 Ω → gate</strong><br /><strong>gate → 10 kΩ → source → GND</strong></p>
+          <p>
+            Do not share one resistor between gates. Keep each LED return on its own drain. Do not bridge the protected
+            charger’s BAT− to OUT−.
+          </p>
+        </div>
+      </section>
+      <section class="board-reference" aria-labelledby="reference-title">
+        <div class="reference-heading">
+          <div>
+            <p class="eyebrow">Your selected board</p>
+            <h2 id="reference-title">Every leg and wire.</h2>
+          </div>
+          <div class="worksheet-links">
+            <a id="top-map" href="electronics/perfboard-driver-top.svg" target="_blank" rel="noopener"
+              >Print component side ↗</a
+            ><a id="bottom-map" href="electronics/perfboard-driver-bottom.svg" target="_blank" rel="noopener"
+              >Print solder side ↗</a
+            ><a href="electronics/perfboard-connections.csv" download>Wire checklist · CSV</a
+            ><a href="electronics/perfboard-components.csv" download>Component legs · CSV</a>
+          </div>
+        </div>
+        <p id="board-fit-note"></p>
+        <details open>
+          <summary>Component legs → exact holes</summary>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Component hole table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Value</th>
+                  <th>Leg role</th>
+                  <th>Hole</th>
+                  <th>Connection / net</th>
+                </tr>
+              </thead>
+              <tbody id="component-rows"></tbody>
+            </table>
+          </div>
+        </details>
+        <details>
+          <summary>Underside wires → both endpoints</summary>
+          <p>
+            Insulated wire throughout each span. Solder the stripped ends to the named pads or trimmed component legs.
+            Never bridge across a resistor.
+          </p>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Underside wire table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Wire</th>
+                  <th>From hole</th>
+                  <th>To hole</th>
+                  <th>Net</th>
+                </tr>
+              </thead>
+              <tbody id="wire-rows"></tbody>
+            </table>
+          </div>
+        </details>
+        <details open>
+          <summary>External wires → modules and controller</summary>
+          <p id="controller-note"></p>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="External wire table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Board hole</th>
+                  <th>Net</th>
+                  <th>Connect to</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody id="terminal-rows"></tbody>
+            </table>
+          </div>
+        </details>
+        <h3>Three connections between modules</h3>
+        <p>These wires do not pass through a perfboard hole. Keep the battery disconnected during assembly.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Module to module wire table">
+          <table>
+            <thead>
+              <tr>
+                <th>From module pad</th>
+                <th>To module pad</th>
+                <th>Net</th>
+              </tr>
+            </thead>
+            <tbody id="module-rows"></tbody>
+          </table>
+        </div>
+        <p class="reference-note">
+          Transistor holes are labelled by electrical role (D/G/S or E/B/C). The 3D lead shapes are schematic:
+          <strong>check the manufacturer’s actual pin order</strong>. Bare legs that cross need insulation. Resistors
+          are reversible; the diode stripe is not.
+        </p>
+      </section>
+      <section id="written-guide" class="assembly-guide perfboard-written"><h1 id="dark-moth-build-on-isolated-pad-perfboard">Dark Moth — build on isolated-pad perfboard</h1><p>Use this guide for the green boards with individual solder pads. The <a href="PCB_GUIDE.md">printed-PCB guide</a> describes a different fabrication method; its copper tracks and hole coordinates do not exist on a blank perfboard.</p><p><strong>Start with one unpowered prototype.</strong> This layout preserves the existing circuit. Its latch current capacity and button-to-ESP startup connection still need qualification before powered batch building. The measurements and reasons are in <a href="PERFBOARD_REVIEW.md">the electrical review</a>.</p><h2 id="1-open-the-hole-map-and-mark-your-board">1. Open the hole map and mark your board</h2><p><a href="perfboard.html">Interactive assembly</a> · <a href="electronics/perfboard-components.csv">Component list</a> · <a href="electronics/perfboard-connections.csv">Wire checklist</a> · <a href="electronics/perfboard-layout.json">Layout data</a></p><div class="table-scroll" tabindex="0" role="region" aria-label="Perfboard instructions table"><table><thead><tr><th>Reference board</th><th>Hole grid</th><th>Component side</th><th>Solder side</th></tr></thead><tbody><tr><td>Power latch</td><td>26 columns, rows A–R; nominal 70 × 50 mm</td><td><a href="electronics/perfboard-latch-top.svg">Top drawing</a></td><td><a href="electronics/perfboard-latch-bottom.svg">Bottom drawing</a></td></tr><tr><td>LED driver</td><td>13 columns, rows A–E; nominal 35 × 15 mm</td><td><a href="electronics/perfboard-driver-top.svg">Top drawing</a></td><td><a href="electronics/perfboard-driver-bottom.svg">Bottom drawing</a></td></tr></tbody></table></div><p>These are <strong>reference layouts on a 2.54 mm grid</strong>, not measurements of your boards or a promise of case fit. Dry-fit the actual parts and check usable holes before cutting anything.</p><ol><li>Disconnect the battery, USB and every external supply. Check the bare board with a meter: neighboring pads must be electrically separate. Some similar-looking boards connect pads in strips or groups; this layout cannot be copied onto those without changes.</li><li>Choose the component face. Mark <strong>A1</strong> at its upper-left hole; rows run downward, column numbers run rightward. Mark the same physical corner on the back.</li><li>Turn the board over like a book, keeping row A at the top. A1 is now at the <strong>upper-right</strong>. It is still A1: do not renumber from the back. Use the bottom drawing for soldering.</li><li>Keep the wire checklist open. Tick off each individual connection after soldering and testing it. A colored line crossing another line in a drawing does not mean they connect.</li></ol><p><code>LATCH.A1</code> and <code>DRIVER.A1</code> refer to different boards. Hole names describe places; a <strong>net</strong> such as GND names holes that must be electrically joined.</p><h2 id="2-gather-and-identify-the-parts">2. Gather and identify the parts</h2><div class="table-scroll" tabindex="0" role="region" aria-label="Perfboard instructions table"><table><thead><tr><th>Board</th><th>Parts</th></tr></thead><tbody><tr><td>Latch</td><td>QP: SS8550 PNP; QL: BS170; Db: 1N4148 diode; Rb: 330 Ω; Rbtn: 1 kΩ; Rbe/Rgl/Rs1/Rs2: four 100 kΩ resistors</td></tr><tr><td>Driver</td><td>Q1–Q5: five BS170s; Rg1–Rg5: five 100 Ω resistors; Rp1–Rp5: five 10 kΩ resistors</td></tr><tr><td>Remote button</td><td>One normally-open switch, small insulating board, matched two-pin plug/socket and two-wire cable</td></tr><tr><td>Modules</td><td>One protected TP4056 charger; one MT3608 boost converter; one ESP32-C3 SuperMini or the supported S3 alternate; 100 mm of the specified 12 V common-positive RGBWW strip; one suitable 1S LiPo</td></tr></tbody></table></div><p>The resistor reference build uses ¼ W parts. Total discrete parts are <strong>six BS170s, one SS8550, one diode and sixteen resistors</strong>, plus the remote switch. Insulated wire, solder, sleeve/heat-shrink and a meter are also needed. Leave optional battery-sense resistors and ESP GPIO1 unconnected.</p><p>Measure resistor values before installing them. Identify each transistor's exact part and its manufacturer's lead diagram. <strong>Do not assume the flat face always gives the same left/middle/right roles.</strong> The hole map specifies E/B/C for QP and D/G/S for each BS170; route the identified legs to those holes. Keep any crossed or extended legs insulated.</p><h2 id="3-populate-the-latch">3. Populate the latch</h2><p>Use the latch component table in the interactive guide for <strong>both holes of every resistor and diode, and every transistor leg</strong>. Do not use the older PCB's millimetre coordinates.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Perfboard instructions table"><table><thead><tr><th>Part</th><th>First electrical end</th><th>Other electrical end</th></tr></thead><tbody><tr><td>Rb, 330 Ω</td><td>PB</td><td>LDRV</td></tr><tr><td>Rbtn, 1 kΩ</td><td>GATE</td><td>BTN_DIO</td></tr><tr><td>Rbe, 100 kΩ</td><td>OUT+</td><td>PB</td></tr><tr><td>Rgl, 100 kΩ</td><td>GATE</td><td>GND</td></tr><tr><td>Rs1, 100 kΩ</td><td>BTN_N</td><td>SENSE</td></tr><tr><td>Rs2, 100 kΩ</td><td>SENSE</td><td>GND</td></tr><tr><td>Db, 1N4148</td><td><strong>Stripe/cathode: BTN_DIO</strong></td><td>Anode: BTN_N</td></tr><tr><td>QP, SS8550</td><td>Emitter: OUT+; base: PB</td><td>Collector: VSW</td></tr><tr><td>QL, BS170</td><td>Drain: LDRV; gate: GATE</td><td>Source: GND</td></tr></tbody></table></div><ol><li>Fit the six resistors in their listed holes. Resistors have no polarity; their two leads must still occupy the correct pair of holes. Solder and trim while keeping enough lead at each pad to attach its listed wire.</li><li>Fit Db with its stripe at the listed <strong>K/BTN_DIO</strong> hole. Check it before soldering.</li><li>Fit QP and QL by their identified leg roles. Form leads gently without forcing the bodies against the board.</li><li>Add the insulated underside jumpers from the wire checklist, one at a time. Strip only the short ends at the two intended pads. A wire passing a third pad must remain insulated there.</li><li>Make each GND connection physically join the ground wiring. Nearby ground holes do not join themselves. Check from QL source, Rgl's GND end and Rs2's GND end to the latch ground terminal.</li><li>Label the external wire positions OUT+, VSW, GND, GATE, SENSE and BTN_N. These labels describe this perfboard's wires; they are not factory printing on the blank board.</li></ol><p>The four 100 kΩ resistors do different jobs. Do not replace them with one shared resistor.</p><h2 id="4-build-the-green-driver-channel-first">4. Build the green driver channel first</h2><p>View the <strong>component side</strong> of the driver board. The first channel uses Q1, Rg1 and Rp1:</p><div class="table-scroll" tabindex="0" role="region" aria-label="Perfboard instructions table"><table><thead><tr><th>Component</th><th>First leg</th><th>Second leg</th><th>Third leg</th></tr></thead><tbody><tr><td>Q1</td><td>Drain: A2</td><td>Gate: B2</td><td>Source: C2</td></tr><tr><td>Rg1, 100 Ω</td><td>Body-side lead: D2</td><td>Return lead: D3</td><td>—</td></tr><tr><td>Rp1, 10 kΩ</td><td>Body-side lead: E3</td><td>Return lead: E2</td><td>—</td></tr></tbody></table></div><p>Stand the two resistors upright as shown. Sleeve each long folded return lead so it cannot touch another lead. Transistor lead order is determined by the actual part, not by this table's reading order.</p><ol><li>Connect ESP green PWM through the harness to <strong>D2</strong>. Current in this control path passes <strong>through Rg1 from D2 to D3</strong>; do not solder a jumper across the resistor.</li><li>Solder an insulated jumper <strong>D3 → B2</strong>, reaching Q1 gate.</li><li>Solder <strong>D3 → E3</strong>, reaching Rp1's gate-side lead.</li><li>Solder <strong>E2 → C2</strong>, joining Rp1's other lead to Q1 source.</li><li>Join <strong>C2 to the driver ground bus</strong>, which ends at C13. Follow every segment in the wire checklist.</li><li>Connect the strip's <strong>G</strong> return wire to <strong>A2</strong>, Q1 drain. That drain is a switched return; it must not be permanently wired to ground.</li></ol><p>The result is <code>GPIO → 100 Ω → gate</code>, with <code>gate → 10 kΩ → source → GND</code>. The strip's common positive goes to +12 V; its green return goes to the drain.</p><h2 id="5-repeat-the-remaining-four-channels">5. Repeat the remaining four channels</h2><div class="table-scroll" tabindex="0" role="region" aria-label="Perfboard instructions table"><table><thead><tr><th>Channel</th><th>Q drain / gate / source</th><th>100 Ω: body / return</th><th>10 kΩ: body / return</th><th>PWM wire</th><th>Strip return</th></tr></thead><tbody><tr><td>Green, Q1</td><td>A2 / B2 / C2</td><td>D2 / D3</td><td>E3 / E2</td><td>D2</td><td>A2</td></tr><tr><td>Red, Q2</td><td>A4 / B4 / C4</td><td>D4 / D5</td><td>E5 / E4</td><td>D4</td><td>A4</td></tr><tr><td>Blue, Q3</td><td>A6 / B6 / C6</td><td>D6 / D7</td><td>E7 / E6</td><td>D6</td><td>A6</td></tr><tr><td>Warm white, Q4</td><td>A8 / B8 / C8</td><td>D8 / D9</td><td>E9 / E8</td><td>D8</td><td>A8</td></tr><tr><td>Cool white, Q5</td><td>A10 / B10 / C10</td><td>D10 / D11</td><td>E11 / E10</td><td>D10</td><td>A10</td></tr></tbody></table></div><p>Repeat the green channel's three local jumpers for each pair of columns. Join all five sources, <strong>C2/C4/C6/C8/C10</strong>, to the ground bus and <strong>C13</strong>, using the listed insulated wire segments. Do not try to force five wire ends into one hole.</p><p><strong>What can share:</strong> the ground wire network and the strip's common +12 V supply. <strong>What stays separate:</strong> each channel's drain, gate, 100 Ω series resistor and 10 kΩ pulldown resistor. Sharing one gate resistor or pulldown would connect channels that the ESP must control independently. These resistors control the MOSFETs; they are not the strip's LED current-limiting resistors.</p><h2 id="6-make-the-remote-button-cable">6. Make the remote button cable</h2><p>The button joins <strong>OUT+ to BTN_N while pressed</strong>. Neither of its two wires is GND.</p><ol><li>Test the loose switch with a meter. Choose two contacts that are open when released and connected only while pressed. Four-leg switches also have permanently connected leg pairs; do not use one of those pairs.</li><li>Mount the switch on its small board and connect the selected contacts to two wires through a matched, keyed inline plug/socket.</li><li>At the latch end, connect one wire to the listed OUT+ button terminal and the other to BTN_N. Label both ends; insulate and secure the cable so pulling the plug does not pull a solder joint.</li><li>Test the unplugged button cable again: open when released, closed when pressed. Check that its movement and actual switch height suit the case before fixing it in place.</li></ol><h2 id="7-connect-every-module">7. Connect every module</h2><p>Keep power disconnected while wiring. Use the interactive <strong>terminal/harness table</strong> for the exact latch holes and the strip's actual printed labels for its pads. Do not infer strip-pad order from wire color.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Perfboard instructions table"><table><thead><tr><th>From</th><th>To</th><th>Purpose</th></tr></thead><tbody><tr><td>Battery positive</td><td>CHG.BAT+</td><td>Cell charging connection</td></tr><tr><td>Battery negative</td><td>CHG.BAT−</td><td>Cell charging connection</td></tr><tr><td>CHG.OUT+</td><td>Latch OUT+</td><td>Protected supply into the latch</td></tr><tr><td>CHG.OUT−</td><td>Latch GND and system ground wiring</td><td>Protected load return</td></tr><tr><td>Latch VSW</td><td>BOOST.VIN+ <strong>and</strong> ESP.5V/VIN</td><td>Switched power to both modules</td></tr><tr><td>System GND</td><td>BOOST.VIN−</td><td>Boost input return</td></tr><tr><td>System GND</td><td>BOOST.VOUT−</td><td>Boost output reference; normally common with VIN− on this module</td></tr><tr><td>System GND</td><td>ESP.GND</td><td>Logic reference</td></tr><tr><td>System GND</td><td>DRIVER.C13</td><td>LED driver return</td></tr><tr><td>BOOST.VOUT+</td><td>Strip +12V</td><td>Regulated LED supply</td></tr><tr><td>Latch GATE</td><td>ESP latch GPIO from the table below</td><td>Firmware keeps power on</td></tr><tr><td>Latch SENSE</td><td>ESP button ADC GPIO below</td><td>Firmware reads button presses</td></tr><tr><td>Latch OUT+</td><td>Button plug → switch contact A</td><td>Remote button supply</td></tr><tr><td>Latch BTN_N</td><td>Other plug contact → switch contact B</td><td>Remote button return signal</td></tr><tr><td>Driver A2/A4/A6/A8/A10</td><td>Strip G/R/B/WW/CW respectively</td><td>Five independently switched returns</td></tr></tbody></table></div><p><strong>CHG.BAT− and CHG.OUT− are different connections on the protected charger. Do not bridge them.</strong> The common system ground starts at OUT−. Joining it directly to battery negative bypasses the protection switching.</p><p>Use one matching ESP column throughout:</p><div class="table-scroll" tabindex="0" role="region" aria-label="Perfboard instructions table"><table><thead><tr><th>Signal</th><th>ESP32-C3 GPIO</th><th>ESP32-S3 GPIO</th><th>Other end</th></tr></thead><tbody><tr><td>Latch hold</td><td>3</td><td>9</td><td>Latch GATE</td></tr><tr><td>Button ADC</td><td>4</td><td>8</td><td>Latch SENSE</td></tr><tr><td>Green PWM</td><td>5</td><td>5</td><td>DRIVER.D2</td></tr><tr><td>Red PWM</td><td>6</td><td>4</td><td>DRIVER.D4</td></tr><tr><td>Blue PWM</td><td>7</td><td>6</td><td>DRIVER.D6</td></tr><tr><td>Warm-white PWM</td><td>10</td><td>10</td><td>DRIVER.D8</td></tr><tr><td>Cool-white PWM</td><td>20</td><td>11</td><td>DRIVER.D10</td></tr></tbody></table></div><p>Keep supply and ground wires short, with enough capacity for the measured load. Do not carry LED power through the small button cable. Keep the 12 V rail away from all ESP and latch terminals. Never connect the cell directly to ESP.3V3. Identify the actual board's regulator before approving its VSW-to-VIN connection.</p><h2 id="8-check-one-build-before-copying-it">8. Check one build before copying it</h2><ol><li><strong>Check every wire unpowered.</strong> Probe the two endpoints in each wire-checklist row: they should have direct continuity. Inspect neighboring pads for solder bridges. For paths through resistors, use resistance mode; a 100 Ω resistor is not a direct wire and may or may not trigger a meter's beeper.</li><li>Check all five source legs and all five pulldown ground ends reach C13. Check C13 reaches CHG.OUT−. Check each gate reaches only its own gate wiring, and that no drain has a soldered ground bypass. Semiconductor readings depend on probe direction, so do not expect every unrelated node to read infinite resistance.</li><li>Check Db's stripe, all transistor leg roles, the remote plug, and the two separate charger negative connections against the drawings. Photograph both sides while every joint is visible.</li><li>Flash the <a href="electronics/dark-moth-r5-firmware.zip">supplied R5 firmware</a> for the chosen ESP, with the external power harness disconnected. It uses ADC button sensing; battery telemetry stays disabled.</li><li>Qualify <strong>one powered prototype</strong> using the <a href="PERFBOARD_REVIEW.md#qualify-one-prototype">staged measurement checklist</a>. First test latch and ESP, then the boost set to 12.0 V, then individual LED channels and the combined load. Hold the button through cold boot; shutdown completes after a long hold is released.</li><li>Copy the checked build only after its actual parts, cold start, load current and temperatures pass that review. Check each new board's wiring before applying power. Measure the finished assembly and insulate its underside before deciding how it fits the case.</li></ol></section>
+    </main>
+    <footer class="site-footer wrap">
+      <a class="brand" href="index.html">Dark Moth</a
+      ><a href="PERFBOARD_GUIDE.md" download>Download written instructions</a>
+    </footer>
+    <script src="vendor/three.min.js"></script>
+    <script src="vendor/OrbitControls.js"></script>
+    <script src="site/perfboard-geometry.js"></script>
+    <script src="site/perfboard-scene.js"></script>
+    <script src="site/perfboard-state.js"></script>
+    <script src="site/perfboard-guide.js"></script>
+  </body>
+</html>

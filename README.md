@@ -8,6 +8,8 @@ The case is **111 × 103 × 36 mm**, with the side key projecting another **0.8 
 
 [Complete R5 print and assembly pack](dark-moth-r5-print-pack.zip) · [Print setup guide](print.html) · [Electronics assembly guide](PCB_GUIDE.md) · [Verification](VERIFICATION.md) · [Design review](REVIEW.md)
 
+**Blank green boards:** open the [interactive perfboard workbench](perfboard.html), [written instructions](PERFBOARD_GUIDE.md) and [electrical qualification review](PERFBOARD_REVIEW.md). [Digital verification](PERFBOARD_VERIFICATION.md) records the checks. The new latch perfboard is a bench reference; its mounting and powered operation remain unqualified.
+
 ## Start with the coupon
 
 Print [coupon.stl](prints/coupon.stl) using the same black PETG, plate and profile intended for the lid. The updated coupon puts the original 44 mm moth deboss **against the bed**, matching the lid. The **3.2 / 3.4 / 3.6 mm** open-top diffuser slots face upward, left to right when viewed from above with the slot banks nearest you. Test a deburred corner or offcut of the actual acrylic; each slot is 12 mm wide.
