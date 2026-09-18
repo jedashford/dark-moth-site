@@ -2,6 +2,14 @@
 
 The new guide transfers the existing circuit onto **reference isolated-pad perfboards**. It changes no firmware, component value, enclosure mesh or inherited electrical connection. The 70 × 50 mm latch layout is a bench reference; the 35 × 15 mm driver preserves its earlier hole layout. Actual blank boards and transistor packages remain unmeasured.
 
+## Viewer navigation and complete electronics
+
+The workbench now starts with the original complete electronics assembly: 101 supported modeled parts, including PCB, ESP controller, charger, boost converter, battery, LED strip, remote switch, wiring, connectors and fasteners. Individual views isolate the main PCB (11 parts) or a module with its modeled packages. The perfboard latch replaces the original manufactured PCB; both are reference alternatives, not simultaneous required assemblies.
+
+The previous viewer attached its view-button click handler to the canvas container as well. A click after a drag reset the camera. A real Chromium pointer test reproduced a 1.7063-radian (97.8°) orientation change on release. Handlers now target buttons only. Official Three r128 TrackballControls replaces OrbitControls in this workbench, allowing full rotation past the poles and stopping immediately on release. Component-side and solder-side presets remain deliberately fixed; choose 3D to rotate freely.
+
+Real input tests exercise repeated vertical rotation through a full revolution, release stability, click versus drag, preset locking, pan and zoom. The overview adapter tests the actual GLB inventory, module membership, preserved relative geometry and independent resource disposal. Browser tests cover all module choices, part inspection, switching back to both perfboards, mobile layout, and model-load failure/retry.
+
 ## Checks
 
 - `test_perfboard_layout.py` compares all nine latch components with the corrected PCB pads, all fifteen driver components with the existing driver layout, both ESP GPIO maps and all module connections. It traverses the actual jumper graph for every net, checks hole ownership and geometry bounds, and rejects cross-net joins. Horizontal latch resistors have at least 10.16 mm between lead holes. Body envelopes are nominal.
@@ -10,7 +18,7 @@ The new guide transfers the existing circuit onto **reference isolated-pad perfb
 - The [real-browser record](preview/site/perfboard/browser-checks.json) records its run time, checks and source hashes. Playwright launches Chromium against its own temporary HTTP server. It exercises both boards, every component/wire step, both ESP choices, shared ground, independent gates, desktop/mobile layouts, the WebGL fallback, downloads and all existing whole-device modes.
 - Python release tests reject stale geometry, slicing, support, render and browser evidence. Existing mechanical evidence is reused only while its source hashes still match. The new complete pack includes the perfboard guide and worksheets.
 
-Screenshots: [driver in 3D](preview/site/perfboard/driver-3d.png), [shared ground underneath](preview/site/perfboard/driver-ground-bottom.png), [latch diode](preview/site/perfboard/latch-top.png), [latch ground](preview/site/perfboard/latch-ground-bottom.png), [mobile](preview/site/perfboard/mobile.png).
+Screenshots: [all electronics](preview/site/perfboard/system.png), [main PCB](preview/site/perfboard/main-pcb.png), [ESP controller](preview/site/perfboard/controller.png), [free rotation](preview/site/perfboard/navigation.png), [driver in 3D](preview/site/perfboard/driver-3d.png), [shared ground underneath](preview/site/perfboard/driver-ground-bottom.png), [latch diode](preview/site/perfboard/latch-top.png), [latch ground](preview/site/perfboard/latch-ground-bottom.png), [mobile](preview/site/perfboard/mobile.png).
 
 ## Reproduce from the enclosure directory
 
@@ -19,7 +27,7 @@ python3 tools/build_perfboard_layout.py
 python3 tools/build_perfboard_worksheets.py
 python3 tools/build_guide.py
 python3 -m unittest discover -s tests -p 'test_*.py' -v
-node --test tests/test_assembly_state.mjs tests/test_perfboard_state.mjs tests/test_perfboard_geometry.mjs
+node --test tests/test_assembly_state.mjs tests/test_perfboard_state.mjs tests/test_perfboard_geometry.mjs tests/test_perfboard_controls.mjs tests/test_electronics_overview.mjs
 node tests/test_perfboard_browser.mjs
 python3 tools/package.py
 ```

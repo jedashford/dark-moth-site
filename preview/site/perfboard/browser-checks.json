@@ -1,6 +1,6 @@
 {
   "revision": "R5 perfboard guide",
-  "checked_at": "2026-09-18T20:38:40.625Z",
+  "checked_at": "2026-09-18T21:35:35.565Z",
   "method": "Playwright Chromium, isolated ephemeral HTTP server; desktop 1440x1100, mobile390x844; live WebGL and fallback paths",
   "passed": true,
   "checks": [
@@ -65,6 +65,82 @@
       "passed": true
     },
     {
+      "name": "3D drag keeps its final rotation after release, without snapping or inertia",
+      "passed": true
+    },
+    {
+      "name": "Repeated vertical drags pass both poles and continue through a full revolution",
+      "passed": true
+    },
+    {
+      "name": "A true component click selects; dragging away and back never selects",
+      "passed": true
+    },
+    {
+      "name": "top preset stays orthogonal while allowing pan and zoom",
+      "passed": true
+    },
+    {
+      "name": "bottom preset stays orthogonal while allowing pan and zoom",
+      "passed": true
+    },
+    {
+      "name": "Returning to 3D restores unrestricted rotation after a fixed view",
+      "passed": true
+    },
+    {
+      "name": "Default workbench shows all 101 supported electronics parts",
+      "passed": true
+    },
+    {
+      "name": "Selecting a modeled wire exposes its actual named endpoint pairs",
+      "passed": true
+    },
+    {
+      "name": "Main PCB view exposes its 11 installed parts and replacement explanation",
+      "passed": true
+    },
+    {
+      "name": "Part inspector opens the full ESP module including all nine modeled subparts",
+      "passed": true
+    },
+    {
+      "name": "part:module_charger: module view retains its complete modeled parts",
+      "passed": true
+    },
+    {
+      "name": "part:module_boost: module view retains its complete modeled parts",
+      "passed": true
+    },
+    {
+      "name": "part:battery: module view retains its complete modeled parts",
+      "passed": true
+    },
+    {
+      "name": "part:led_strip: module view retains its complete modeled parts",
+      "passed": true
+    },
+    {
+      "name": "part:remote_switch: module view retains its complete modeled parts",
+      "passed": true
+    },
+    {
+      "name": "Switching from modules returns to both exact perfboard layouts",
+      "passed": true
+    },
+    {
+      "name": "Complete electronics and module views fit a 390px mobile screen",
+      "passed": true
+    },
+    {
+      "name": "Changing to perfboard during a slow initial model load keeps the requested board",
+      "passed": true
+    },
+    {
+      "name": "Failed overview download leaves perfboards usable and a later overview retry succeeds",
+      "passed": true
+    },
+    {
       "name": "Existing complete-device assembled mode remains selectable",
       "passed": true
     },
@@ -105,7 +181,7 @@
     "index.html": "b7edd267697b06ffe353a79563db8ec1161e7d8d0ad5e1a549f66450b0b51aab",
     "board.html": "8a84f68e9ddeb0401b5febf511bb03e4422f49a8ac84e8d7df538e0ba54a38ab",
     "print.html": "e0fa8db732bb5d70165bd63f4973ca690072e071edb21fb0e7f3f26b05aaf74f",
-    "perfboard.html": "135b6fe3ac7a08f79ebd61eb0897f085128039f90778cfa60fa4aa5e90902d38",
+    "perfboard.html": "d95b7881e8d06be772c8248e8c58f97e83334158ac7d14deef393a355aedf2ba",
     "PCB_GUIDE.md": "21f8c6c25ce9c26431e1abf9080936c9e7ce7c40494fd562f3cf2f422e274283",
     "PERFBOARD_GUIDE.md": "3c52f72e1b73e50fa287ced1793f904d56bd3fc113ac77f84b4e3da5032c677b",
     "PERFBOARD_REVIEW.md": "e5986b6a0a7667a2e6f63ae846b24de64d9444849a110909a50b84eacb69e88f",
@@ -113,11 +189,18 @@
     "electronics/perfboard-components.csv": "db6f5096db42561b4933e4781c173e78e82177d425169d03e50f60a6671b7beb",
     "electronics/perfboard-connections.csv": "3869c9c45ebadc21af898579ecd1ca980fd2d16d6f28172780382243f4e799c2",
     "site/perfboard-state.js": "7a212666a4fb07ebdc37dd4864c38cac41312243da9e5acc7896c4b56a53ec97",
-    "site/perfboard-guide.js": "c195f40c54e87c284d369b45937522a4f90ac19ff9207c4cad388a14f885c22e",
+    "site/electronics-overview.js": "4134ecc39534c624eea282e765d92f0339fb9079dc7eb987581bd45758b483dd",
+    "site/electronics-panel.js": "5f977aef76bbd728d6bcd829beb4de23d0e9506da56185da9fe401e125eb1976",
+    "site/electronics-panel.css": "8b4067189db4dc04ea7cfe7698f515cb3e5a9069d7e537eb3137e4cf33790d53",
+    "vendor/TrackballControls.js": "0b7608fec2ba6c02282cbc41212dc6ef88ece998007e52e32663c1631b032134",
+    "vendor/README.md": "522ff8a6888872a84da89dbbbbc9a8ca42ae53f873257b6211b632cdeaa11c77",
+    "tests/viewer_navigation_checks.mjs": "75497a4c5469967b51ee656688a8568cfeecce103a6c831c1238c54ab96eaae2",
+    "tests/electronics_browser_checks.mjs": "91453f63d2d54e242b7c8730ee0145eeb0974f58eef2951e0b7b2093e0a5d8ef",
+    "site/perfboard-guide.js": "27e31bdaa8d698ebb91f455a359ec9bdd12098cbd29b038bf350dca986ad2141",
     "site/perfboard-geometry.js": "4cacc511f4f57a8086e55d9843d1fdb587b40650935a9b43cfc0207614fa63a0",
-    "site/perfboard-scene.js": "522d96f7325d5553978cd74c786826dcc6f49bf48709b9b4eebd1c72a7900bc8",
+    "site/perfboard-scene.js": "634a441b4ab4e62e531246847684cec9e4044b0b392f70cbc9d83d0faab567dd",
     "site/perfboard.css": "c135a7b4664ea15fd690b3460ef119ace2c9de1ac5d5597c00424b1e457554d2",
-    "site/perfboard-template.html": "873aa89d607118f978265884fb89af0d17ed6d331d5f144190f3809d37d3176c",
+    "site/perfboard-template.html": "11a0a6f049c9c04f370ae650f52edbaabb6908e2351eead822911a9b643b1513",
     "site/style.css": "3aedf374335b9b5445ae575a1bc35829a5e57f3a9ea71d087754c5df20bbefdb",
     "site/viewer.css": "2987c6fa2c313892c6d352350cc6f029096ee6ded425750bf68ff786c48f4fcb",
     "site/sections.css": "a2a423e1dfd87ebdd46570612344603ff14fc897f34c50e31e5abbd9ee192a1f",
@@ -128,7 +211,7 @@
     "tools/build_guide.py": "9b4f0cc7d51cd6610037c93193fd27527876296a4944cbf4def5b5bde3ce6bde",
     "tools/build_perfboard_layout.py": "c2c6ccc491c156a4e1f064ef4c577e9b317c187ed35ac4d9f51dd2643a0290dd",
     "tools/build_perfboard_worksheets.py": "98727f606a622add8791ace68c2bad12ac6e640fc494a84ab881a965ecd7c6f6",
-    "tests/test_perfboard_browser.mjs": "f94b8bfaa2f1864cf9e699adbfbd85a966f470c23ffe139de8985d8f1da92c83",
+    "tests/test_perfboard_browser.mjs": "920c01c56231c6d843a06bdeca7e0610e165355d256f5d449a5151d2de9ce67a",
     "electronics/perfboard-driver-top.svg": "d8ca603fed8ebc3fff07a84bd84ade99a5dc9981e9842dc57ed70252e2b81d5f",
     "electronics/perfboard-driver-bottom.svg": "ee2de3ed4f3c05ad371135f000a37d4834da140987243469ee4a981618508aec",
     "electronics/perfboard-latch-top.svg": "a5e8fb12e9cb4d967f945b4d8f0752b92b3fc6be5cb873f571cab4ba6b83e583",

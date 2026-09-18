@@ -21,9 +21,9 @@
       "sha256": "e5986b6a0a7667a2e6f63ae846b24de64d9444849a110909a50b84eacb69e88f"
     },
     {
-      "bytes": 4037,
+      "bytes": 5751,
       "path": "PERFBOARD_VERIFICATION.md",
-      "sha256": "998e503a5dd87eb3f5dffd337c3d2795568857c44acc64d587d809a7b9877874"
+      "sha256": "e5def81fb88a083be4b6f95751860114ea7afc897d05b3968f40834cc5f643c8"
     },
     {
       "bytes": 11058,
@@ -86,9 +86,9 @@
       "sha256": "ed0e849849b1f9f79af0692dc1c9807cf7622778ed0c36ea7ebeebd69a52fd4c"
     },
     {
-      "bytes": 25616033,
+      "bytes": 26669517,
       "path": "dark-moth-r5-print-pack.zip",
-      "sha256": "54b7fc544a701f63d92f1eed2eccdd9b44d8badb6a2b4e90e42fe0c1dcb925fe"
+      "sha256": "445e09795cd0719ff1aa1b60c26459d46ffa034ead48fa65ab0c0e564f57f419"
     },
     {
       "bytes": 7057,
@@ -231,9 +231,9 @@
       "sha256": "b7edd267697b06ffe353a79563db8ec1161e7d8d0ad5e1a549f66450b0b51aab"
     },
     {
-      "bytes": 26568,
+      "bytes": 28834,
       "path": "perfboard.html",
-      "sha256": "135b6fe3ac7a08f79ebd61eb0897f085128039f90778cfa60fa4aa5e90902d38"
+      "sha256": "d95b7881e8d06be772c8248e8c58f97e83334158ac7d14deef393a355aedf2ba"
     },
     {
       "bytes": 63024,
@@ -281,34 +281,54 @@
       "sha256": "74359542af27f60d5ded5890918b12e635d560c7272046a010c45c678a91a74b"
     },
     {
-      "bytes": 5962,
+      "bytes": 8954,
       "path": "preview/site/perfboard/browser-checks.json",
-      "sha256": "7193228ad818376eaeae7cbf73bc136e4927ccc3a84c7ea4e292257c67e0f000"
+      "sha256": "431e427e21af49b19886f5eecd2e8e129b4a9cb7ce2f1e4d194bca73efa79805"
     },
     {
-      "bytes": 244153,
+      "bytes": 231326,
+      "path": "preview/site/perfboard/controller.png",
+      "sha256": "f33a9f68657e9c42559cc3a61aadfeb73d4b7c6ada811c42c35163b97af9ff2a"
+    },
+    {
+      "bytes": 245440,
       "path": "preview/site/perfboard/driver-3d.png",
-      "sha256": "2cfbcb954d761ac08bf2aa99a23ee1b18cefa708738ee2b253ff5805bd02614f"
+      "sha256": "e7cb19d95d83659e4cd52036c4ac68409fc184dd1ff6cdd4833975e2f8f71ffe"
     },
     {
-      "bytes": 229044,
+      "bytes": 233386,
       "path": "preview/site/perfboard/driver-ground-bottom.png",
-      "sha256": "6b53dc5fa730cffea5140044414b61d9f71ea5ad5918bb8a0082e83f59b0f865"
+      "sha256": "2c0b4833f8fff93d7f16d4b8212f1052a1dd46229a5ffb285c1b2a4a05777ac5"
     },
     {
-      "bytes": 359382,
+      "bytes": 360603,
       "path": "preview/site/perfboard/latch-ground-bottom.png",
-      "sha256": "04e4d3db3c6f560328b3ca2b3a3d36b0e9bd0b0640af9d1bac924152f5cb7c64"
+      "sha256": "066ee2be2a4271025d218c8b036ac4e0c07d77ba2f27494be78daec88e0fee39"
     },
     {
-      "bytes": 263189,
+      "bytes": 264668,
       "path": "preview/site/perfboard/latch-top.png",
-      "sha256": "de45254eab2b8cca16c7a2c1bb1f4922b06c95a0a283cdc7f299066fa6f35043"
+      "sha256": "8ac65f05e86f0d8debb9cefcaa98c9f0a4d1741e2feb6cdc0b13d25c068c965d"
     },
     {
-      "bytes": 73673,
+      "bytes": 278725,
+      "path": "preview/site/perfboard/main-pcb.png",
+      "sha256": "fec47f1e2a345d45c42b8c0a014d0514f75c1fdf1135622795120798a4428e74"
+    },
+    {
+      "bytes": 72674,
       "path": "preview/site/perfboard/mobile.png",
-      "sha256": "89a26ef05d8ea9eda7627a87cd790f5447932a70994ff27f3342ffa36aef7b77"
+      "sha256": "fd007eb0a771910acd18adb6a312a093d41a45798d5ea1b7c27c29d02d3b8517"
+    },
+    {
+      "bytes": 249466,
+      "path": "preview/site/perfboard/navigation.png",
+      "sha256": "d8589a2fb83027b96142c5b9b79fbde9adfc96a1be7514d34440afa7c17276bc"
+    },
+    {
+      "bytes": 293039,
+      "path": "preview/site/perfboard/system.png",
+      "sha256": "ef0778594319ff0792b5fd8eb21bcfae5a5bd87b3368dbdf81eb13b9554610eb"
     },
     {
       "bytes": 151143,
@@ -481,19 +501,34 @@
       "sha256": "0278c12e522f0c3cd24d4cde491b4b0b603694712cfcf0883bc44c359d7a87a8"
     },
     {
+      "bytes": 6084,
+      "path": "site/electronics-overview.js",
+      "sha256": "4134ecc39534c624eea282e765d92f0339fb9079dc7eb987581bd45758b483dd"
+    },
+    {
+      "bytes": 885,
+      "path": "site/electronics-panel.css",
+      "sha256": "8b4067189db4dc04ea7cfe7698f515cb3e5a9069d7e537eb3137e4cf33790d53"
+    },
+    {
+      "bytes": 4251,
+      "path": "site/electronics-panel.js",
+      "sha256": "5f977aef76bbd728d6bcd829beb4de23d0e9506da56185da9fe401e125eb1976"
+    },
+    {
       "bytes": 16494,
       "path": "site/perfboard-geometry.js",
       "sha256": "4cacc511f4f57a8086e55d9843d1fdb587b40650935a9b43cfc0207614fa63a0"
     },
     {
-      "bytes": 12434,
+      "bytes": 15882,
       "path": "site/perfboard-guide.js",
-      "sha256": "c195f40c54e87c284d369b45937522a4f90ac19ff9207c4cad388a14f885c22e"
+      "sha256": "27e31bdaa8d698ebb91f455a359ec9bdd12098cbd29b038bf350dca986ad2141"
     },
     {
-      "bytes": 11121,
+      "bytes": 14134,
       "path": "site/perfboard-scene.js",
-      "sha256": "522d96f7325d5553978cd74c786826dcc6f49bf48709b9b4eebd1c72a7900bc8"
+      "sha256": "634a441b4ab4e62e531246847684cec9e4044b0b392f70cbc9d83d0faab567dd"
     },
     {
       "bytes": 3614,
@@ -546,9 +581,14 @@
       "sha256": "f10ee488705325bab6493c3f4852e499c21f25afe1959618a32e1bd0dfb5e458"
     },
     {
-      "bytes": 397,
+      "bytes": 797,
       "path": "vendor/README.md",
-      "sha256": "b578b9e1683f63c099a61cfa1aef25b3a1b5e514fb9f9ac32983422618c4e797"
+      "sha256": "522ff8a6888872a84da89dbbbbc9a8ca42ae53f873257b6211b632cdeaa11c77"
+    },
+    {
+      "bytes": 8975,
+      "path": "vendor/TrackballControls.js",
+      "sha256": "0b7608fec2ba6c02282cbc41212dc6ef88ece998007e52e32663c1631b032134"
     },
     {
       "bytes": 603445,
@@ -556,11 +596,11 @@
       "sha256": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2"
     },
     {
-      "bytes": 34663,
+      "bytes": 37209,
       "path": "verification-summary.json",
-      "sha256": "bd8e88851d1ecfd37f6e72a0478b889350829ed4dcbb7ff88bc9133879d7b90e"
+      "sha256": "0d1ab3a3ce57fda6fdf5c2db08466cb591088db2cc468baa7d3626cabccb4609"
     }
   ],
-  "revision": "b3df1463f619a3631e34b9617324f55b05701965",
+  "revision": "562e9ec3bcf2ab27a0f4b65285e9b46400998302",
   "schema_version": 1
 }

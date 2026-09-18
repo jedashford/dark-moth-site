@@ -27,14 +27,13 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
   // A is always toward screen-top in the two orthogonal presets. Looking up
   // from beneath reverses X on screen, exactly like turning a physical board.
   camera.up.set(0, 0, -1);
-  const controls = new THREE.OrbitControls(camera, canvas);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.12;
-  controls.minZoom = 0.45;
-  controls.maxZoom = 8;
-  controls.minPolarAngle = 0.01;
-  controls.maxPolarAngle = Math.PI - 0.01;
-  controls.screenSpacePanning = true;
+  const controls = new THREE.TrackballControls(camera, canvas);
+  // Quaternion rotation can pass over either pole. Stop precisely on release;
+  // continuing inertia makes inspecting individual component legs difficult.
+  controls.staticMoving = true;
+  controls.rotateSpeed = 1.8;
+  controls.panSpeed = 0.65;
+  controls.keys = [];
   scene.add(new THREE.HemisphereLight(0xffffff, 0x778983, 0.65));
   for (const [position, power, color] of [
     [[-50, 110, -60], 0.9, 0xffffff],
@@ -66,7 +65,8 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
     step = null;
   let frame = null,
     disposed = false,
-    pointerStart = null;
+    pointerStart = null,
+    pinching = false;
   let projectedWidth = 100,
     projectedHeight = 70;
   const raycaster = new THREE.Raycaster(),
@@ -75,17 +75,39 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
     if (disposed || frame !== null) return;
     frame = window.requestAnimationFrame(() => {
       frame = null;
-      const changed = controls.update();
+      consumeInput();
       renderer.render(scene, camera);
-      if (changed) requestRender();
     });
   }
+  function consumeInput() {
+    const previousZoom = camera.zoom;
+    controls.update();
+    // r128 Trackball uses the perspective distance ratio for orthographic
+    // pinch zoom too. Invert that ratio so spreading fingers zooms in.
+    const requestedZoom = pinching
+      ? (previousZoom * previousZoom) / camera.zoom
+      : camera.zoom;
+    const zoom = THREE.MathUtils.clamp(requestedZoom, 0.45, 8);
+    if (zoom !== camera.zoom) {
+      camera.zoom = zoom;
+      camera.updateProjectionMatrix();
+    }
+  }
+  function renderInput() {
+    // Consume each sample before Trackball replaces it with the next one.
+    // Drawing stays frame-limited, so large assemblies do not lose drag travel.
+    consumeInput();
+    requestRender();
+  }
   controls.addEventListener("change", requestRender);
+  controls.addEventListener("start", renderInput);
+  controls.addEventListener("end", renderInput);
   function resize() {
     if (disposed) return;
     const width = Math.max(1, host.clientWidth),
       height = Math.max(1, host.clientHeight);
     renderer.setSize(width, height, false);
+    controls.handleResize();
     const aspect = width / height,
       half =
         Math.max(projectedHeight / 2, projectedWidth / (2 * aspect)) * 1.12;
@@ -102,7 +124,10 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
     if (!["top", "bottom", "angle"].includes(name))
       throw new Error(`Unknown perfboard view: ${name}`);
     view = name;
-    controls.enableRotate = name === "angle";
+    controls.noRotate = name !== "angle";
+    // Trackball rotates camera.up too. Presets always restore the physical
+    // component/solder-side orientation, even after a fully inverted drag.
+    camera.up.set(0, 0, -1);
     host.dataset.view = name;
     const box = model
       ? new THREE.Box3().setFromObject(model.group)
@@ -225,7 +250,10 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
     requestRender();
   }
   function loadBoard(board) {
-    const next = geometry.build(board);
+    loadModel(geometry.build(board));
+  }
+  function loadModel(next) {
+    const board = next.board;
     geometry.dispose(model);
     model = next;
     for (const { object } of model.entries) {
@@ -244,7 +272,8 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
     step = null;
     canvas.setAttribute(
       "aria-label",
-      `${board.name}. ${board.columns} columns, rows ${board.rows[0]} through ${board.rows.at(-1)}. Drag to rotate; scroll to read hole labels; select a component, lead, pad or jumper.`,
+      board.description ||
+        `${board.name}. ${board.columns} columns, rows ${board.rows[0]} through ${board.rows.at(-1)}. Drag freely in 3D; scroll to zoom; right-drag to pan; select a component, lead, pad or jumper.`,
     );
     applyState();
     setView(view);
@@ -265,12 +294,17 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
     applyState();
   }
   function down(event) {
-    pointerStart = { x: event.clientX, y: event.clientY };
+    pointerStart = {
+      x: event.clientX,
+      y: event.clientY,
+      moved: event.button !== undefined && event.button !== 0,
+    };
   }
   function up(event) {
     if (
       !model ||
       !pointerStart ||
+      pointerStart.moved ||
       Math.hypot(
         event.clientX - pointerStart.x,
         event.clientY - pointerStart.y,
@@ -298,6 +332,33 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
       : hit.object.userData.instances[hit.instanceId];
     if (descriptor) onSelect({ ...descriptor, board: model.board.id });
   }
+  function move(event) {
+    if (!pointerStart) return;
+    if (
+      Math.hypot(
+        event.clientX - pointerStart.x,
+        event.clientY - pointerStart.y,
+      ) > 6
+    )
+      pointerStart.moved = true;
+    renderInput();
+  }
+  function cancel() {
+    pointerStart = null;
+  }
+  function touchMode(event) {
+    pinching = event.touches.length > 1;
+  }
+  // Trackball updates its input state on document events while dragging,
+  // including when a finger/mouse leaves the canvas. Render those changes.
+  canvas.ownerDocument.addEventListener("pointermove", move);
+  canvas.ownerDocument.addEventListener("pointerup", cancel);
+  canvas.ownerDocument.addEventListener("pointercancel", cancel);
+  canvas.addEventListener("pointerdown", controls.handleResize, true);
+  canvas.addEventListener("touchstart", controls.handleResize, true);
+  for (const type of ["touchstart", "touchmove", "touchend", "touchcancel"])
+    canvas.addEventListener(type, touchMode, true);
+  canvas.addEventListener("touchmove", renderInput, { passive: true });
   canvas.addEventListener("pointerdown", down);
   canvas.addEventListener("pointerup", up);
   function dispose() {
@@ -306,6 +367,16 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
     controls.dispose();
     geometry.dispose(model);
     controls.removeEventListener("change", requestRender);
+    controls.removeEventListener("start", renderInput);
+    controls.removeEventListener("end", renderInput);
+    canvas.ownerDocument.removeEventListener("pointermove", move);
+    canvas.ownerDocument.removeEventListener("pointerup", cancel);
+    canvas.ownerDocument.removeEventListener("pointercancel", cancel);
+    canvas.removeEventListener("pointerdown", controls.handleResize, true);
+    canvas.removeEventListener("touchstart", controls.handleResize, true);
+    for (const type of ["touchstart", "touchmove", "touchend", "touchcancel"])
+      canvas.removeEventListener(type, touchMode, true);
+    canvas.removeEventListener("touchmove", renderInput);
     canvas.removeEventListener("pointerdown", down);
     canvas.removeEventListener("pointerup", up);
     if (frame !== null) window.cancelAnimationFrame(frame);
@@ -314,5 +385,13 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
   }
   resize();
   setView("angle");
-  return { loadBoard, setView, highlight, setLayerMode, showStep, dispose };
+  return {
+    loadBoard,
+    loadModel,
+    setView,
+    highlight,
+    setLayerMode,
+    showStep,
+    dispose,
+  };
 };

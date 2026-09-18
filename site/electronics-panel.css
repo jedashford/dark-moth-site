@@ -1,0 +1,51 @@
+.system-note {
+  margin: 0;
+  padding: 16px 20px;
+  background: #e5ede7;
+  border-bottom: 1px solid #c9d2ce;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.system-note button {
+  display: inline;
+  padding: 0;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  text-decoration: underline;
+  background: transparent;
+  font-size: inherit;
+  color: #244e69;
+}
+#system-reference > p {
+  max-width: 950px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+#system-reference button {
+  border: 0;
+  padding: 0;
+  color: #244e69;
+  background: transparent;
+  text-decoration: underline;
+  font: inherit;
+  cursor: pointer;
+}
+[hidden] {
+  display: none !important;
+}
+#board-select {
+  max-width: 320px;
+}
+@media (max-width: 740px) {
+  #board-select {
+    max-width: 100%;
+  }
+  .bench-toolbar > label:first-child {
+    flex-basis: 100%;
+  }
+}
+
+#board-canvas.loading-model canvas {
+  visibility: hidden;
+}

@@ -20,8 +20,85 @@
     board,
     scene,
     sequence = [],
-    stepIndex = -1;
+    stepIndex = -1,
+    requestId = 0,
+    mode = "driver";
+  const panel = window.DarkMothElectronicsPanel({
+    getScene: () => scene,
+    openMode: chooseMode,
+  });
+  const isPerfboard = () => mode === "driver" || mode === "latch";
+  async function chooseMode(id) {
+    const ticket = ++requestId;
+    mode = id;
+    endSteps();
+    const handwired = isPerfboard();
+    $("board-canvas").dataset.overviewReady = "false";
+    $("board-canvas").classList.toggle("loading-model", !handwired);
+    const selector = $("board-select");
+    selector.querySelector("option[data-part-detail]")?.remove();
+    if (![...selector.options].some((option) => option.value === id)) {
+      const option = document.createElement("option");
+      option.value = id;
+      option.textContent = "Selected part";
+      option.dataset.partDetail = "true";
+      selector.append(option);
+    }
+    selector.value = id;
+    document.querySelectorAll("[data-perfboard-only]").forEach((element) => {
+      element.hidden = !handwired;
+    });
+    $("system-reference").hidden = handwired;
+    $("system-note").hidden = handwired;
+    $("net-select").parentElement.hidden = !handwired;
+    $("show-ground").hidden = !handwired;
+    $("esp-select").parentElement.hidden = !handwired;
+    $("layer-select").value = "all";
+    $("layer-select").options[2].textContent = handwired
+      ? "Underside wires only"
+      : "Connections only";
+    document.querySelector('button[data-view="top"]').textContent = handwired
+      ? "Component side"
+      : "Top";
+    document.querySelector('button[data-view="bottom"]').textContent = handwired
+      ? "Solder side"
+      : "Underside";
+    if (handwired) {
+      loadBoard(id);
+      return;
+    }
+    board = null;
+    $("board-dimensions").textContent = "Loading the complete electronics…";
+    $("inspection").textContent =
+      "Loading the original main PCB, controller and modules…";
+    try {
+      const data = await window.DarkMothElectronicsOverview.load(id);
+      if (ticket !== requestId) {
+        window.DarkMothPerfboardGeometry.dispose(data.model);
+        return;
+      }
+      if (scene) scene.loadModel(data.model);
+      else window.DarkMothPerfboardGeometry.dispose(data.model);
+      scene?.setLayerMode("all");
+      panel.present(id, data);
+      const detailOption = selector.querySelector("option[data-part-detail]");
+      if (detailOption) detailOption.textContent = data.model.board.name;
+      setView("angle");
+      $("board-canvas").classList.remove("loading-model");
+      $("board-canvas").dataset.overviewReady = "true";
+    } catch (error) {
+      if (ticket !== requestId) return;
+      $("board-dimensions").textContent = "Electronics model unavailable";
+      $("inspection").innerHTML =
+        '<h2>Electronics model unavailable</h2><p>Choose a perfboard layout to continue, or <a href="index.html?mode=internals#explore">open the complete-device viewer</a>.</p>';
+      window.console.error(error);
+    }
+  }
   function selection(info) {
+    if (!isPerfboard()) {
+      panel.inspect(info.component || info.id);
+      return;
+    }
     if (stepIndex >= 0) endSteps();
     if (info.type === "component") inspectPart(info.component || info.id);
     else if (info.type === "jumper") inspectWire(info.id);
@@ -77,7 +154,7 @@
   function setView(view) {
     if (scene) scene.setView(view);
     document
-      .querySelectorAll("[data-view]")
+      .querySelectorAll("button[data-view]")
       .forEach((button) =>
         button.setAttribute(
           "aria-pressed",
@@ -85,11 +162,13 @@
         ),
       );
     $("view-caption").textContent =
-      view === "bottom"
-        ? "SOLDER SIDE · A1 is upper-right. Same holes, physically flipped."
-        : view === "top"
-          ? "COMPONENT SIDE · A1 is upper-left. Rows increase downward."
-          : "Drag to rotate · scroll to zoom · select any part";
+      view === "angle"
+        ? "Drag freely in any direction · scroll to zoom · click to select"
+        : !isPerfboard()
+          ? `${view === "top" ? "TOP" : "UNDERSIDE"} · fixed view; choose 3D to rotate`
+          : view === "bottom"
+            ? "SOLDER SIDE · A1 is upper-right. Fixed view; choose 3D to rotate."
+            : "COMPONENT SIDE · A1 is upper-left. Fixed view; choose 3D to rotate.";
   }
   function endSteps() {
     stepIndex = -1;
@@ -204,11 +283,8 @@
           "3D is unavailable on this browser. The exact component, wire and terminal tables below still work, and both printable board views are available.";
         window.console.warn("Perfboard WebGL fallback", error);
       }
-      loadBoard(
-        new URLSearchParams(window.location.search).get("board") || "driver",
-      );
       $("board-select").addEventListener("change", (event) =>
-        loadBoard(event.target.value),
+        chooseMode(event.target.value),
       );
       $("esp-select").addEventListener("change", renderTerminals);
       $("layer-select").addEventListener("change", (event) => {
@@ -216,7 +292,8 @@
       });
       $("part-select").addEventListener("change", (event) => {
         endSteps();
-        inspectPart(event.target.value);
+        if (isPerfboard()) inspectPart(event.target.value);
+        else panel.inspect(event.target.value);
       });
       $("net-select").addEventListener("change", (event) => {
         endSteps();
@@ -227,6 +304,12 @@
         inspectNet("GND");
       });
       $("clear-selection").addEventListener("click", () => {
+        if (!isPerfboard()) {
+          panel.clear();
+          scene?.setLayerMode("all");
+          $("layer-select").value = "all";
+          return;
+        }
         endSteps();
         resetSelectors();
         if (scene) {
@@ -245,7 +328,7 @@
         }
       });
       document
-        .querySelectorAll("[data-view]")
+        .querySelectorAll("button[data-view]")
         .forEach((button) =>
           button.addEventListener("click", () => setView(button.dataset.view)),
         );
@@ -258,6 +341,9 @@
       $("next-step").addEventListener("click", () => showStep(stepIndex + 1));
       $("step-select").addEventListener("change", (event) =>
         showStep(Number(event.target.value)),
+      );
+      await chooseMode(
+        new URLSearchParams(window.location.search).get("board") || "system",
       );
       document.documentElement.dataset.perfboardReady = "true";
     } catch (error) {

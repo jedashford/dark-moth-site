@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="site/style.css" />
     <link rel="stylesheet" href="site/board.css" />
     <link rel="stylesheet" href="site/perfboard.css" />
+    <link rel="stylesheet" href="site/electronics-panel.css" />
   </head>
   <body>
     <a class="skip-link" href="#workbench">Skip to interactive board</a>
@@ -29,10 +30,10 @@
     <main class="wrap perfboard-page">
       <section class="bench-intro" aria-labelledby="page-title">
         <p class="eyebrow">A hole. A leg. A connection.</p>
-        <h1 id="page-title">See exactly what joins where.</h1>
+        <h1 id="page-title">All the electronics. Every connection.</h1>
         <p>
-          These green boards have <strong>separate copper pads</strong>. Putting two legs near each other does not
-          connect them. The underside wires make the circuit.
+          Start with the complete system, inspect any module, then switch to a blank-board layout for exact component
+          holes and underside wires.
         </p>
         <div class="bench-note">
           <strong>Reference layout — confirm your board first.</strong> Assumes isolated pads on a 2.54 mm grid. Actual
@@ -43,9 +44,23 @@
       <section id="workbench" class="workbench" aria-label="Interactive perfboard assembly">
         <div class="bench-toolbar">
           <label
-            >Board<select id="board-select">
-              <option value="driver">Five-channel LED driver</option>
-              <option value="latch">Power &amp; button latch</option>
+            >View<select id="board-select">
+              <optgroup label="The complete system">
+                <option value="system">All electronics</option>
+                <option value="pcb">Main power-latch PCB · original</option>
+              </optgroup>
+              <optgroup label="Build on blank perfboard">
+                <option value="latch">Power &amp; button latch · perfboard</option>
+                <option value="driver">Five-channel LED driver · perfboard</option>
+              </optgroup>
+              <optgroup label="Individual modules">
+                <option value="part:module_esp">Main controller · ESP32-C3</option>
+                <option value="part:module_charger">Charger &amp; battery protection</option>
+                <option value="part:module_boost">12 V boost supply</option>
+                <option value="part:battery">Battery</option>
+                <option value="part:led_strip">RGBWW LED strip</option>
+                <option value="part:remote_switch">Remote side button</option>
+              </optgroup>
             </select></label
           >
           <label
@@ -60,11 +75,12 @@
             ><button type="button" data-view="bottom" aria-pressed="false">Solder side</button>
           </div>
         </div>
+        <p id="system-note" class="system-note" hidden></p>
         <div class="bench-grid">
           <div class="board-stage">
             <div class="stage-caption">
               <span id="board-dimensions">Loading reference layout…</span
-              ><span id="view-caption">Drag to rotate · scroll to zoom · select any part</span>
+              ><span id="view-caption">Drag freely in any direction · scroll to zoom · click to select</span>
             </div>
             <div id="board-canvas">
               <p id="loading-message">Loading the board. Printable maps and written instructions are below.</p>
@@ -97,7 +113,7 @@
             </div>
           </aside>
         </div>
-        <div class="assembly-stepper">
+        <div class="assembly-stepper" data-perfboard-only>
           <div class="step-heading">
             <p class="eyebrow">Build it one connection at a time</p>
             <button type="button" id="start-steps">Start assembly steps</button>
@@ -112,7 +128,7 @@
           </div>
         </div>
       </section>
-      <section class="connection-lesson" aria-labelledby="ground-title">
+      <section data-perfboard-only class="connection-lesson" aria-labelledby="ground-title">
         <div>
           <p class="eyebrow">The useful shortcut</p>
           <h2 id="ground-title">One ground bus. Every ground leg connected.</h2>
@@ -130,7 +146,31 @@
           </p>
         </div>
       </section>
-      <section class="board-reference" aria-labelledby="reference-title">
+      <section id="system-reference" class="board-reference" hidden>
+        <p class="eyebrow">Every component, connector and wire</p>
+        <h2 id="system-title">All electronics</h2>
+        <p>
+          The original assembly keeps its real relative positions so wires still reach their endpoints. The enclosure is
+          hidden. Select a module above to inspect it on its own, or
+          <a href="index.html?mode=exploded#explore">open the entire case and screws in exploded view</a>.
+        </p>
+        <details>
+          <summary>Complete part inventory</summary>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Complete electronics inventory">
+            <table>
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Part</th>
+                  <th>Function / connections</th>
+                </tr>
+              </thead>
+              <tbody id="system-rows"></tbody>
+            </table>
+          </div>
+        </details>
+      </section>
+      <section data-perfboard-only class="board-reference" aria-labelledby="reference-title">
         <div class="reference-heading">
           <div>
             <p class="eyebrow">Your selected board</p>
@@ -227,10 +267,13 @@
       ><a href="PERFBOARD_GUIDE.md" download>Download written instructions</a>
     </footer>
     <script src="vendor/three.min.js"></script>
-    <script src="vendor/OrbitControls.js"></script>
+    <script src="vendor/TrackballControls.js"></script>
+    <script src="vendor/GLTFLoader.js"></script>
     <script src="site/perfboard-geometry.js"></script>
     <script src="site/perfboard-scene.js"></script>
     <script src="site/perfboard-state.js"></script>
+    <script src="site/electronics-overview.js"></script>
+    <script src="site/electronics-panel.js"></script>
     <script src="site/perfboard-guide.js"></script>
   </body>
 </html>
