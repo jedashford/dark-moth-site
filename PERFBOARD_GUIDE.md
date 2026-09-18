@@ -1,3 +1,7 @@
+# Earlier perfboard layouts
+
+For the **18 × 24 carrier with ESP, charger and boost mounted on it**, use [the carrier guide](CARRIER_GUIDE.md). The layouts below keep those modules separate and have different hole coordinates.
+
 # Dark Moth — fewer wires, one shared perfboard
 
 The **combined board** puts the nine power/button-latch parts and fifteen LED-driver parts on one blank green board. The latch uses **13 existing component leads as connections**. The complete combined board needs **15 insulated links and one ground-bus wire**, plus the external cables to the other modules.

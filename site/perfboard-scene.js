@@ -140,7 +140,10 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
     camera.up.set(0, 0, -1);
     host.dataset.view = name;
     const box = model
-      ? new THREE.Box3().setFromObject(model.group)
+      ? model.contentBounds &&
+        !model.entries.some((e) => e.schematic && e.object.visible)
+        ? model.contentBounds.clone()
+        : new THREE.Box3().setFromObject(model.group)
       : new THREE.Box3(
           new THREE.Vector3(-35, -5, -25),
           new THREE.Vector3(35, 10, 25),
@@ -191,7 +194,8 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
     );
   }
   function stepVisible(descriptor, layer) {
-    if (!step || !descriptor) return true;
+    if (!step || !descriptor || descriptor.type === "callout-legend")
+      return true;
     if (layer === "wiring")
       return (
         missing(step.jumperIds) || step.jumperIds.includes(descriptor.jumper)
@@ -224,10 +228,22 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
     const focused = Boolean(
       focus.net || focus.component || focus.jumper || focus.jumpers?.length,
     );
+    const schematicVisible = (entry) =>
+      layerMode === "wiring" ||
+      isSelected(entry.descriptor) ||
+      Boolean(step?.jumperIds?.includes(entry.descriptor?.jumper));
+    const hasCallouts = model.entries.some(
+      (entry) =>
+        entry.schematic && entry.descriptor?.jumper && schematicVisible(entry),
+    );
     for (const entry of model.entries) {
       const { object, descriptor, layer } = entry;
       object.visible =
         stepVisible(descriptor, layer) &&
+        (!entry.schematic ||
+          (descriptor?.type === "callout-legend"
+            ? hasCallouts
+            : schematicVisible(entry))) &&
         !(layerMode === "components" && ["wiring", "joints"].includes(layer)) &&
         !(layerMode === "wiring" && ["components", "labels"].includes(layer));
       if (object.isInstancedMesh) {

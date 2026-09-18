@@ -168,10 +168,34 @@
         jumperIds: [...jumperIds],
       });
     }
+    for (const part of board.modules || []) {
+      componentIds.push(part.ref);
+      result.push({
+        type: "module",
+        module: part.ref,
+        label: `Mount ${part.ref} · ${part.label}`,
+        text: `${Array.isArray(part.mounting_notes) ? part.mounting_notes.join(" ") : part.mounting_notes} ${part.pin_position_status}`,
+        componentIds: [...componentIds],
+        jumperIds: [...jumperIds],
+      });
+    }
+    for (const link of board.module_links || []) {
+      jumperIds.push(link.id);
+      result.push({
+        type: "module-link",
+        moduleLink: link.id,
+        jumper: link.id,
+        activeNet: link.net,
+        label: `Wire ${link.hole} → ${link.module}.${link.role}`,
+        text: `Use one short insulated wire from carrier joint ${link.hole} to the actual printed module label shown in the inspector. The 3D module callout is not a physical pin position. Match the selected controller GPIO map. Keep battery and USB disconnected.`,
+        componentIds: [...componentIds],
+        jumperIds: [...jumperIds],
+      });
+    }
     result.push({
       type: "harness",
       label: "Attach the external wires",
-      text: "Use the terminal table and the three module-to-module connections below, then section 7 of the written guide. Use one matching ESP model throughout. Disconnect battery and USB. Every listed terminal needs its external connection; follow this layout's ground routing.",
+      text: "Use the terminal table and the three module-to-module connections below, then the written guide for your selected layout. Use one matching ESP model throughout. Disconnect battery and USB. Every listed terminal needs its external connection; follow this layout's ground routing.",
       componentIds: [...componentIds],
       jumperIds: [...jumperIds],
     });

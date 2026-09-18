@@ -22,10 +22,18 @@
     sequence = [],
     stepIndex = -1,
     requestId = 0,
-    mode = "driver";
+    mode = "carrier";
   const panel = window.DarkMothElectronicsPanel({
     getScene: () => scene,
     openMode: chooseMode,
+  });
+  const carrierPanel = window.DarkMothCarrierPanel({
+    getBoard: () => board,
+    getScene: () => scene,
+    getVariant: () => $("esp-select").value,
+    esc,
+    hole,
+    netButton,
   });
   const isPerfboard = () => boards.some((item) => item.id === mode);
   async function chooseMode(id) {
@@ -48,6 +56,15 @@
     document.querySelectorAll("[data-perfboard-only]").forEach((element) => {
       element.hidden = !handwired;
     });
+    document.querySelectorAll("[data-carrier-only]").forEach((element) => {
+      element.hidden = id !== "carrier";
+    });
+    document
+      .querySelectorAll("[data-legacy-perfboard-only]")
+      .forEach((element) => {
+        element.hidden = !handwired || id === "carrier";
+      });
+    $("board-canvas").dataset.carrierReady = "false";
     $("system-reference").hidden = handwired;
     $("system-note").hidden = handwired;
     $("net-select").parentElement.hidden = !handwired;
@@ -65,6 +82,33 @@
       : "Underside";
     if (handwired) {
       loadBoard(id);
+      if (id === "carrier" && scene) {
+        $("board-canvas").classList.add("loading-model");
+        try {
+          const model = await window.DarkMothPerfboardCarrier.build(board);
+          if (ticket !== requestId) {
+            window.DarkMothPerfboardGeometry.dispose(model);
+            return;
+          }
+          scene.loadModel(model);
+          if (stepIndex >= 0) showStep(stepIndex);
+          else {
+            scene.setLayerMode($("layer-select").value);
+            setView($("board-canvas").dataset.view || "angle");
+            const ref = $("part-select").value,
+              net = $("net-select").value;
+            if (ref) inspectPart(ref);
+            else if (net) inspectNet(net);
+          }
+          $("board-canvas").dataset.carrierReady = "true";
+        } catch (error) {
+          if (ticket !== requestId) return;
+          $("inspection").innerHTML =
+            "<h2>Module models unavailable</h2><p>The carrier and exact wiring tables still work. Reload to retry loading the three purchased modules.</p>";
+          window.console.error(error);
+        }
+        $("board-canvas").classList.remove("loading-model");
+      }
       return;
     }
     board = null;
@@ -100,7 +144,11 @@
       return;
     }
     if (stepIndex >= 0) endSteps();
-    if (info.type === "component") inspectPart(info.component || info.id);
+    if (info.type === "module")
+      carrierPanel.inspectModule(info.module || info.component, info.label);
+    else if (info.type === "module-link")
+      carrierPanel.inspectLink(info.jumper || info.id);
+    else if (info.type === "component") inspectPart(info.component || info.id);
     else if (info.type === "jumper") inspectWire(info.id);
     else if (info.net) inspectNet(info.net, info);
     else
@@ -112,6 +160,7 @@
     $("net-select").value = "";
   }
   function inspectPart(ref) {
+    if (carrierPanel.inspectModule(ref)) return;
     const part = board.components.find((item) => item.ref === ref);
     if (!part) return;
     resetSelectors();
@@ -132,6 +181,7 @@
       `<p class="inspection-label">One electrically connected net</p><h2>${esc(net)}</h2>${selected && selected.hole ? `<p>Selected ${hole(selected.hole)}${selected.role ? ` · ${esc(selected.component)} ${esc(selected.role)}` : ""}</p>` : ""}<p>${esc(definition ? definition.meaning : "Every listed point must be joined by the specified wiring.")}</p><h3>All of these points join together</h3><ul>${items.map((item) => `<li>${hole(item.hole)} ${esc(item.label)}</li>`).join("")}</ul><p>${counts.retainedLeads} reused component leads and ${counts.addedWires} added wire pieces in this net. Nearby pads and crossing wires do not connect automatically.</p>${net === "GND" ? "<p><strong>This bus can be shared.</strong> Every listed ground leg needs a joint to this network. Gate and drain connections stay on their own named nets.</p>" : ""}`;
   }
   function inspectWire(id) {
+    if (carrierPanel.inspectLink(id)) return;
     const wire = state
       .connections(board)
       .find((item) => item.id === id || item.ids.includes(id));
@@ -194,7 +244,13 @@
       scene.setLayerMode("all");
       scene.showStep(step);
     }
-    if (step.component) {
+    if (step.type === "module") {
+      setView("angle");
+      carrierPanel.inspectModule(step.module);
+    } else if (step.type === "module-link") {
+      setView("angle");
+      carrierPanel.inspectLink(step.moduleLink);
+    } else if (step.component) {
       setView("top");
       inspectPart(step.component);
     } else if (step.jumper) {
@@ -228,7 +284,13 @@
     $("bottom-map").href = `electronics/perfboard-${board.id}-bottom.svg`;
     $("part-select").innerHTML =
       '<option value="">Choose a component…</option>' +
-      board.components
+      [
+        ...(board.modules || []).map((part) => ({
+          ...part,
+          value: part.label,
+        })),
+        ...board.components,
+      ]
         .map(
           (part) =>
             `<option value="${esc(part.ref)}">${esc(part.ref)} · ${esc(part.value)}</option>`,
@@ -258,6 +320,10 @@
       })
       .join("");
     renderTerminals();
+    carrierPanel.render();
+    if (board.modules)
+      $("connection-summary").textContent =
+        `${counts.retainedLeads} reused component leads · ${counts.addedWires} internal wire pieces · ${board.module_links.length} short module wires. Battery, LED and remote-button cables are additional.`;
     sequence = state.steps(board);
     $("step-select").innerHTML = sequence
       .map(
@@ -267,6 +333,7 @@
       .join("");
     $("inspection").innerHTML =
       '<p class="inspection-label">Start here</p><h2>Follow one leg.</h2><p>Select a component, leg or wire on the board. Or choose a part above for every leg’s exact hole. Retain the leads marked “do not trim” for direct joints underneath.</p><p>Try <strong>Trace shared ground</strong> to see which points can share the same wire network.</p><p>The model shows electrical roles. Actual transistor pin order and component dimensions must be checked against the parts in your hand.</p>';
+    if (board.modules) carrierPanel.welcome();
   }
   async function start() {
     try {
@@ -294,7 +361,20 @@
       $("board-select").addEventListener("change", (event) =>
         chooseMode(event.target.value),
       );
-      $("esp-select").addEventListener("change", renderTerminals);
+      $("esp-select").addEventListener("change", () => {
+        renderTerminals();
+        carrierPanel.render();
+        const ref = $("part-select").value;
+        if (!carrierPanel.inspectModule(ref) && board.modules)
+          carrierPanel.welcome();
+      });
+      $("carrier-reference").addEventListener("click", (event) => {
+        const module = event.target.closest("[data-carrier-module]");
+        const net = event.target.closest("[data-net]");
+        endSteps();
+        if (module) carrierPanel.inspectModule(module.dataset.carrierModule);
+        else if (net) inspectNet(net.dataset.net);
+      });
       $("layer-select").addEventListener("change", (event) => {
         if (scene) scene.setLayerMode(event.target.value);
       });
@@ -327,6 +407,7 @@
         $("layer-select").value = "all";
         $("inspection").innerHTML =
           "<h2>All parts and wires</h2><p>Select a part or trace a net to inspect its connections.</p>";
+        if (board.modules) carrierPanel.welcome();
       });
       $("inspection").addEventListener("click", (event) => {
         const button = event.target.closest("[data-net]");
@@ -351,7 +432,7 @@
         showStep(Number(event.target.value)),
       );
       await chooseMode(
-        new URLSearchParams(window.location.search).get("board") || "system",
+        new URLSearchParams(window.location.search).get("board") || "carrier",
       );
       document.documentElement.dataset.perfboardReady = "true";
     } catch (error) {

@@ -26,10 +26,10 @@
         <span>Dark Moth <small>Enclosure R5</small></span>
       </a>
       <nav aria-label="Main navigation">
-        <a href="#explore">Explore in 3D</a>
+        <a href="#explore">Case reference in 3D</a>
         <a href="#build">Build</a>
         <a href="#downloads">Print files</a>
-        <a href="perfboard.html">Build on perfboard</a>
+        <a href="perfboard.html?board=carrier#workbench">Build one board</a>
       </nav>
     </header>
 
@@ -38,11 +38,12 @@
         <div class="hero-copy">
           <h1 id="hero-title">Dark Moth.<br />A considered case.</h1>
           <p class="lead">
-            The original moth. A wired button on the side. A replaceable smoked face. Explore the complete prototype,
-            down to the board, screws and wiring.
+            The original moth. A wired button on the side. A replaceable smoked face. Build the electronics on one 18 ×
+            24 carrier, and explore the earlier enclosure reference below.
           </p>
           <div class="actions">
-            <a class="button primary" href="#explore">Explore the complete build</a>
+            <a class="button primary" href="perfboard.html?board=carrier#workbench">Build the 18 × 24 board</a>
+            <a class="text-link" href="#explore">Explore the case reference</a>
             <a class="text-link" href="dark-moth-r5-print-pack.zip" download>Download print pack</a>
           </div>
           <p class="hero-note">
@@ -85,11 +86,11 @@
       <section id="explore" class="section wrap" aria-labelledby="explore-title">
         <div class="section-intro">
           <div>
-            <h2 id="explore-title">Look closer.<br />Take it apart.</h2>
+            <h2 id="explore-title">The earlier case.<br />Every part.</h2>
           </div>
           <p>
-            The case, populated PCB, modules, screws and harness in one model. Select a part to read its reference, or
-            open the board guide for exact assembly steps.
+            R5 enclosure reference: the original 94 × 60 mm latch PCB, floor-mounted modules, screws and harness. The
+            new 18 × 24 carrier is a different arrangement; its case mounting is not shown or verified here.
           </p>
         </div>
         <div class="model-workbench">
@@ -97,7 +98,7 @@
             <div class="viewer-toolbar" role="group" aria-label="Model display mode">
               <button type="button" data-mode="assembled" aria-pressed="true">Assembled</button>
               <button type="button" data-mode="internals" aria-pressed="false">Inside</button>
-              <button type="button" data-mode="board" aria-pressed="false">PCB</button>
+              <button type="button" data-mode="board" aria-pressed="false">Earlier latch PCB</button>
               <button type="button" data-mode="wiring" aria-pressed="false">Wiring</button>
               <button type="button" data-mode="exploded" aria-pressed="false">Exploded</button>
               <button type="button" data-mode="diffuser" aria-pressed="false">Diffuser access</button>
@@ -167,10 +168,10 @@
           </p></noscript
         >
         <p class="model-note">
-          All specified prototype assemblies are represented. The PCB comes from KiCad; modules, connector bodies and
-          wire routes use labelled nominal geometry. The unpopulated PCB switch is not part of the build.
-          <a href="perfboard.html?board=combined#workbench"
-            >Build latch + LED driver on one green board · inspect in 3D →</a
+          This retained model shows the earlier case arrangement. Its KiCad latch PCB is not required for the new
+          carrier. Module shapes, connector bodies and wire routes are nominal; the carrier needs its own fit check.
+          <a href="perfboard.html?board=carrier#workbench"
+            >ESP + charger + boost + latch + driver · one 18 × 24 board →</a
           >
         </p>
       </section>
@@ -304,10 +305,10 @@
           <li>
             <h3>Build the board, then fit it.</h3>
             <p>
-              For blank green boards, use the <a href="perfboard.html">interactive perfboard guide</a>: a compact shared
-              board, reusable component leads, every hole and underside wire. The
-              <a href="board.html">etched PCB guide</a> covers the original case-mounted board. The new perfboard
-              reference needs a physical fit check and one qualified prototype before batch building.
+              Use the <a href="perfboard.html?board=carrier#workbench">18 × 24 carrier guide</a> to mount the ESP,
+              charger and boost alongside the latch and LED driver. Battery, LED strip and remote button remain cabled.
+              The <a href="board.html">earlier etched PCB guide</a> describes the old case arrangement. Confirm carrier
+              mounting and qualify one powered prototype before batch building.
             </p>
             <a class="text-link" href="README.md">Open the case assembly guide</a>
           </li>
@@ -420,8 +421,8 @@
           </div>
         </dl>
         <div class="document-links">
-          <a href="board.html"
-            ><strong>Build the board</strong><span>Components, PCB positions and every connection</span></a
+          <a href="perfboard.html?board=carrier#workbench"
+            ><strong>Build one 18 × 24 board</strong><span>Modules, component holes and every connection</span></a
           >
           <a href="print.html"
             ><strong>Print setup</strong><span>Support settings, orientation and all seven parts</span></a
@@ -438,7 +439,7 @@
     <footer class="site-footer wrap">
       <a class="brand" href="#main"><img src="cad/moth.svg" alt="" width="40" height="28" /><span>Dark Moth</span></a>
       <p>Enclosure R5 · v3-button 12 V</p>
-      <a href="perfboard.html">Build on perfboard →</a>
+      <a href="perfboard.html?board=carrier#workbench">Build the one-board carrier →</a>
     </footer>
   </body>
 </html>

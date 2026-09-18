@@ -6,9 +6,11 @@ The case is **111 × 103 × 36 mm**, with the side key projecting another **0.8 
 
 ![Actual CAD, unlit smoked panel](preview/hero.png)
 
-[Complete R5 print and assembly pack](dark-moth-r5-print-pack.zip) · [Print setup guide](print.html) · [Electronics assembly guide](PCB_GUIDE.md) · [Verification](VERIFICATION.md) · [Design review](REVIEW.md)
+[Complete R5 print and assembly pack](dark-moth-r5-print-pack.zip) · [Print setup guide](print.html) · [One-board electronics guide](CARRIER_GUIDE.md) · [Verification](VERIFICATION.md) · [Design review](REVIEW.md)
 
-**Blank green boards:** open the [interactive perfboard workbench](perfboard.html), [written instructions](PERFBOARD_GUIDE.md) and [electrical qualification review](PERFBOARD_REVIEW.md). [Digital verification](PERFBOARD_VERIFICATION.md) records the checks. The compact reference puts latch and LED driver on one 24 × 10 hole board, using retained component leads for thirteen latch joints. It also provides a smaller latch-only option. Its mounting and powered operation remain unqualified.
+**Build on one board:** open the [18 × 24 carrier in 3D](perfboard.html?board=carrier#workbench), [written instructions](CARRIER_GUIDE.md) and [electrical qualification review](PERFBOARD_REVIEW.md). The carrier has **18 columns and rows A–X**. It holds the ESP controller, charger and boost modules alongside the latch and five-channel LED driver. Battery, LED strip and remote button connect by cables. The earlier 94 × 60 mm latch PCB is not required. Actual module pin positions, module retention, case mounting and powered operation require verification.
+
+The existing case meshes, full-assembly model and mechanical instructions below retain the **earlier R5 arrangement**. They do not establish the integrated carrier's mounting or USB alignment. [Earlier latch/driver layouts](PERFBOARD_GUIDE.md) remain available as references; [digital verification](PERFBOARD_VERIFICATION.md) states what has been checked.
 
 ## Start with the coupon
 
@@ -44,9 +46,9 @@ Power off. Remove the two front screws, lift the rail, and lift the sheet straig
 
 For other stock thicknesses, change `sheet_t` within **1–3.2 mm**, and review `slot_clear` in [dimensions.scad](cad/dimensions.scad). Rebuild the body, rail, template and coupon together, then rerun verification. Supplied print files target **3 mm** stock. Width and height changes require a new fit review.
 
-## Hardware and assembly order
+## Earlier R5 hardware and assembly order
 
-The case reference assembly uses the corrected **94 × 60 mm through-hole power-latch PCB**, primary **ESP32-C3 SuperMini**, protected TP4056 charger, MT3608 boost, LiPo and separate five-channel perfboard driver. The full electrical BOM, transistor lead assignments, exact solder holes and bring-up procedure are in [PCB_GUIDE.md](PCB_GUIDE.md). The older 24 V production controller is a different design.
+This earlier case reference uses the corrected **94 × 60 mm through-hole power-latch PCB**, primary **ESP32-C3 SuperMini**, protected TP4056 charger, MT3608 boost, LiPo and separate five-channel perfboard driver. Its BOM, solder holes and mounting sequence are in [PCB_GUIDE.md](PCB_GUIDE.md). For the integrated carrier, use [CARRIER_GUIDE.md](CARRIER_GUIDE.md); the four PCB posts and floor-module bays below are not its mounting instructions. The older 24 V production controller is another design.
 
 **Leave the main PCB `SW` footprint unpopulated.** Its repeated pad numbers and assigned nets conflict with a matching four-leg switch's contact grouping. The R5 remote switch replaces it. Use the two specifically identified OUT+ and BTN_N holes in the guide; do not identify them by pad number alone.
 
@@ -69,11 +71,11 @@ Additional mechanical items:
 
 The front USB port is charging; the rear is programming. Disconnect the external supply harness before flashing through USB. R5 firmware includes ADC button sensing for the fitted divider and disables unprotected raw-battery telemetry; download the [firmware ZIP](electronics/dark-moth-r5-firmware.zip) and follow [its guide](PCB_GUIDE.md#7-firmware-required-by-this-board).
 
-## Full 3D assembly and confidence
+## Earlier full 3D assembly and confidence
 
 The [full assembly GLB](preview/full-assembly.glb) and [part catalog](preview/assembly-parts.json) contain **108 logical groups**, including six enclosure parts, the actual KiCad PCB and reference components, nominal modules and their major packages, fifteen discrete driver components, remote switch/daughterboard, connector halves, ten individual screws and 29 logical wire groups. The unsupported PCB switch is hidden by default and marked **do not populate**.
 
-This covers the **specified build BOM**. Supplier-specific inventories and exact positions of every small SMD on commodity modules are not available. Those module packages, fasteners and wire routes are labeled nominal. Exploded wires retain their assembled route; the view does not simulate wire stretch or a collision-free disassembly sequence.
+This covers the **earlier R5 build BOM**, not the integrated carrier's arrangement. Supplier-specific inventories and exact positions of every small SMD on commodity modules are not available. Those module packages, fasteners and wire routes are labeled nominal. Exploded wires retain their assembled route; the view does not simulate wire stretch or a collision-free disassembly sequence.
 
 | Item               | Nominal envelope / location             | Evidence                                                                         |
 | ------------------ | --------------------------------------- | -------------------------------------------------------------------------------- |

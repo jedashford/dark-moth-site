@@ -35,18 +35,18 @@
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const notes = {
     assembled:
-      "Complete prototype. Select a component, screw or wire to inspect it.",
+      "Earlier R5 enclosure arrangement. The new 18 × 24 carrier is not represented in this retained model.",
     internals:
-      "Case removed. The electronics and fasteners remain in their assembly positions.",
+      "Earlier R5 internals: original latch PCB and floor modules. New carrier mounting requires a separate fit check.",
     board:
-      "PCB close-up. Use the component list and assembly guide for exact pads and polarity.",
+      "Earlier 94 × 60 mm latch PCB. This board is not required for the integrated 18 × 24 carrier.",
     wiring:
-      "Harness view. Select a wire for its endpoints; route and length are illustrative.",
+      "Earlier case harness reference. Its PCB endpoints and nominal routes do not describe the new carrier.",
     exploded:
-      "Exploded assembly. Spacing is illustrative; wires retain their assembled route.",
+      "Earlier R5 assembly, exploded. Spacing is illustrative; wires keep their old assembled route.",
     diffuser:
       "Lift the front screws and rail, then slide the acrylic upward. The electronics lid stays fitted.",
-    xray: "Translucent case. All installed electronics, fasteners and wiring remain visible.",
+    xray: "Earlier R5 arrangement through a translucent case. New carrier placement is not shown.",
   };
   const requested = new URLSearchParams(window.location.search);
   if (Object.hasOwn(notes, requested.get("mode")))
