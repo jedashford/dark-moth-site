@@ -11,9 +11,9 @@
       "sha256": "21f8c6c25ce9c26431e1abf9080936c9e7ce7c40494fd562f3cf2f422e274283"
     },
     {
-      "bytes": 15725,
+      "bytes": 18702,
       "path": "PERFBOARD_GUIDE.md",
-      "sha256": "3c52f72e1b73e50fa287ced1793f904d56bd3fc113ac77f84b4e3da5032c677b"
+      "sha256": "944bfff18d8b0bc236bd7759db7adaa6556ae627269ca13ed96357e5a17ea5f7"
     },
     {
       "bytes": 9466,
@@ -21,9 +21,9 @@
       "sha256": "e5986b6a0a7667a2e6f63ae846b24de64d9444849a110909a50b84eacb69e88f"
     },
     {
-      "bytes": 5751,
+      "bytes": 7711,
       "path": "PERFBOARD_VERIFICATION.md",
-      "sha256": "e5def81fb88a083be4b6f95751860114ea7afc897d05b3968f40834cc5f643c8"
+      "sha256": "29d31e6e896c13f87b90fffa6a5155cfbb8751e8a8ef8e41c8dcda0d8296c4ff"
     },
     {
       "bytes": 11058,
@@ -36,9 +36,9 @@
       "sha256": "ebd41e78100b85bbcf8d2c0b7e6be104292a748ac6ab7b0db1a70f2bd3352987"
     },
     {
-      "bytes": 15414,
+      "bytes": 15577,
       "path": "README.md",
-      "sha256": "01b0a7c3d75df21d35a0606ec3f7bf8cd82827b19df10cf715eef321286e963a"
+      "sha256": "9db3dc37f882294ab295d7be46db7719d47cccd86233be96d8a96813494fb139"
     },
     {
       "bytes": 6212,
@@ -86,9 +86,9 @@
       "sha256": "ed0e849849b1f9f79af0692dc1c9807cf7622778ed0c36ea7ebeebd69a52fd4c"
     },
     {
-      "bytes": 26669517,
+      "bytes": 27022567,
       "path": "dark-moth-r5-print-pack.zip",
-      "sha256": "445e09795cd0719ff1aa1b60c26459d46ffa034ead48fa65ab0c0e564f57f419"
+      "sha256": "ed2eebe2c8c7666c00bb8fd1a0c97b86d9fc3d69c93727171f6a30e3709ad838"
     },
     {
       "bytes": 7057,
@@ -156,39 +156,49 @@
       "sha256": "72274519024c418dbc6aa1fd62a8af9aef9bd526bbaae73ce8ad864f1c98f053"
     },
     {
-      "bytes": 11263,
+      "bytes": 101166,
+      "path": "electronics/perfboard-combined-bottom.svg",
+      "sha256": "92e0d9f9a2f88ef1063304ad562f44613e44c86ef0be236c09ff77012d3d7936"
+    },
+    {
+      "bytes": 56431,
+      "path": "electronics/perfboard-combined-top.svg",
+      "sha256": "501fc6f276290a2e15f4de552090cf4d2763e2dfac7b85dcbafdaebf8bd876c5"
+    },
+    {
+      "bytes": 29350,
       "path": "electronics/perfboard-components.csv",
-      "sha256": "db6f5096db42561b4933e4781c173e78e82177d425169d03e50f60a6671b7beb"
+      "sha256": "2039c8c7b59cb878c721464a8377b879c0b00a70a1d966e12f9a61f5e15f6152"
     },
     {
-      "bytes": 12441,
+      "bytes": 30150,
       "path": "electronics/perfboard-connections.csv",
-      "sha256": "3869c9c45ebadc21af898579ecd1ca980fd2d16d6f28172780382243f4e799c2"
+      "sha256": "6a6c5912f83b72a05d86e9234bf324cd9fa1fdb01d7c4f018d394cd6e703d005"
     },
     {
-      "bytes": 37111,
+      "bytes": 39530,
       "path": "electronics/perfboard-driver-bottom.svg",
-      "sha256": "ee2de3ed4f3c05ad371135f000a37d4834da140987243469ee4a981618508aec"
+      "sha256": "b889f2833ea6c03b3cf0ba5f49debd0538656e18cc225b22c2bfe9893f374132"
     },
     {
-      "bytes": 28055,
+      "bytes": 28138,
       "path": "electronics/perfboard-driver-top.svg",
-      "sha256": "d8ca603fed8ebc3fff07a84bd84ade99a5dc9981e9842dc57ed70252e2b81d5f"
+      "sha256": "a022ab6ba6e412b08a0675f20fa47c24d6754b03443f18e0d9ca5767610c6585"
     },
     {
-      "bytes": 133768,
+      "bytes": 49712,
       "path": "electronics/perfboard-latch-bottom.svg",
-      "sha256": "4e0763a3f7c145df6813eba5ed8d79a4de044c9145d1f2cbc2f2ce5646ff2153"
+      "sha256": "bab40c9c33eb4bd436682b4d2b73ac5f429ffdba79a2d34daf69f6330808d313"
     },
     {
-      "bytes": 58414,
+      "bytes": 25719,
       "path": "electronics/perfboard-latch-top.svg",
-      "sha256": "a5e8fb12e9cb4d967f945b4d8f0752b92b3fc6be5cb873f571cab4ba6b83e583"
+      "sha256": "be4df4d7f6793066c4740650d398dbe288e176c7690fdef2ff9570d6d9a170a5"
     },
     {
-      "bytes": 39304,
+      "bytes": 90392,
       "path": "electronics/perfboard-layout.json",
-      "sha256": "a81cbb8f8c54c02adf426d979d2b6381deea1737441611749aad6e7432c30408"
+      "sha256": "9429af601e0d26d00fc6499934457ed01c85b3f70806acb6d98a996febf1d5a9"
     },
     {
       "bytes": 2285312,
@@ -226,14 +236,14 @@
       "sha256": "bf5b2e2cc605c4391e3656ce64ded9d8eca25ba51cda236535e8b9e37114ceef"
     },
     {
-      "bytes": 20166,
+      "bytes": 20281,
       "path": "index.html",
-      "sha256": "b7edd267697b06ffe353a79563db8ec1161e7d8d0ad5e1a549f66450b0b51aab"
+      "sha256": "e8c9ad4319d7c1ac9b26456669b3f337fe71310ae3832944b4e41d7a04a05f56"
     },
     {
-      "bytes": 28834,
+      "bytes": 32866,
       "path": "perfboard.html",
-      "sha256": "d95b7881e8d06be772c8248e8c58f97e83334158ac7d14deef393a355aedf2ba"
+      "sha256": "6c009056ab0a408037ec170e881c5eb3e0ed9e536e928b7a164bac30feaf20d4"
     },
     {
       "bytes": 63024,
@@ -281,54 +291,64 @@
       "sha256": "74359542af27f60d5ded5890918b12e635d560c7272046a010c45c678a91a74b"
     },
     {
-      "bytes": 8954,
+      "bytes": 11570,
       "path": "preview/site/perfboard/browser-checks.json",
-      "sha256": "431e427e21af49b19886f5eecd2e8e129b4a9cb7ce2f1e4d194bca73efa79805"
+      "sha256": "bab11638679db8d56016d524e8ca5e07494f8b445caec606ce87794411b8038a"
     },
     {
-      "bytes": 231326,
+      "bytes": 308605,
+      "path": "preview/site/perfboard/combined-ground-bottom.png",
+      "sha256": "f59df4ef61ab431d5528b7cf56c082a4873f3f6276411ab452919bf587e2e50c"
+    },
+    {
+      "bytes": 255209,
+      "path": "preview/site/perfboard/combined-top.png",
+      "sha256": "8abeb60212ca156ee7b3df704c449f27eed2cffdb2058ce273957621eb1a481c"
+    },
+    {
+      "bytes": 212242,
       "path": "preview/site/perfboard/controller.png",
-      "sha256": "f33a9f68657e9c42559cc3a61aadfeb73d4b7c6ada811c42c35163b97af9ff2a"
+      "sha256": "4bdc1c9f4957d74368552ed9dbb57d5903a0b6ed5a4e4791ae612b3c73b0733d"
     },
     {
-      "bytes": 245440,
+      "bytes": 235340,
       "path": "preview/site/perfboard/driver-3d.png",
-      "sha256": "e7cb19d95d83659e4cd52036c4ac68409fc184dd1ff6cdd4833975e2f8f71ffe"
+      "sha256": "d2b71cc85853777538b21cc166f54090494a37372e26c57adcccbfe49fcc7987"
     },
     {
-      "bytes": 233386,
+      "bytes": 232983,
       "path": "preview/site/perfboard/driver-ground-bottom.png",
-      "sha256": "2c0b4833f8fff93d7f16d4b8212f1052a1dd46229a5ffb285c1b2a4a05777ac5"
+      "sha256": "962e9cf2af85cc706a99f7d2a4fa9e0a9d37e3aba011e01e444b1a2ea56662a6"
     },
     {
-      "bytes": 360603,
+      "bytes": 240388,
       "path": "preview/site/perfboard/latch-ground-bottom.png",
-      "sha256": "066ee2be2a4271025d218c8b036ac4e0c07d77ba2f27494be78daec88e0fee39"
+      "sha256": "84c6611c2d8114d67cbdf0920c18543cd49080059b4a2e2a8f66c3bfb669f00c"
     },
     {
-      "bytes": 264668,
+      "bytes": 230704,
       "path": "preview/site/perfboard/latch-top.png",
-      "sha256": "8ac65f05e86f0d8debb9cefcaa98c9f0a4d1741e2feb6cdc0b13d25c068c965d"
+      "sha256": "3527bb40111560d8b16c81846e339036a930611401a0cea2aae2c7df775c5f74"
     },
     {
-      "bytes": 278725,
+      "bytes": 268284,
       "path": "preview/site/perfboard/main-pcb.png",
-      "sha256": "fec47f1e2a345d45c42b8c0a014d0514f75c1fdf1135622795120798a4428e74"
+      "sha256": "abfcd6211267303e6ec48c2c4c91092cb0a891316d8e5153113cdac8c85d436c"
     },
     {
-      "bytes": 72674,
+      "bytes": 75068,
       "path": "preview/site/perfboard/mobile.png",
-      "sha256": "fd007eb0a771910acd18adb6a312a093d41a45798d5ea1b7c27c29d02d3b8517"
+      "sha256": "8b753fa2cec9d4615646dc0eb5f5f624976fdde148b3ca8cc086b5e2f733ca80"
     },
     {
-      "bytes": 249466,
+      "bytes": 220946,
       "path": "preview/site/perfboard/navigation.png",
-      "sha256": "d8589a2fb83027b96142c5b9b79fbde9adfc96a1be7514d34440afa7c17276bc"
+      "sha256": "a5a3ac620b51a142e065a435bca81633ed0caaecb46b1385392bf70ddfd5d24c"
     },
     {
-      "bytes": 293039,
+      "bytes": 269800,
       "path": "preview/site/perfboard/system.png",
-      "sha256": "ef0778594319ff0792b5fd8eb21bcfae5a5bd87b3368dbdf81eb13b9554610eb"
+      "sha256": "47b4194f2662608991fc7e66a0bd3f925f001ff2c78160047ed5529c7e3fd321"
     },
     {
       "bytes": 151143,
@@ -506,39 +526,44 @@
       "sha256": "4134ecc39534c624eea282e765d92f0339fb9079dc7eb987581bd45758b483dd"
     },
     {
-      "bytes": 885,
+      "bytes": 1613,
       "path": "site/electronics-panel.css",
-      "sha256": "8b4067189db4dc04ea7cfe7698f515cb3e5a9069d7e537eb3137e4cf33790d53"
+      "sha256": "01e0832ca04ef8db373e00b8cd77527234f8c3e56b92b66591a6367eeb7c8da0"
     },
     {
-      "bytes": 4251,
+      "bytes": 5444,
       "path": "site/electronics-panel.js",
-      "sha256": "5f977aef76bbd728d6bcd829beb4de23d0e9506da56185da9fe401e125eb1976"
+      "sha256": "fa4526938bb0dbcfe66f3626deb5a3b9c482e84d70be26640406c2d2a37ad2f7"
     },
     {
-      "bytes": 16494,
+      "bytes": 3835,
+      "path": "site/perfboard-connections.js",
+      "sha256": "ac4531c65aa4b7755ae430c9407e9d111eed697f6020015783d025af9d9013a8"
+    },
+    {
+      "bytes": 15705,
       "path": "site/perfboard-geometry.js",
-      "sha256": "4cacc511f4f57a8086e55d9843d1fdb587b40650935a9b43cfc0207614fa63a0"
+      "sha256": "5cb5124cbff76b5adc3dadffd1481776dc2027a5f6290694a0dd6a268400db92"
     },
     {
-      "bytes": 15882,
+      "bytes": 16316,
       "path": "site/perfboard-guide.js",
-      "sha256": "27e31bdaa8d698ebb91f455a359ec9bdd12098cbd29b038bf350dca986ad2141"
+      "sha256": "d70cf3a603205b1c27fa05d6b24e94268480ed6f5cc602c70801f93ca275a46d"
     },
     {
-      "bytes": 14134,
+      "bytes": 14631,
       "path": "site/perfboard-scene.js",
-      "sha256": "634a441b4ab4e62e531246847684cec9e4044b0b392f70cbc9d83d0faab567dd"
+      "sha256": "ef64f0743815e0273c25b6e970f769d6efe0d13d57b8d1df2bbef263a0bd8c41"
     },
     {
-      "bytes": 3614,
+      "bytes": 8556,
       "path": "site/perfboard-state.js",
-      "sha256": "7a212666a4fb07ebdc37dd4864c38cac41312243da9e5acc7896c4b56a53ec97"
+      "sha256": "1b818d548eb295c37b0ed2c30612eb7c092543681859cfdb27e0dcc6a0e96df2"
     },
     {
-      "bytes": 7394,
+      "bytes": 7536,
       "path": "site/perfboard.css",
-      "sha256": "c135a7b4664ea15fd690b3460ef119ace2c9de1ac5d5597c00424b1e457554d2"
+      "sha256": "3c340d2d061b4840d2f8c3addb0751e957da272ddad0a57d3a44c745efdaa571"
     },
     {
       "bytes": 3452,
@@ -596,11 +621,11 @@
       "sha256": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2"
     },
     {
-      "bytes": 37209,
+      "bytes": 39507,
       "path": "verification-summary.json",
-      "sha256": "0d1ab3a3ce57fda6fdf5c2db08466cb591088db2cc468baa7d3626cabccb4609"
+      "sha256": "1b65602d71ae9fd3fd9ec85e30b6c21bde12279679ab41ac3bb9ce7b43b16078"
     }
   ],
-  "revision": "562e9ec3bcf2ab27a0f4b65285e9b46400998302",
+  "revision": "c9bca377fbbe6a8d4fb76ce6853ad011bacc084a",
   "schema_version": 1
 }

@@ -27,7 +27,7 @@
     getScene: () => scene,
     openMode: chooseMode,
   });
-  const isPerfboard = () => mode === "driver" || mode === "latch";
+  const isPerfboard = () => boards.some((item) => item.id === mode);
   async function chooseMode(id) {
     const ticket = ++requestId;
     mode = id;
@@ -55,7 +55,7 @@
     $("esp-select").parentElement.hidden = !handwired;
     $("layer-select").value = "all";
     $("layer-select").options[2].textContent = handwired
-      ? "Underside wires only"
+      ? "Underside connections only"
       : "Connections only";
     document.querySelector('button[data-view="top"]').textContent = handwired
       ? "Component side"
@@ -118,7 +118,7 @@
     $("part-select").value = ref;
     if (scene) scene.highlight({ component: ref });
     $("inspection").innerHTML =
-      `<p class="inspection-label">Component · ${esc(part.mounting.replaceAll("_", " "))}</p><h2>${esc(ref)} <small>${esc(part.value)}</small></h2><p>${esc(part.notes.join(" "))}</p><h3>Put each identified leg here</h3><ul>${part.pins.map((pin) => `<li><strong>${esc(pin.role)}</strong> → ${hole(pin.hole)}<br />${netButton(pin.net)}</li>`).join("")}</ul>${part.pin_order_status ? `<p>${esc(part.pin_order_status)}</p>` : "<p>Each end belongs to a different net. Do not add a wire across this component.</p>"}`;
+      `<p class="inspection-label">Component · ${esc(part.mounting.replaceAll("_", " "))}</p><h2>${esc(ref)} <small>${esc(part.value)}</small></h2><p>${esc(state.componentInstructions(board, part))}</p><h3>Put each identified leg here</h3><ul>${part.pins.map((pin) => `<li><strong>${esc(pin.role)}</strong> → ${hole(pin.hole)}<br />${netButton(pin.net)}</li>`).join("")}</ul>${part.pin_order_status ? `<p>${esc(part.pin_order_status)}</p>` : "<p>Each end belongs to a different net. Do not add a wire across this component.</p>"}`;
   }
   function inspectNet(net, selected) {
     const definition = board.nets.find((item) => item.id === net);
@@ -126,23 +126,27 @@
     $("net-select").value = net;
     if (scene) scene.highlight({ net });
     const items = state.members(board, net),
-      wires = board.jumpers.filter((item) => item.net === net);
+      wires = board.jumpers.filter((item) => item.net === net),
+      counts = state.connectionCounts({ ...board, jumpers: wires });
     $("inspection").innerHTML =
-      `<p class="inspection-label">One electrically connected net</p><h2>${esc(net)}</h2>${selected && selected.hole ? `<p>Selected ${hole(selected.hole)}${selected.role ? ` · ${esc(selected.component)} ${esc(selected.role)}` : ""}</p>` : ""}<p>${esc(definition ? definition.meaning : "Every listed point must be joined by the specified wiring.")}</p><h3>All of these points join together</h3><ul>${items.map((item) => `<li>${hole(item.hole)} ${esc(item.label)}</li>`).join("")}</ul><p>${wires.length} underside wire${wires.length === 1 ? "" : "s"} in this net. Nearby pads and crossing wires do not connect automatically.</p>${net === "GND" ? "<p><strong>This bus can be shared.</strong> It includes every source and pulldown ground end on the driver. Each gate and drain stays separate.</p>" : ""}`;
+      `<p class="inspection-label">One electrically connected net</p><h2>${esc(net)}</h2>${selected && selected.hole ? `<p>Selected ${hole(selected.hole)}${selected.role ? ` · ${esc(selected.component)} ${esc(selected.role)}` : ""}</p>` : ""}<p>${esc(definition ? definition.meaning : "Every listed point must be joined by the specified wiring.")}</p><h3>All of these points join together</h3><ul>${items.map((item) => `<li>${hole(item.hole)} ${esc(item.label)}</li>`).join("")}</ul><p>${counts.retainedLeads} reused component leads and ${counts.addedWires} added wire pieces in this net. Nearby pads and crossing wires do not connect automatically.</p>${net === "GND" ? "<p><strong>This bus can be shared.</strong> Every listed ground leg needs a joint to this network. Gate and drain connections stay on their own named nets.</p>" : ""}`;
   }
   function inspectWire(id) {
-    const wire = board.jumpers.find((item) => item.id === id);
+    const wire = state
+      .connections(board)
+      .find((item) => item.id === id || item.ids.includes(id));
     if (!wire) return;
     resetSelectors();
     $("net-select").value = wire.net;
-    if (scene) scene.highlight({ jumper: id });
+    if (scene) scene.highlight({ jumpers: wire.ids });
+    const connection = state.connectionInfo(board, wire);
     $("inspection").innerHTML =
-      `<p class="inspection-label">Insulated underside jumper</p><h2>${hole(wire.from)} → ${hole(wire.to)}</h2><p>${esc(wire.id)} · ${netButton(wire.net)}</p><p>${wire.connection_style === "continuous_ground_bus" ? "Continue one insulated bus through C2, C4, C6, C8, C10 and C13. Strip small windows at those pads only. Solder this segment at its two named pads and check continuity." : "Solder the stripped ends to these two pads or their trimmed component leads. Keep insulation along the span, including every crossing. Check continuity between both endpoints."}</p><p>This wire joins the <strong>${esc(wire.net)}</strong> net. Its drawn route is illustrative; choose a short practical route without bare crossings.</p>`;
+      `<p class="inspection-label">${esc(connection.label)}</p><h2>${hole(wire.from)} → ${hole(wire.to)}</h2><p>${esc(wire.id)} · ${netButton(wire.net)}</p><p>${esc(connection.text)}</p><h3>All soldered pads on this conductor</h3><p>${connection.joinedHoles.map(hole).join(" → ")}</p><p>These pads join <strong>${esc(wire.net)}</strong>. Other crossings do not connect.</p>`;
   }
   function renderTerminals() {
     const variant = $("esp-select").value;
     $("controller-note").textContent =
-      `Showing ESP32-${variant} GPIO numbers. Use this same controller choice throughout both boards. Verify your module's printed pin labels; physical header order varies.`;
+      `Showing ESP32-${variant} GPIO numbers. Use this same controller choice throughout the selected layout. Verify your module's printed pin labels; physical header order varies.`;
     $("terminal-rows").innerHTML = state
       .terminalRows(board, variant)
       .map(
@@ -215,8 +219,11 @@
     $("layer-select").value = "all";
     setView("angle");
     $("board-dimensions").textContent =
-      `${board.name} · ${board.columns} × ${board.rows.length} holes · 2.54 mm pitch`;
+      `${board.name.replace(/ · \d+ × \d+ holes$/, "")} · ${board.columns} × ${board.rows.length} holes · 2.54 mm pitch`;
     $("board-fit-note").textContent = board.case_fit;
+    const counts = state.connectionCounts(board);
+    $("connection-summary").textContent =
+      `${counts.retainedLeads} reused component leads · ${counts.addedWires} added wire pieces (${counts.insulatedWires} links + ${counts.busWires} ground bus). External module cables are additional.`;
     $("top-map").href = `electronics/perfboard-${board.id}-top.svg`;
     $("bottom-map").href = `electronics/perfboard-${board.id}-bottom.svg`;
     $("part-select").innerHTML =
@@ -243,11 +250,12 @@
         ),
       )
       .join("");
-    $("wire-rows").innerHTML = board.jumpers
-      .map(
-        (wire) =>
-          `<tr><td>${esc(wire.id)}</td><td>${hole(wire.from)}</td><td>${hole(wire.to)}</td><td>${esc(wire.net)}</td></tr>`,
-      )
+    $("wire-rows").innerHTML = state
+      .connections(board)
+      .map((wire) => {
+        const connection = state.connectionInfo(board, wire);
+        return `<tr><td>${esc(wire.id)}</td><td>${esc(connection.label)}</td><td>${connection.joinedHoles.map(hole).join(" → ")}</td><td>${esc(wire.net)}</td></tr>`;
+      })
       .join("");
     renderTerminals();
     sequence = state.steps(board);
@@ -258,7 +266,7 @@
       )
       .join("");
     $("inspection").innerHTML =
-      '<p class="inspection-label">Start here</p><h2>Follow one leg.</h2><p>Select a component, leg or wire on the board. Or choose a part above for every leg’s exact hole.</p><p>Try <strong>Trace shared ground</strong> to see which points can share the same wire network.</p><p>The model shows electrical roles. Actual transistor pin order and component dimensions must be checked against the parts in your hand.</p>';
+      '<p class="inspection-label">Start here</p><h2>Follow one leg.</h2><p>Select a component, leg or wire on the board. Or choose a part above for every leg’s exact hole. Retain the leads marked “do not trim” for direct joints underneath.</p><p>Try <strong>Trace shared ground</strong> to see which points can share the same wire network.</p><p>The model shows electrical roles. Actual transistor pin order and component dimensions must be checked against the parts in your hand.</p>';
   }
   async function start() {
     try {

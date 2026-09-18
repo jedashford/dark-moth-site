@@ -124,6 +124,16 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
     if (!["top", "bottom", "angle"].includes(name))
       throw new Error(`Unknown perfboard view: ${name}`);
     view = name;
+    const shadows = name === "angle";
+    if (renderer.shadowMap.enabled !== shadows) {
+      renderer.shadowMap.enabled = shadows;
+      model?.group.traverse((object) => {
+        for (const material of Array.isArray(object.material)
+          ? object.material
+          : [object.material])
+          if (material) material.needsUpdate = true;
+      });
+    }
     controls.noRotate = name !== "angle";
     // Trackball rotates camera.up too. Presets always restore the physical
     // component/solder-side orientation, even after a fully inverted drag.
@@ -176,7 +186,8 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
         (descriptor.net === focus.net ||
           descriptor.nets?.includes(focus.net))) ||
         (focus.component && descriptor.component === focus.component) ||
-        (focus.jumper && descriptor.jumper === focus.jumper)),
+        (focus.jumper && descriptor.jumper === focus.jumper) ||
+        (focus.jumpers && focus.jumpers.includes(descriptor.jumper))),
     );
   }
   function stepVisible(descriptor, layer) {
@@ -202,7 +213,7 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
       const jumperVisible = model.board.jumpers.some(
         (jump) =>
           (missing(step.jumperIds) || step.jumperIds.includes(jump.id)) &&
-          [jump.from, jump.to].includes(descriptor.hole),
+          (jump.joined_holes || [jump.from, jump.to]).includes(descriptor.hole),
       );
       return componentVisible || jumperVisible;
     }
@@ -210,7 +221,9 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
   }
   function applyState() {
     if (!model) return;
-    const focused = Boolean(focus.net || focus.component || focus.jumper);
+    const focused = Boolean(
+      focus.net || focus.component || focus.jumper || focus.jumpers?.length,
+    );
     for (const entry of model.entries) {
       const { object, descriptor, layer } = entry;
       object.visible =

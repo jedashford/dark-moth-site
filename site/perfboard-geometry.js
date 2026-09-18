@@ -50,8 +50,14 @@ window.DarkMothPerfboardGeometry = (() => {
         ...terminal,
         terminal: terminal.id,
       });
+    for (const junction of board.junctions || [])
+      occupants.set(junction.hole, {
+        ...occupants.get(junction.hole),
+        ...junction,
+        junction: true,
+      });
     for (const jumper of board.jumpers) {
-      for (const hole of [jumper.from, jumper.to])
+      for (const hole of window.DarkMothPerfboardConnections.holes(jumper))
         occupants.set(hole, { ...occupants.get(hole), net: jumper.net });
     }
     function register(object, descriptor, layer = "components") {
@@ -113,7 +119,7 @@ window.DarkMothPerfboardGeometry = (() => {
       const ctx = canvas.getContext("2d");
       ctx.fillStyle = "rgba(250,251,245,.94)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.font = "600 49px system-ui, sans-serif";
+      ctx.font = "600 76px system-ui, sans-serif";
       ctx.fillStyle = color;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -209,7 +215,7 @@ window.DarkMothPerfboardGeometry = (() => {
         ctx.restore();
       }
       for (const [hole, [x, y]] of positions)
-        word(hole, x, y + 1.27, 0.5, "#e9f1df");
+        word(hole, x, y + 1.27, 0.65, "#e9f1df");
       for (let column = 1; column <= board.columns; column++)
         word(
           String(column),
@@ -409,42 +415,13 @@ window.DarkMothPerfboardGeometry = (() => {
         }
       }
     }
-    function trimEnds(points, amount) {
-      const values = points.map((p) => p.clone());
-      for (let end = 0; end < 2; end++) {
-        if (end) values.reverse();
-        let left = amount;
-        while (values.length > 2 && values[0].distanceTo(values[1]) <= left)
-          left -= values.shift().distanceTo(values[0]);
-        values[0].lerp(
-          values[1],
-          Math.min(0.9, left / values[0].distanceTo(values[1])),
-        );
-      }
-      return values.reverse();
-    }
-    for (const jumper of board.jumpers) {
-      const descriptor = {
-        type: "jumper",
-        id: jumper.id,
-        jumper: jumper.id,
-        net: jumper.net,
-        from: jumper.from,
-        to: jumper.to,
-        label: `${jumper.id} · ${jumper.from} → ${jumper.to} · ${jumper.net}`,
-        side: "bottom",
-      };
-      const points = jumper.route_mm.map(point);
-      tube(points, 0.18, 0xc4c6c3, descriptor, "wiring", { metalness: 0.8 });
-      tube(
-        trimEnds(points, 0.8),
-        0.32,
-        netColor(jumper.net),
-        descriptor,
-        "wiring",
-        { roughness: 0.42 },
-      );
-    }
+    window.DarkMothPerfboardConnections.draw({
+      board,
+      positions,
+      point,
+      tube,
+      netColor,
+    });
     for (const hole of holes.filter((hole) => hole.net)) {
       const joint = mesh(
         new THREE.LatheGeometry(

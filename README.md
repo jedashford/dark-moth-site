@@ -8,7 +8,7 @@ The case is **111 × 103 × 36 mm**, with the side key projecting another **0.8 
 
 [Complete R5 print and assembly pack](dark-moth-r5-print-pack.zip) · [Print setup guide](print.html) · [Electronics assembly guide](PCB_GUIDE.md) · [Verification](VERIFICATION.md) · [Design review](REVIEW.md)
 
-**Blank green boards:** open the [interactive perfboard workbench](perfboard.html), [written instructions](PERFBOARD_GUIDE.md) and [electrical qualification review](PERFBOARD_REVIEW.md). [Digital verification](PERFBOARD_VERIFICATION.md) records the checks. The new latch perfboard is a bench reference; its mounting and powered operation remain unqualified.
+**Blank green boards:** open the [interactive perfboard workbench](perfboard.html), [written instructions](PERFBOARD_GUIDE.md) and [electrical qualification review](PERFBOARD_REVIEW.md). [Digital verification](PERFBOARD_VERIFICATION.md) records the checks. The compact reference puts latch and LED driver on one 24 × 10 hole board, using retained component leads for thirteen latch joints. It also provides a smaller latch-only option. Its mounting and powered operation remain unqualified.
 
 ## Start with the coupon
 
@@ -46,7 +46,7 @@ For other stock thicknesses, change `sheet_t` within **1–3.2 mm**, and review 
 
 ## Hardware and assembly order
 
-Use the corrected **94 × 60 mm through-hole power-latch PCB**, primary **ESP32-C3 SuperMini**, protected TP4056 charger, MT3608 boost, LiPo and separate five-channel perfboard driver. The full electrical BOM, transistor lead assignments, exact solder holes and bring-up procedure are in [PCB_GUIDE.md](PCB_GUIDE.md). The older 24 V production controller is a different design.
+The case reference assembly uses the corrected **94 × 60 mm through-hole power-latch PCB**, primary **ESP32-C3 SuperMini**, protected TP4056 charger, MT3608 boost, LiPo and separate five-channel perfboard driver. The full electrical BOM, transistor lead assignments, exact solder holes and bring-up procedure are in [PCB_GUIDE.md](PCB_GUIDE.md). The older 24 V production controller is a different design.
 
 **Leave the main PCB `SW` footprint unpopulated.** Its repeated pad numbers and assigned nets conflict with a matching four-leg switch's contact grouping. The R5 remote switch replaces it. Use the two specifically identified OUT+ and BTN_N holes in the guide; do not identify them by pad number alone.
 

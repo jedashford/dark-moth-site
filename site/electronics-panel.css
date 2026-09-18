@@ -49,3 +49,44 @@
 #board-canvas.loading-model canvas {
   visibility: hidden;
 }
+
+.connection-summary {
+  padding: 14px 18px;
+  border-left: 3px solid #315a48;
+  background: #e8eee9;
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+.connection-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  flex-basis: 100%;
+  margin: 2px 0 0;
+  color: #3d5049;
+  font-size: 12px;
+}
+.connection-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.connection-legend i {
+  display: inline-block;
+  width: 23px;
+  height: 5px;
+  background: #b9bdbc;
+  border: 1px solid #707a76;
+  border-radius: 3px;
+}
+.connection-legend .legend-wire {
+  height: 8px;
+  background: #607e8a;
+  border-color: #425e68;
+}
+.connection-legend .legend-joint {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}

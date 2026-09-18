@@ -1,152 +1,178 @@
-# Dark Moth — build on isolated-pad perfboard
+# Dark Moth — fewer wires, one shared perfboard
 
-Use this guide for the green boards with individual solder pads. The [printed-PCB guide](PCB_GUIDE.md) describes a different fabrication method; its copper tracks and hole coordinates do not exist on a blank perfboard.
+The **combined board** puts the nine power/button-latch parts and fifteen LED-driver parts on one blank green board. The latch uses **13 existing component leads as connections**. The complete combined board needs **15 insulated links and one ground-bus wire**, plus the external cables to the other modules.
 
-**Start with one unpowered prototype.** This layout preserves the existing circuit. Its latch current capacity and button-to-ESP startup connection still need qualification before powered batch building. The measurements and reasons are in [the electrical review](PERFBOARD_REVIEW.md).
+The layout keeps the existing circuit, resistor values and GPIO assignments. It does not combine resistors that do different jobs. The ESP, charger, boost converter, battery, LED strip and remote button remain separate modules.
 
-## 1. Open the hole map and mark your board
+**Layout revision: compact-2026-09.** These latch coordinates replace the previous 70 × 50 mm reference. Do not mix the old latch drawing with these instructions. Build one unpowered prototype first; the existing electrical limits in [the review](PERFBOARD_REVIEW.md) still need qualification before powered batch building.
 
-[Interactive assembly](perfboard.html) · [Component list](electronics/perfboard-components.csv) · [Wire checklist](electronics/perfboard-connections.csv) · [Layout data](electronics/perfboard-layout.json)
+## 1. Choose a board and mark its holes
 
-| Reference board | Hole grid                                | Component side                                      | Solder side                                               |
-| --------------- | ---------------------------------------- | --------------------------------------------------- | --------------------------------------------------------- |
-| Power latch     | 26 columns, rows A–R; nominal 70 × 50 mm | [Top drawing](electronics/perfboard-latch-top.svg)  | [Bottom drawing](electronics/perfboard-latch-bottom.svg)  |
-| LED driver      | 13 columns, rows A–E; nominal 35 × 15 mm | [Top drawing](electronics/perfboard-driver-top.svg) | [Bottom drawing](electronics/perfboard-driver-bottom.svg) |
+[Combined board in 3D](perfboard.html?board=combined#workbench) · [Component list](electronics/perfboard-components.csv) · [Connection checklist](electronics/perfboard-connections.csv) · [Layout data](electronics/perfboard-layout.json)
 
-These are **reference layouts on a 2.54 mm grid**, not measurements of your boards or a promise of case fit. Dry-fit the actual parts and check usable holes before cutting anything.
+| Layout                      | Hole grid                                         | Component side                                        | Solder side                                                 |
+| --------------------------- | ------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------------- |
+| **Combined latch + driver** | 24 columns, rows A–J                              | [Top drawing](electronics/perfboard-combined-top.svg) | [Bottom drawing](electronics/perfboard-combined-bottom.svg) |
+| Compact latch only          | 11 columns, rows A–J                              | [Top drawing](electronics/perfboard-latch-top.svg)    | [Bottom drawing](electronics/perfboard-latch-bottom.svg)    |
+| Separate LED driver         | 13 columns, rows A–E; previous driver coordinates | [Top drawing](electronics/perfboard-driver-top.svg)   | [Bottom drawing](electronics/perfboard-driver-bottom.svg)   |
 
-1. Disconnect the battery, USB and every external supply. Check the bare board with a meter: neighboring pads must be electrically separate. Some similar-looking boards connect pads in strips or groups; this layout cannot be copied onto those without changes.
-2. Choose the component face. Mark **A1** at its upper-left hole; rows run downward, column numbers run rightward. Mark the same physical corner on the back.
-3. Turn the board over like a book, keeping row A at the top. A1 is now at the **upper-right**. It is still A1: do not renumber from the back. Use the bottom drawing for soldering.
-4. Keep the wire checklist open. Tick off each individual connection after soldering and testing it. A colored line crossing another line in a drawing does not mean they connect.
+Older project notes describe **10 × 24 hole blanks**. The combined reference uses that grid with the long edge horizontal: **A–J are rows; 1–24 are columns**. This is a documented starting assumption, not a measurement of the board in your hand. At 2.54 mm pitch, the outer hole centers span 58.42 × 22.86 mm; the actual board needs its own edge margins. The latch alone spans 25.40 × 22.86 mm between outer hole centers. Case mounting remains unverified.
 
-`LATCH.A1` and `DRIVER.A1` refer to different boards. Hole names describe places; a **net** such as GND names holes that must be electrically joined.
+1. Disconnect battery, USB and every supply. Check the blank with a meter: neighboring pads must be separate. Connected strips or groups need a different layout.
+2. On the component face, mark **A1 at the upper-left hole**. Letters run downward; numbers run rightward. Mark that same physical corner underneath.
+3. Flip the board like a book, keeping row A at the top. A1 is now **upper-right**. Never renumber from the back; use the solder-side drawing.
+4. Choose one layout throughout. The combined board contains both circuits; do not also build the two separate boards. Combined latch holes match the compact latch; combined driver columns are the separate driver's columns **plus 11**.
+5. Dry-fit the actual bodies and identify transistor pin roles before soldering. The models use nominal package dimensions and formed leads; they do not establish your manufacturer's left/middle/right pin order.
 
-## 2. Gather and identify the parts
+## 2. Gather the parts and keep the useful leads
 
-| Board         | Parts                                                                                                                                                                                          |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Latch         | QP: SS8550 PNP; QL: BS170; Db: 1N4148 diode; Rb: 330 Ω; Rbtn: 1 kΩ; Rbe/Rgl/Rs1/Rs2: four 100 kΩ resistors                                                                                     |
-| Driver        | Q1–Q5: five BS170s; Rg1–Rg5: five 100 Ω resistors; Rp1–Rp5: five 10 kΩ resistors                                                                                                               |
-| Remote button | One normally-open switch, small insulating board, matched two-pin plug/socket and two-wire cable                                                                                               |
-| Modules       | One protected TP4056 charger; one MT3608 boost converter; one ESP32-C3 SuperMini or the supported S3 alternate; 100 mm of the specified 12 V common-positive RGBWW strip; one suitable 1S LiPo |
+| Circuit           | Parts                                                                                                                                                 |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Latch             | QP: SS8550 PNP; QL: BS170; Db: 1N4148; Rb: 330 Ω; Rbtn: 1 kΩ; Rbe/Rgl/Rs1/Rs2: four 100 kΩ resistors                                                  |
+| Five LED channels | Q1–Q5: five BS170s; Rg1–Rg5: five 100 Ω resistors; Rp1–Rp5: five 10 kΩ resistors                                                                      |
+| Remote button     | One normally-open momentary switch, small insulating board, matched two-pin plug/socket and two-wire cable                                            |
+| Other modules     | Protected TP4056 charger, MT3608 boost, ESP32-C3 SuperMini or supported S3 alternate, specified 12 V common-positive RGBWW strip and suitable 1S LiPo |
 
-The resistor reference build uses ¼ W parts. Total discrete parts are **six BS170s, one SS8550, one diode and sixteen resistors**, plus the remote switch. Insulated wire, solder, sleeve/heat-shrink and a meter are also needed. Leave optional battery-sense resistors and ESP GPIO1 unconnected.
+That is **six BS170s, one SS8550, one diode and sixteen resistors**, plus the switch and modules. The reference resistor bodies are ¼ W. Measure their values. Leave optional battery-sense resistors and ESP GPIO1 unconnected.
 
-Measure resistor values before installing them. Identify each transistor's exact part and its manufacturer's lead diagram. **Do not assume the flat face always gives the same left/middle/right roles.** The hole map specifies E/B/C for QP and D/G/S for each BS170; route the identified legs to those holes. Keep any crossed or extended legs insulated.
+**Do not trim the 13 source leads listed in section 3.** Each becomes a connection underneath the board. Every inserted leg still gets its own hole; a shared joint is made by laying one retained lead against another lead/pad and soldering them together. Do not force multiple inserted legs into a small hole.
 
-## 3. Populate the latch
+The longest retained-lead route is 7.62 mm. Allow approximately another 2 mm of usable tail below the seated board for forming and solder overlap; this is a design allowance, not a measured lead guarantee. If a lead is too short or too stiff, use a short insulated link on the same named route. Do not stretch a lead or repeatedly bend it at the package.
 
-Use the latch component table in the interactive guide for **both holes of every resistor and diode, and every transistor leg**. Do not use the older PCB's millimetre coordinates.
+## 3. Build the compact latch with direct lead joints
 
-| Part        | First electrical end        | Other electrical end |
-| ----------- | --------------------------- | -------------------- |
-| Rb, 330 Ω   | PB                          | LDRV                 |
-| Rbtn, 1 kΩ  | GATE                        | BTN_DIO              |
-| Rbe, 100 kΩ | OUT+                        | PB                   |
-| Rgl, 100 kΩ | GATE                        | GND                  |
-| Rs1, 100 kΩ | BTN_N                       | SENSE                |
-| Rs2, 100 kΩ | SENSE                       | GND                  |
-| Db, 1N4148  | **Stripe/cathode: BTN_DIO** | Anode: BTN_N         |
-| QP, SS8550  | Emitter: OUT+; base: PB     | Collector: VSW       |
-| QL, BS170   | Drain: LDRV; gate: GATE     | Source: GND          |
+These coordinates are the same on the compact latch and combined board. Identify E/B/C or D/G/S from the actual manufacturer's diagram. Form and insulate any crossed package leads above the board.
 
-1. Fit the six resistors in their listed holes. Resistors have no polarity; their two leads must still occupy the correct pair of holes. Solder and trim while keeping enough lead at each pad to attach its listed wire.
-2. Fit Db with its stripe at the listed **K/BTN_DIO** hole. Check it before soldering.
-3. Fit QP and QL by their identified leg roles. Form leads gently without forcing the bodies against the board.
-4. Add the insulated underside jumpers from the wire checklist, one at a time. Strip only the short ends at the two intended pads. A wire passing a third pad must remain insulated there.
-5. Make each GND connection physically join the ground wiring. Nearby ground holes do not join themselves. Check from QL source, Rgl's GND end and Rs2's GND end to the latch ground terminal.
-6. Label the external wire positions OUT+, VSW, GND, GATE, SENSE and BTN_N. These labels describe this perfboard's wires; they are not factory printing on the blank board.
+| Part        | Exact holes and electrical roles                | Mounting            |
+| ----------- | ----------------------------------------------- | ------------------- |
+| QP, SS8550  | E: **B2** OUT+; B: **B3** PB; C: **B4** VSW     | Formed TO-92 leads  |
+| QL, BS170   | D: **B7** LDRV; G: **B8** GATE; S: **B9** GND   | Formed TO-92 leads  |
+| Rbe, 100 kΩ | D1 OUT+ → D2 PB                                 | Upright, body at D1 |
+| Rb, 330 Ω   | D3 PB → D7 LDRV                                 | Horizontal          |
+| Rgl, 100 kΩ | D8 GATE → D9 GND                                | Upright, body at D8 |
+| Rbtn, 1 kΩ  | F8 GATE → F4 BTN_DIO                            | Horizontal          |
+| Db, 1N4148  | **Striped K: H5 BTN_DIO**; unbanded A: H1 BTN_N | Horizontal          |
+| Rs1, 100 kΩ | J1 BTN_N → J5 SENSE                             | Horizontal          |
+| Rs2, 100 kΩ | J7 SENSE → J11 GND                              | Horizontal          |
 
-The four 100 kΩ resistors do different jobs. Do not replace them with one shared resistor.
+Horizontal parts use a 10.16 mm hole spacing. Upright Rbe and Rgl use adjacent holes; sleeve their long folded return leads above the board. Check actual body clearance, especially around adjacent parts, before soldering.
 
-## 4. Build the green driver channel first
+Place and solder the parts while retaining the source leads below. Then flip to the solder-side view. Bend **one existing leg per row** and solder at **every named pad** along its route. These are bare-metal connections; all traversed pads are deliberately assigned to the same net.
 
-View the **component side** of the driver board. The first channel uses Q1, Rg1 and Rp1:
+| Retain this existing lead | Solder-side route | Net     |
+| ------------------------- | ----------------- | ------- |
+| Rbe end 1, at D1          | D1 → C1 → C2 → B2 | OUT+    |
+| QP emitter, at B2         | B2 → A2 → A1      | OUT+    |
+| Rbe end 2, at D2          | D2 → D3           | PB      |
+| QP base, at B3            | B3 → C3 → D3      | PB      |
+| QP collector, at B4       | B4 → A4 → A5      | VSW     |
+| Rb end 2, at D7           | D7 → C7 → B7      | LDRV    |
+| QL gate, at B8            | B8 → C8 → D8      | GATE    |
+| Rbtn end 1, at F8         | F8 → E8 → D8      | GATE    |
+| QL source, at B9          | B9 → C9 → D9      | GND     |
+| Rgl end 2, at D9          | D9 → D10 → D11    | GND     |
+| Rbtn end 2, at F4         | F4 → G4 → G5 → H5 | BTN_DIO |
+| Db anode, at H1           | H1 → I1 → J1      | BTN_N   |
+| Rs1 end 2, at J5          | J5 → J6 → J7      | SENSE   |
 
-| Component  | First leg          | Second leg      | Third leg  |
-| ---------- | ------------------ | --------------- | ---------- |
-| Q1         | Drain: A2          | Gate: B2        | Source: C2 |
-| Rg1, 100 Ω | Body-side lead: D2 | Return lead: D3 | —          |
-| Rp1, 10 kΩ | Body-side lead: E3 | Return lead: E2 | —          |
+For example, **D3 joins three legs**: Rb end 1 is inserted there; QP base and Rbe end 2 bend to it underneath. **D8 joins Rgl end 1, QL gate and Rbtn end 1.** These are intended shared junctions. The resistors themselves still sit between different nets; never add a bridge across a resistor body.
 
-Stand the two resistors upright as shown. Sleeve each long folded return lead so it cannot touch another lead. Transistor lead order is determined by the actual part, not by this table's reading order.
+Add one dedicated ground conductor:
 
-1. Connect ESP green PWM through the harness to **D2**. Current in this control path passes **through Rg1 from D2 to D3**; do not solder a jumper across the resistor.
-2. Solder an insulated jumper **D3 → B2**, reaching Q1 gate.
-3. Solder **D3 → E3**, reaching Rp1's gate-side lead.
-4. Solder **E2 → C2**, joining Rp1's other lead to Q1 source.
-5. Join **C2 to the driver ground bus**, which ends at C13. Follow every segment in the wire checklist.
-6. Connect the strip's **G** return wire to **A2**, Q1 drain. That drain is a switched return; it must not be permanently wired to ground.
+- **Combined:** route one insulated wire J11 → C11 → C24. Strip solder windows only at **J11, H11, G11, F11, E11, D11, C13, C15, C17, C19, C21 and C24**. The five driver sources join at C13/C15/C17/C19/C21. Keep the span at I11, the corner at C11 and all other intervening pads insulated; those are not joints.
+- **Latch alone:** route one insulated wire D11 → J11. Strip solder windows at **D11, E11, F11, G11, H11, I11 and J11**. I11 is the outgoing ground connection to the separate driver.
 
-The result is `GPIO → 100 Ω → gate`, with `gate → 10 kΩ → source → GND`. The strip's common positive goes to +12 V; its green return goes to the drain.
+Use the selected drawing's ground-bus route and soldered taps. The bus carries the system return current; size its conductor for the measured load. Do not send boost/LED return current through a thin resistor lead. Insulate the other wires where they cross the bus. The 13 lead joints replace the previous latch's 23 individually cut jumpers; the bus remains a separate conductor.
 
-## 5. Repeat the remaining four channels
+## 4. Build the green LED channel
 
-| Channel        | Q drain / gate / source | 100 Ω: body / return | 10 kΩ: body / return | PWM wire | Strip return |
-| -------------- | ----------------------- | -------------------- | -------------------- | -------- | ------------ |
-| Green, Q1      | A2 / B2 / C2            | D2 / D3              | E3 / E2              | D2       | A2           |
-| Red, Q2        | A4 / B4 / C4            | D4 / D5              | E5 / E4              | D4       | A4           |
-| Blue, Q3       | A6 / B6 / C6            | D6 / D7              | E7 / E6              | D6       | A6           |
-| Warm white, Q4 | A8 / B8 / C8            | D8 / D9              | E9 / E8              | D8       | A8           |
-| Cool white, Q5 | A10 / B10 / C10         | D10 / D11            | E11 / E10            | D10      | A10          |
+The combined layout moves the existing driver eleven columns to the right. The following table shows both choices explicitly:
 
-Repeat the green channel's three local jumpers for each pair of columns. Join all five sources, **C2/C4/C6/C8/C10**, to the ground bus and **C13**, using the listed insulated wire segments. Do not try to force five wire ends into one hole.
+| Component leg             | Combined board  | Separate driver |
+| ------------------------- | --------------- | --------------- |
+| Q1 drain / gate / source  | A13 / B13 / C13 | A2 / B2 / C2    |
+| Rg1, 100 Ω: body / return | D13 / D14       | D2 / D3         |
+| Rp1, 10 kΩ: body / return | E14 / E13       | E3 / E2         |
 
-**What can share:** the ground wire network and the strip's common +12 V supply. **What stays separate:** each channel's drain, gate, 100 Ω series resistor and 10 kΩ pulldown resistor. Sharing one gate resistor or pulldown would connect channels that the ESP must control independently. These resistors control the MOSFETs; they are not the strip's LED current-limiting resistors.
+Stand both resistors upright and sleeve their folded return leads. For the **combined** board:
+
+1. The ESP green PWM wire attaches at **D13**. Its signal passes **through Rg1 to D14**.
+2. Add an insulated link **D14 → B13** to Q1 gate.
+3. Add an insulated link **D14 → E14** to Rp1's gate-side end.
+4. Add an insulated link **E13 → C13** from Rp1's other end to Q1 source.
+5. Q1 source at C13 joins the shared ground bus. Attach the strip's **G** return to **A13**, the drain.
+
+Use the separate driver's corresponding holes if you chose that board. Keep these three links insulated: the gate path crosses the ground-bus row, and the source-to-pulldown path passes the PWM pad. Replacing them with bare straight leads would create shorts.
+
+The circuit is `GPIO → 100 Ω → gate`, with `gate → 10 kΩ → source → GND`. The strip's common positive connects to +12 V; its channel return connects to the drain.
+
+## 5. Repeat the other four channels
+
+| Channel        | Combined Q drain / gate / source | Combined 100 Ω body / return | Combined 10 kΩ body / return | Separate Q drain / gate / source |
+| -------------- | -------------------------------- | ---------------------------- | ---------------------------- | -------------------------------- |
+| Green, Q1      | A13 / B13 / C13                  | D13 / D14                    | E14 / E13                    | A2 / B2 / C2                     |
+| Red, Q2        | A15 / B15 / C15                  | D15 / D16                    | E16 / E15                    | A4 / B4 / C4                     |
+| Blue, Q3       | A17 / B17 / C17                  | D17 / D18                    | E18 / E17                    | A6 / B6 / C6                     |
+| Warm white, Q4 | A19 / B19 / C19                  | D19 / D20                    | E20 / E19                    | A8 / B8 / C8                     |
+| Cool white, Q5 | A21 / B21 / C21                  | D21 / D22                    | E22 / E21                    | A10 / B10 / C10                  |
+
+Each channel gets the same three insulated links. That makes **15 separate links for five channels**. On the separate driver, one ground wire visits C2/C4/C6/C8/C10/C13; its five drawn segments are **one physical wire**. On the combined board, use the shared row-C bus from section 3 instead.
+
+**Share the ground network, not the channel resistors.** Each channel keeps its own gate, drain, 100 Ω resistor and 10 kΩ pulldown. One shared resistor would join signals that the ESP needs to control independently. These are MOSFET control resistors, not LED current-limiting resistors.
 
 ## 6. Make the remote button cable
 
-The button joins **OUT+ to BTN_N while pressed**. Neither of its two wires is GND.
+The button connects **OUT+ to BTN_N while pressed**. Neither button wire is ground.
 
-1. Test the loose switch with a meter. Choose two contacts that are open when released and connected only while pressed. Four-leg switches also have permanently connected leg pairs; do not use one of those pairs.
-2. Mount the switch on its small board and connect the selected contacts to two wires through a matched, keyed inline plug/socket.
-3. At the latch end, connect one wire to the listed OUT+ button terminal and the other to BTN_N. Label both ends; insulate and secure the cable so pulling the plug does not pull a solder joint.
-4. Test the unplugged button cable again: open when released, closed when pressed. Check that its movement and actual switch height suit the case before fixing it in place.
+1. Use a meter to find two contacts open when released and connected when pressed. Four-leg switches have permanently joined pairs; do not select one of those pairs.
+2. Mount the switch on its small board. Connect those contacts through the matched two-pin plug/socket and two insulated wires.
+3. Connect the board end to **A2 (OUT+)** and **H1 (BTN_N)** on either compact latch or combined board. Secure and insulate the cable so unplugging it cannot pull a solder joint.
+4. Test the unplugged cable again, then check the switch's travel and height in the case.
 
 ## 7. Connect every module
 
-Keep power disconnected while wiring. Use the interactive **terminal/harness table** for the exact latch holes and the strip's actual printed labels for its pads. Do not infer strip-pad order from wire color.
+Use the selected layout's **external wire table** for all holes. The combined board has no cable between a latch board and driver board: its shared bus makes that connection internally. Battery and boost-to-strip wires still bypass the perfboard as listed below.
 
-| From                   | To                                    | Purpose                                                          |
-| ---------------------- | ------------------------------------- | ---------------------------------------------------------------- |
-| Battery positive       | CHG.BAT+                              | Cell charging connection                                         |
-| Battery negative       | CHG.BAT−                              | Cell charging connection                                         |
-| CHG.OUT+               | Latch OUT+                            | Protected supply into the latch                                  |
-| CHG.OUT−               | Latch GND and system ground wiring    | Protected load return                                            |
-| Latch VSW              | BOOST.VIN+ **and** ESP.5V/VIN         | Switched power to both modules                                   |
-| System GND             | BOOST.VIN−                            | Boost input return                                               |
-| System GND             | BOOST.VOUT−                           | Boost output reference; normally common with VIN− on this module |
-| System GND             | ESP.GND                               | Logic reference                                                  |
-| System GND             | DRIVER.C13                            | LED driver return                                                |
-| BOOST.VOUT+            | Strip +12V                            | Regulated LED supply                                             |
-| Latch GATE             | ESP latch GPIO from the table below   | Firmware keeps power on                                          |
-| Latch SENSE            | ESP button ADC GPIO below             | Firmware reads button presses                                    |
-| Latch OUT+             | Button plug → switch contact A        | Remote button supply                                             |
-| Latch BTN_N            | Other plug contact → switch contact B | Remote button return signal                                      |
-| Driver A2/A4/A6/A8/A10 | Strip G/R/B/WW/CW respectively        | Five independently switched returns                              |
+| From                         | To                        | Purpose                                                          |
+| ---------------------------- | ------------------------- | ---------------------------------------------------------------- |
+| Battery positive             | CHG.BAT+                  | Cell charging connection                                         |
+| Battery negative             | CHG.BAT−                  | Cell charging connection                                         |
+| CHG.OUT+                     | A1 OUT+                   | Protected supply into latch                                      |
+| CHG.OUT−                     | E11 GND                   | Protected system return                                          |
+| A4 VSW                       | BOOST.VIN+                | Switched boost power                                             |
+| A5 VSW                       | ESP.5V/VIN                | Switched controller power                                        |
+| F11 GND                      | ESP.GND                   | Controller return                                                |
+| G11 GND                      | BOOST.VIN−                | Boost input return                                               |
+| H11 GND                      | BOOST.VOUT−               | Boost output reference; normally common with VIN− on this module |
+| BOOST.VOUT+                  | Strip +12V                | Regulated LED supply, separate from the latch                    |
+| B8 GATE                      | ESP latch GPIO below      | Firmware keeps power on                                          |
+| J7 SENSE                     | ESP button ADC GPIO below | Button sensing                                                   |
+| A2 OUT+                      | Button plug → contact A   | Remote switch supply                                             |
+| H1 BTN_N                     | Button plug → contact B   | Remote switch return signal                                      |
+| Combined A13/A15/A17/A19/A21 | Strip G/R/B/WW/CW         | Five independent switched returns                                |
+| Latch-only I11               | Separate driver C13       | Needed only when using two separate boards                       |
 
-**CHG.BAT− and CHG.OUT− are different connections on the protected charger. Do not bridge them.** The common system ground starts at OUT−. Joining it directly to battery negative bypasses the protection switching.
+**CHG.BAT− and CHG.OUT− must stay separate on the protected charger.** System ground begins at OUT−. Bridging it directly to battery negative bypasses protection switching.
 
-Use one matching ESP column throughout:
+Use one matching ESP column for the entire build:
 
-| Signal         | ESP32-C3 GPIO | ESP32-S3 GPIO | Other end   |
-| -------------- | ------------- | ------------- | ----------- |
-| Latch hold     | 3             | 9             | Latch GATE  |
-| Button ADC     | 4             | 8             | Latch SENSE |
-| Green PWM      | 5             | 5             | DRIVER.D2   |
-| Red PWM        | 6             | 4             | DRIVER.D4   |
-| Blue PWM       | 7             | 6             | DRIVER.D6   |
-| Warm-white PWM | 10            | 10            | DRIVER.D8   |
-| Cool-white PWM | 20            | 11            | DRIVER.D10  |
+| Signal         | ESP32-C3 GPIO | ESP32-S3 GPIO | Combined hole | Separate-board hole |
+| -------------- | ------------- | ------------- | ------------- | ------------------- |
+| Latch hold     | 3             | 9             | B8            | Latch B8            |
+| Button ADC     | 4             | 8             | J7            | Latch J7            |
+| Green PWM      | 5             | 5             | D13           | Driver D2           |
+| Red PWM        | 6             | 4             | D15           | Driver D4           |
+| Blue PWM       | 7             | 6             | D17           | Driver D6           |
+| Warm-white PWM | 10            | 10            | D19           | Driver D8           |
+| Cool-white PWM | 20            | 11            | D21           | Driver D10          |
 
-Keep supply and ground wires short, with enough capacity for the measured load. Do not carry LED power through the small button cable. Keep the 12 V rail away from all ESP and latch terminals. Never connect the cell directly to ESP.3V3. Identify the actual board's regulator before approving its VSW-to-VIN connection.
+Keep power wiring short and sized for the actual measured load. Keep 12 V away from ESP and latch terminals. Do not carry LED current through the button cable or a resistor lead. Never connect the cell directly to ESP.3V3; identify the actual regulator before approving VSW at its VIN input.
 
-## 8. Check one build before copying it
+## 8. Check one build before making copies
 
-1. **Check every wire unpowered.** Probe the two endpoints in each wire-checklist row: they should have direct continuity. Inspect neighboring pads for solder bridges. For paths through resistors, use resistance mode; a 100 Ω resistor is not a direct wire and may or may not trigger a meter's beeper.
-2. Check all five source legs and all five pulldown ground ends reach C13. Check C13 reaches CHG.OUT−. Check each gate reaches only its own gate wiring, and that no drain has a soldered ground bypass. Semiconductor readings depend on probe direction, so do not expect every unrelated node to read infinite resistance.
-3. Check Db's stripe, all transistor leg roles, the remote plug, and the two separate charger negative connections against the drawings. Photograph both sides while every joint is visible.
-4. Flash the [supplied R5 firmware](electronics/dark-moth-r5-firmware.zip) for the chosen ESP, with the external power harness disconnected. It uses ADC button sensing; battery telemetry stays disabled.
-5. Qualify **one powered prototype** using the [staged measurement checklist](PERFBOARD_REVIEW.md#qualify-one-prototype). First test latch and ESP, then the boost set to 12.0 V, then individual LED channels and the combined load. Hold the button through cold boot; shutdown completes after a long hold is released.
-6. Copy the checked build only after its actual parts, cold start, load current and temperatures pass that review. Check each new board's wiring before applying power. Measure the finished assembly and insulate its underside before deciding how it fits the case.
+1. **Unpowered, check every named joint.** Probe every pad listed for each retained lead or bus: they must have direct continuity. For insulated links, probe both ends. Inspect neighboring pads and crossings for accidental solder bridges.
+2. Check all driver sources and pulldown ground ends reach the dedicated ground bus and CHG.OUT−. Check each gate stays on its own channel. No drain should have a soldered bypass to ground. Through a resistor, use resistance mode rather than assuming a continuity beeper means a direct wire.
+3. Confirm Db's stripe, transistor roles, retained-lead lengths, shared joints D3/D8/D9, the remote switch and the two separate charger negative connections. Photograph both sides with all joints visible.
+4. Flash the [supplied firmware](electronics/dark-moth-r5-firmware.zip) for the chosen ESP with the external power harness disconnected. It uses ADC button sensing and leaves battery telemetry disabled.
+5. Qualify **one powered prototype** using the [measurement sequence](PERFBOARD_REVIEW.md#qualify-one-prototype): latch/controller first, then boost set to 12.0 V, then individual LED channels and total load. Hold the button through cold boot; shutdown finishes after a long hold is released.
+6. Copy the build only after its actual parts, cold start, current and temperatures pass that review. Measure the finished board and insulate its underside before deciding how to mount it in the case.

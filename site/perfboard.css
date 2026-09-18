@@ -110,8 +110,9 @@
   position: relative;
   width: 100%;
   height: 510px;
-  flex: 1;
+  flex: none;
   min-height: 360px;
+  overflow: hidden;
 }
 #loading-message {
   padding: 24px;
@@ -299,6 +300,13 @@
 .perfboard-page :focus-visible {
   outline: 3px solid #315d7c;
   outline-offset: 3px;
+}
+@media (min-width: 741px) {
+  #inspection {
+    max-height: 470px;
+    overflow-y: auto;
+    padding-right: 6px;
+  }
 }
 @media (max-width: 1000px) {
   .bench-grid {

@@ -1,6 +1,6 @@
 {
   "revision": "R5 perfboard guide",
-  "checked_at": "2026-09-18T21:35:35.565Z",
+  "checked_at": "2026-09-18T22:27:23.719Z",
   "method": "Playwright Chromium, isolated ephemeral HTTP server; desktop 1440x1100, mobile390x844; live WebGL and fallback paths",
   "passed": true,
   "checks": [
@@ -29,19 +29,71 @@
       "passed": true
     },
     {
-      "name": "latch: every component leg and wire is rendered in tables",
+      "name": "latch: all component legs, construction connections and controller terminals are visible",
       "passed": true
     },
     {
-      "name": "latch: stepper places every part then each exact wire cumulatively",
+      "name": "latch: added wire count excludes reused legs and counts a continuous bus once",
       "passed": true
     },
     {
-      "name": "driver: every component leg and wire is rendered in tables",
+      "name": "latch: placement preserves reused leads before each explicit connection step",
       "passed": true
     },
     {
-      "name": "driver: stepper places every part then each exact wire cumulatively",
+      "name": "latch: printable top and bottom links follow the selected layout",
+      "passed": true
+    },
+    {
+      "name": "latch: shared-net inspection includes intermediate solder junctions",
+      "passed": true
+    },
+    {
+      "name": "driver: all component legs, construction connections and controller terminals are visible",
+      "passed": true
+    },
+    {
+      "name": "driver: added wire count excludes reused legs and counts a continuous bus once",
+      "passed": true
+    },
+    {
+      "name": "driver: placement preserves reused leads before each explicit connection step",
+      "passed": true
+    },
+    {
+      "name": "driver: printable top and bottom links follow the selected layout",
+      "passed": true
+    },
+    {
+      "name": "combined: all component legs, construction connections and controller terminals are visible",
+      "passed": true
+    },
+    {
+      "name": "combined: added wire count excludes reused legs and counts a continuous bus once",
+      "passed": true
+    },
+    {
+      "name": "combined: placement preserves reused leads before each explicit connection step",
+      "passed": true
+    },
+    {
+      "name": "combined: printable top and bottom links follow the selected layout",
+      "passed": true
+    },
+    {
+      "name": "combined: shared-net inspection includes intermediate solder junctions",
+      "passed": true
+    },
+    {
+      "name": "Long assembly instructions keep the canvas fixed and all inspector content reachable",
+      "passed": true
+    },
+    {
+      "name": "All three hand-wired layouts fit a 390px mobile screen and retain exact-hole inspection",
+      "passed": true
+    },
+    {
+      "name": "Combined A3 worksheets render readable mirrored holes and unclipped legends",
       "passed": true
     },
     {
@@ -49,7 +101,7 @@
       "passed": true
     },
     {
-      "name": "All four printable maps and CSVs respond",
+      "name": "All six printable maps and both CSVs respond",
       "passed": true
     },
     {
@@ -125,7 +177,7 @@
       "passed": true
     },
     {
-      "name": "Switching from modules returns to both exact perfboard layouts",
+      "name": "Switching from modules returns to all three exact perfboard layouts",
       "passed": true
     },
     {
@@ -178,29 +230,32 @@
     }
   ],
   "source_sha256": {
-    "index.html": "b7edd267697b06ffe353a79563db8ec1161e7d8d0ad5e1a549f66450b0b51aab",
+    "index.html": "e8c9ad4319d7c1ac9b26456669b3f337fe71310ae3832944b4e41d7a04a05f56",
     "board.html": "8a84f68e9ddeb0401b5febf511bb03e4422f49a8ac84e8d7df538e0ba54a38ab",
     "print.html": "e0fa8db732bb5d70165bd63f4973ca690072e071edb21fb0e7f3f26b05aaf74f",
-    "perfboard.html": "d95b7881e8d06be772c8248e8c58f97e83334158ac7d14deef393a355aedf2ba",
+    "perfboard.html": "6c009056ab0a408037ec170e881c5eb3e0ed9e536e928b7a164bac30feaf20d4",
     "PCB_GUIDE.md": "21f8c6c25ce9c26431e1abf9080936c9e7ce7c40494fd562f3cf2f422e274283",
-    "PERFBOARD_GUIDE.md": "3c52f72e1b73e50fa287ced1793f904d56bd3fc113ac77f84b4e3da5032c677b",
+    "PERFBOARD_GUIDE.md": "944bfff18d8b0bc236bd7759db7adaa6556ae627269ca13ed96357e5a17ea5f7",
     "PERFBOARD_REVIEW.md": "e5986b6a0a7667a2e6f63ae846b24de64d9444849a110909a50b84eacb69e88f",
-    "electronics/perfboard-layout.json": "a81cbb8f8c54c02adf426d979d2b6381deea1737441611749aad6e7432c30408",
-    "electronics/perfboard-components.csv": "db6f5096db42561b4933e4781c173e78e82177d425169d03e50f60a6671b7beb",
-    "electronics/perfboard-connections.csv": "3869c9c45ebadc21af898579ecd1ca980fd2d16d6f28172780382243f4e799c2",
-    "site/perfboard-state.js": "7a212666a4fb07ebdc37dd4864c38cac41312243da9e5acc7896c4b56a53ec97",
+    "electronics/perfboard-layout.json": "9429af601e0d26d00fc6499934457ed01c85b3f70806acb6d98a996febf1d5a9",
+    "electronics/perfboard-components.csv": "2039c8c7b59cb878c721464a8377b879c0b00a70a1d966e12f9a61f5e15f6152",
+    "electronics/perfboard-connections.csv": "6a6c5912f83b72a05d86e9234bf324cd9fa1fdb01d7c4f018d394cd6e703d005",
+    "site/perfboard-state.js": "1b818d548eb295c37b0ed2c30612eb7c092543681859cfdb27e0dcc6a0e96df2",
     "site/electronics-overview.js": "4134ecc39534c624eea282e765d92f0339fb9079dc7eb987581bd45758b483dd",
-    "site/electronics-panel.js": "5f977aef76bbd728d6bcd829beb4de23d0e9506da56185da9fe401e125eb1976",
-    "site/electronics-panel.css": "8b4067189db4dc04ea7cfe7698f515cb3e5a9069d7e537eb3137e4cf33790d53",
+    "site/electronics-panel.js": "fa4526938bb0dbcfe66f3626deb5a3b9c482e84d70be26640406c2d2a37ad2f7",
+    "site/electronics-panel.css": "01e0832ca04ef8db373e00b8cd77527234f8c3e56b92b66591a6367eeb7c8da0",
     "vendor/TrackballControls.js": "0b7608fec2ba6c02282cbc41212dc6ef88ece998007e52e32663c1631b032134",
     "vendor/README.md": "522ff8a6888872a84da89dbbbbc9a8ca42ae53f873257b6211b632cdeaa11c77",
     "tests/viewer_navigation_checks.mjs": "75497a4c5469967b51ee656688a8568cfeecce103a6c831c1238c54ab96eaae2",
-    "tests/electronics_browser_checks.mjs": "91453f63d2d54e242b7c8730ee0145eeb0974f58eef2951e0b7b2093e0a5d8ef",
-    "site/perfboard-guide.js": "27e31bdaa8d698ebb91f455a359ec9bdd12098cbd29b038bf350dca986ad2141",
-    "site/perfboard-geometry.js": "4cacc511f4f57a8086e55d9843d1fdb587b40650935a9b43cfc0207614fa63a0",
-    "site/perfboard-scene.js": "634a441b4ab4e62e531246847684cec9e4044b0b392f70cbc9d83d0faab567dd",
-    "site/perfboard.css": "c135a7b4664ea15fd690b3460ef119ace2c9de1ac5d5597c00424b1e457554d2",
-    "site/perfboard-template.html": "11a0a6f049c9c04f370ae650f52edbaabb6908e2351eead822911a9b643b1513",
+    "tests/electronics_browser_checks.mjs": "1cfa97679796498fcef7e8d7de2d7f2c2f606cffe5a1dd72902cf15057f93cfa",
+    "tests/perfboard_build_checks.mjs": "4e88222891ffe63898a36f795ae9480dc26a1d206dfcd2fc37d31f9aff1de68f",
+    "tests/perfboard_test_helpers.mjs": "f8f4d460b81f71de90681f79af49ad1aae139f93740b8d1020b0eca19d30f32a",
+    "site/perfboard-guide.js": "d70cf3a603205b1c27fa05d6b24e94268480ed6f5cc602c70801f93ca275a46d",
+    "site/perfboard-geometry.js": "5cb5124cbff76b5adc3dadffd1481776dc2027a5f6290694a0dd6a268400db92",
+    "site/perfboard-connections.js": "ac4531c65aa4b7755ae430c9407e9d111eed697f6020015783d025af9d9013a8",
+    "site/perfboard-scene.js": "ef64f0743815e0273c25b6e970f769d6efe0d13d57b8d1df2bbef263a0bd8c41",
+    "site/perfboard.css": "3c340d2d061b4840d2f8c3addb0751e957da272ddad0a57d3a44c745efdaa571",
+    "site/perfboard-template.html": "66523a25b3d9ca085156978de3315526b6775fdc9a57dbcba90a35f60bd9b98b",
     "site/style.css": "3aedf374335b9b5445ae575a1bc35829a5e57f3a9ea71d087754c5df20bbefdb",
     "site/viewer.css": "2987c6fa2c313892c6d352350cc6f029096ee6ded425750bf68ff786c48f4fcb",
     "site/sections.css": "a2a423e1dfd87ebdd46570612344603ff14fc897f34c50e31e5abbd9ee192a1f",
@@ -209,13 +264,18 @@
     "site/assembly-viewer.js": "d2d93a70fb5ec48ed551b9da206e1896d0b26616dc1f08ab23169e281d584ac2",
     "site/scene.js": "03dcd8d5cbee36e5017ed30d4eb31340814ca67d394ea5b4fc30d44c0a61365f",
     "tools/build_guide.py": "9b4f0cc7d51cd6610037c93193fd27527876296a4944cbf4def5b5bde3ce6bde",
-    "tools/build_perfboard_layout.py": "c2c6ccc491c156a4e1f064ef4c577e9b317c187ed35ac4d9f51dd2643a0290dd",
-    "tools/build_perfboard_worksheets.py": "98727f606a622add8791ace68c2bad12ac6e640fc494a84ab881a965ecd7c6f6",
-    "tests/test_perfboard_browser.mjs": "920c01c56231c6d843a06bdeca7e0610e165355d256f5d449a5151d2de9ce67a",
-    "electronics/perfboard-driver-top.svg": "d8ca603fed8ebc3fff07a84bd84ade99a5dc9981e9842dc57ed70252e2b81d5f",
-    "electronics/perfboard-driver-bottom.svg": "ee2de3ed4f3c05ad371135f000a37d4834da140987243469ee4a981618508aec",
-    "electronics/perfboard-latch-top.svg": "a5e8fb12e9cb4d967f945b4d8f0752b92b3fc6be5cb873f571cab4ba6b83e583",
-    "electronics/perfboard-latch-bottom.svg": "4e0763a3f7c145df6813eba5ed8d79a4de044c9145d1f2cbc2f2ce5646ff2153"
+    "tools/build_perfboard_layout.py": "1ab0145fab61a9623812cd90d1a06c9a900f19678973f5a599f51f44e012892c",
+    "tools/perfboard_core.py": "0614899131c3affeb8e922fcceec2b11e7bad5cfb83883c0cb243e369c149acc",
+    "tools/perfboard_compact.py": "d5c9fe36d618bb472efd1f8a2d1e226b9c0a053b86db96193eaaaf7b098869bd",
+    "tools/build_perfboard_worksheets.py": "285899e4282e5675ca082d5abef4d15d0b1c7472ab1216badb258534f2383f39",
+    "tools/perfboard_connection_sheets.py": "95bf465cb42b50016fced2180561885582ebc9807c61eb7890fbb85e8a64455b",
+    "tests/test_perfboard_browser.mjs": "eadbc66cfc3a2de4e1a657b65aa273caade6a6347c4a3809b585ac4c14aaa647",
+    "electronics/perfboard-latch-top.svg": "be4df4d7f6793066c4740650d398dbe288e176c7690fdef2ff9570d6d9a170a5",
+    "electronics/perfboard-latch-bottom.svg": "bab40c9c33eb4bd436682b4d2b73ac5f429ffdba79a2d34daf69f6330808d313",
+    "electronics/perfboard-driver-top.svg": "a022ab6ba6e412b08a0675f20fa47c24d6754b03443f18e0d9ca5767610c6585",
+    "electronics/perfboard-driver-bottom.svg": "b889f2833ea6c03b3cf0ba5f49debd0538656e18cc225b22c2bfe9893f374132",
+    "electronics/perfboard-combined-top.svg": "501fc6f276290a2e15f4de552090cf4d2763e2dfac7b85dcbafdaebf8bd876c5",
+    "electronics/perfboard-combined-bottom.svg": "92e0d9f9a2f88ef1063304ad562f44613e44c86ef0be236c09ff77012d3d7936"
   },
   "physical_hardware_tested": false
 }
