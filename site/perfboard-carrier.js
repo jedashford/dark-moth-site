@@ -1,14 +1,17 @@
 /* global THREE */
 // Reuse the detailed assembly modules; their loader already returns millimetres.
 window.DarkMothPerfboardCarrier = (() => {
-  function place(model, module, board) {
+  function place(model, module, board, sourceRotation) {
     const pcb = model.parts.get(module.model_part);
     if (!pcb) throw new Error(`Missing module PCB: ${module.model_part}`);
+    if (!Number.isFinite(sourceRotation))
+      throw new Error(`Missing source rotation for ${module.model_part}`);
     const group = new THREE.Group();
     group.name = `carrier-module-${module.ref}`;
     group.add(model.group);
     // Board rows increase down the top view. Never reflect the GLB's Z axis.
-    group.rotation.y = (-module.rotation_deg * Math.PI) / 180;
+    group.rotation.y =
+      (-(module.rotation_deg - sourceRotation) * Math.PI) / 180;
     group.updateMatrixWorld(true);
     const bounds = new THREE.Box3().setFromObject(pcb);
     const [x, row, bottom] = module.pcb_origin_mm;
@@ -58,7 +61,7 @@ window.DarkMothPerfboardCarrier = (() => {
         module: module.ref,
         component: module.ref,
         id: `${module.ref}-nominal-support-zone`,
-        label: `${module.ref} · nominal insulating support / clearance zone; mounting hardware not specified`,
+        label: `${module.ref} · nominal module clearance zone; verify printed clamp and insulation fit`,
         nominal: true,
       },
       "components",
@@ -80,7 +83,13 @@ window.DarkMothPerfboardCarrier = (() => {
       for (const [index, result] of results.entries()) {
         const module = board.modules[index];
         const { model: source, catalog } = result.value;
-        const placed = place(source, module, board);
+        const placed = place(
+          source,
+          module,
+          board,
+          catalog.find((item) => item.id === module.model_part)
+            ?.carrier_rotation_deg,
+        );
         model.group.add(placed.group);
         model.modules.set(module.ref, placed);
         model.moduleCatalog.push({ ...module, details: catalog });
@@ -101,6 +110,7 @@ window.DarkMothPerfboardCarrier = (() => {
         model.pickables.push(...source.pickables);
         zone(model, module);
       }
+      window.DarkMothPerfboardExternalConnectors.draw(model, register);
       model.contentBounds = new THREE.Box3().setFromObject(model.group);
       window.DarkMothPerfboardModuleLinks.draw(model, register);
       model.group.updateMatrixWorld(true);

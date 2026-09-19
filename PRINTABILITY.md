@@ -1,46 +1,82 @@
-# Dark Moth R5 — printability review
+# Dark Moth R6 — printability review
 
-All seven delivered parts were reviewed in their exported print orientations. The body contains real overhangs and needs supports. Its floating-cantilever warning was reproduced in Bambu Studio with supports off. The mesh is not corrupt, and the cavity-up orientation is appropriate.
+All 17 exports were checked in their supplied print orientations and actually
+sliced with Bambu Studio 02.08.02.61. **Body, button and carrier tray require
+normal automatic supports everywhere, including bridges.** The other fourteen
+exports sliced without supports and without warnings.
 
-The portable `black-parts.3mf` contains arranged meshes but **no printer, filament or process settings**. Importing it into a process with supports off recreates the warning. Use the support instructions beside the downloads and inspect the sliced toolpaths before printing.
+The portable `black-parts.3mf` contains 16 arranged objects and no printer,
+filament or process presets. The separate diffuser plate is an optional cutting/
+fit template. Use the [print guide](PRINT_GUIDE.md), keep the supplied orientation,
+and inspect real support extrusion in slicer Preview before printing.
 
-## Body support requirements
+## Current reference results
 
-For the reference process, enable **normal automatic supports, everywhere**, and include bridges. Build-plate-only support is insufficient: the enclosure floor prevents those supports from reaching its interior ledges. Do not treat a disappearing warning as proof that support was generated. In a negative-control slice, Bambu suppressed the warning when build-plate-only supports were enabled but generated **zero support toolpaths**.
+The isolated reference process uses bundled P1S / 0.4 mm / Generic PETG profiles,
+0.20 mm layers, four walls, six top/bottom layers and 20% gyroid infill. Supports
+are not restricted to the bed, critical-regions-only is off, the threshold is
+30°, and bridges receive support. All 17 slices completed without slicing
+warnings or effective-setting mismatches.
 
-The supported reference slice generated support interfaces beneath the USB roofs, LED-rib opening, side-button opening and upper cradle bridge. These regions are accessible for support removal before fitting the electronics:
+| Supported part | Support toolpath sections | Support extrusion moves |
+| -------------- | ------------------------: | ----------------------: |
+| Body           |                       201 |                   5,884 |
+| Button         |                        11 |                     503 |
+| Carrier tray   |                       118 |                   2,733 |
 
-| Region                   | Measured underside in the exported body STL                                       | Removal access                                                                                                                        |
-| ------------------------ | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| LED-rib wire opening     | 8.9 × 2 mm one-ended ledge; X=5.5–14.4, Y=16.1–18.1, Z=11.4 mm                    | Open from the floor/front and left end. Remove material before installing the LED strip and routing wires.                            |
-| Two USB roofs            | Each spans 14 mm; X=108.6–111, Y=29.4–43.4 and 51.4–65.4, Z=12.4 mm               | Through the outside ports and from the open cavity.                                                                                   |
-| Upper side-button cradle | 12.5 mm bridge; X=2.4–12.1, Y=81.15–93.65, Z=26.1 mm                              | Inboard opening is 12.5 mm wide × 16.4 mm high, above the lower shelf. Remove support before installing the carrier and boost module. |
-| Side-button wall opening | Rounded upper underside reaches Z=23.65 mm; opening is 7.5 mm wide × 11.5 mm high | Clear the opening from both sides and check free button return.                                                                       |
+These are sections/moves in the current reference toolpath, not counts of
+separate support towers. They confirm support was actually generated. A slicer
+can suppress an overhang warning merely because supports are enabled; check the
+paths themselves. All three delivered native reference projects were reopened
+and sliced successfully using their embedded support settings. They contain no
+sliced G-code. See `build/slice/report.json` and `profiles/manifest.json`.
 
-Coordinates above are print coordinates. Subtract `[2.4, 2.4, 2.4]` to obtain the body's assembly coordinates. These geometric underside heights differ slightly from the slicer's quantized extrusion heights.
+## Features requiring inspection
 
-The diffuser channels run vertically and remain open at the top. Case bosses and PCB posts grow from the floor. The separate front rail avoids a 100 mm bridge across the light window. No inaccessible, fully enclosed support cavity was found in these regions; actual support release and cleanup remain untested.
+The body has one 16 × 9 mm charging-USB opening in its left wall. Its roof,
+the two low LED-wire passages, and the side-button cradle/opening require
+support. The open cavity and ports provide removal access before electronics
+are fitted. The front light aperture remains open at the top during printing;
+the separate rail supplies its lintel and retains the removable acrylic.
 
-## Review of every part
+The tray has raised board-capture lips and side wire passages. Remove support
+from these features before sliding in the actual carrier. The fitted capture
+assumes a 47.78 × 63.02 × 1.6 mm blank with an 18 × 24 hole grid. The purchased
+blank's outside dimensions and hole offsets remain unmeasured.
 
-| Part                  | Keep this orientation             | Measured features and remaining checks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| --------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Body**              | Floor down, cavity up             | 2.4 mm floor/walls, 2 mm LED rib and 1.2 mm module retainers/diffuser guides. Support the regions above. Preserve the small Ø1.7 mm carrier pilot bores; clear stringing and check screw grip without splitting the plastic.                                                                                                                                                                                                                                                                                                                                               |
-| **Lid**               | Outside face down                 | 2.4 mm panel with a 0.5 mm bed-facing moth recess. Plastic webs between some facets are only 0.304 mm; a 0.4 mm nozzle can merge or omit fine details. Inspect the first layers and the matching coupon. The two screw recesses create short 1.25 mm radial ledges at Z=1.3 mm. Flipping the lid would suspend its broad panel above the locating lip.                                                                                                                                                                                                                     |
-| **Front rail**        | Outside face down                 | Front lintel is 1.4 mm thick; rear keeper is 1.2 mm. Both rise from the rail panel. Only short screw-recess ledges remain. Check adhesion across its long, narrow footprint and remove burrs from the sheet keeper.                                                                                                                                                                                                                                                                                                                                                        |
-| **Side button**       | Visible face down                 | The capture flange begins at Z=3.2 mm and projects 2 mm beyond the previous layer at straight edges, up to 2.95 mm at rounded corners. Its unsupported underside area is 89.63 mm². Inspect the flange toolpaths even if no warning appears; poor underside finish can affect movement. The revised setup requires supports under this flange; the reference generates 11 support sections and 503 extrusion moves, adding about 0.20 g and 63 seconds. Supports can be removed from all sides before assembly. Flipping onto the 3 mm plunger would worsen support needs. |
-| **Switch carrier**    | Flat back down, lips upward       | 2 mm base and 1.2 mm retaining walls. The 0.5 mm retaining lips overhang by 0.75 mm. These short ledges sliced without a warning; inspect them for complete extrusion and avoid bending the tall stops during assembly.                                                                                                                                                                                                                                                                                                                                                    |
-| **Coupon**            | Flat base down, slot banks upward | Updated to reproduce the lid's **44 bed-facing moth recesses**, with the same mirrored print orientation and 0.5 mm depth. The 3.2 / 3.4 / 3.6 mm slots remain upright and open at the top. The logo is now on the underside.                                                                                                                                                                                                                                                                                                                                              |
-| **Diffuser template** | Broad face down                   | Simple 104 × 28 × 3 mm solid with no external overhang. Intended as an acrylic cutting/fit envelope; opaque black plastic blocks the light. A printed optical substitute needs a separate light-output test.                                                                                                                                                                                                                                                                                                                                                               |
+The button's flange needs support even if an unsupported preview looks
+connected. Clean it completely and check free return. Its nominal travel remains
+0.35 mm with a 0.10 mm initial switch gap; actual tactile-switch force and stroke
+require a physical trial.
 
-For the coupon slot order, look down at the upright slot banks with the banks nearest you: **3.2, 3.4, 3.6 mm from left to right**. Print it with the same material, nozzle, plate and layer settings as the lid, with supports off. After removal, inspect its underside moth and test a deburred corner of the actual acrylic in the slots. The earlier face-up coupon did not exercise the lid's bridge finish; replace that file with the updated download.
+The lid and coupon share the original 44 bed-facing moth recesses, exactly
+0.5 mm deep. Some fine webs are about 0.30 mm wide, so a 0.4 mm nozzle can merge
+or omit detail. The coupon's actual mesh sections match the delivered lid's
+recess and print orientation. Its upright 3.2 / 3.4 / 3.6 mm stock slots remain
+open at the top. Inspect the coupon before cutting the 104 × 28 × 3 mm acrylic.
 
-## What the checks establish
+The module tier is one connected open frame. Four separate clamps secure the
+C3, compact UMLIFE charger, and two regulator PCBs. Inspect the small pilot bores,
+edge keepers and ESP USB notch. PCB edge copper, solder projections and actual
+module thickness remain unverified; do not clamp an occupied solder land.
 
-Mesh inspection found one connected solid and one connected first-layer region for each part. Layer-section sampling did not find detached new islands in the body, lid, rail, button or carrier. Those checks do **not** eliminate cantilevers: a ledge can remain connected along one edge while its extrusion lacks support below.
+The connector saddles include removable-strap paths and two pack-lead notches.
+Their housing reservations are nominal for the user's kit, not an approved
+JST footprint. The battery bridge prints roof-down with legs upward and screw
+bores vertical. Its former side-on orientation produced a cantilever warning;
+the delivered orientation slices cleanly without support. The optional small-
+pack insert is removed for the selected 67 × 36 × 10 mm pack.
 
-The reference slicer is Bambu Studio 02.08.02.61, using bundled P1S / 0.4 mm / Generic PETG profiles, 0.20 mm layers, four walls, six top and bottom layers and 20% gyroid. Original unsupported slicing produced the exact body warning; the other six parts sliced without that warning. This result alone did not validate their surface finish. In particular, the original lid toolpath had a maximum contiguous unsupported geometric gap of approximately **11.21 mm** across the moth recesses. Its longer bridge lines also crossed supported plastic, so full line length would overstate the unsupported span.
+## Coverage and limits
 
-The coupon regression tests compare its actual mesh sections against the delivered lid, check relief depth and all three unchanged stock slots, and verify all seven exports start on the bed. The six assembly-part meshes remain byte-for-byte identical to the render inputs; the case, button, assembly views and fit dimensions are unchanged. Current slicing and package results are recorded in [Verification](VERIFICATION.md).
+All 17 STLs are watertight, single connected solids and begin at Z=0. Actual
+cross-sections at Z=0.1 show one connected first-layer region per part. Geometry
+checks also cover installed-part clearances, button and diffuser motion,
+carrier capture/removal, nominal module boards, screw access and plate bounds.
+The [mechanical plan](PRODUCT_MECHANICAL_PLAN.md) lists exact placements and
+[design review](REVIEW.md) describes the complete R6 assembly.
 
-No physical print was performed. PETG bridging, thin moth details, support removal, screw grip, free button return, sheet fit, thermal behavior and light quality require a first build. The matching coupon and dry fit are part of that validation; they are not replaced by passing digital checks.
+Passing mesh and slicing checks do not certify printed surfaces, shrinkage,
+support release, screw grip, wire bend radii, purchased-part fit, battery
+restraint, thermal behavior or light quality. No physical print was performed.
+Print the coupon, measure actual stock and dry-fit before wiring the closed case.

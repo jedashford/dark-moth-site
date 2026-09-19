@@ -83,14 +83,33 @@ window.DarkMothPerfboardConnections = (() => {
         const xy = positions.get(hole);
         if (!xy) continue;
         const pad = point([...xy, -board.size_mm[2]]);
-        const tap = nearest(points, lengths, pad);
+        const joint = wire.solder_joints?.find((item) => item.hole === hole);
+        const tap = nearest(
+          points,
+          lengths,
+          joint ? point(joint.points_mm.at(-1)) : pad,
+        );
         windows.push([
           Math.max(0, tap.distance - 0.8),
           Math.min(total, tap.distance + 0.8),
         ]);
-        // Intermediate bus windows are soldered up to their named pad. The
-        // short metal neck makes that real join visible below the substrate.
-        if (tap.separation > 0.00001)
+        if (joint?.formation === "single_riser_wire")
+          tube(
+            joint.points_mm.map(point),
+            joint.diameter_mm / 2,
+            0xb9bdbc,
+            {
+              ...descriptor,
+              hole,
+              formation: joint.formation,
+              label: `${wire.id} · added riser at ${hole} · ${wire.net}`,
+            },
+            "wiring",
+            { metalness: 0.86, roughness: 0.26 },
+          );
+        // Explicit retained risers are already part of the actual component lead.
+        // Only historical layouts use the former generic pad-to-window neck.
+        else if (!joint && tap.separation > 0.00001)
           tube([tap.position, pad], 0.25, 0xb9bdbc, descriptor, "wiring", {
             metalness: 0.86,
             roughness: 0.26,

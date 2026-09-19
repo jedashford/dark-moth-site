@@ -17,9 +17,12 @@ module body() {
         // Side and bottom channel, open upward for extraction of a rigid sheet.
         translate([cx-(sheet_w+slot_clear)/2,sheet_y,sheet_z])
             cube([sheet_w+slot_clear,sheet_t+slot_clear,iz]);
-        for(y=usb_centers)
-            translate([ix-0.1,y-7,-1]) cube([wall+0.2,14,11]);
+        translate([-wall-0.1,charge_y-charge_w/2,charge_z-charge_h/2])
+            cube([wall+0.2,charge_w,charge_h]);
         button_opening();
+        // Blind pilots continue into the floor; retain 0.6 mm exterior skin.
+        for(p=concat(tray_mounts,tier_mounts,battery_mounts,connector_mounts))
+            translate([p[0],p[1],-1.8]) cylinder(d=1.7,h=1.9);
     }
     control_cradle();
     // Rear faces of diffuser guides: 2 mm engagement each edge, 1.2 mm wall.
@@ -33,20 +36,12 @@ module body() {
         cylinder(r=3.5,h=iz);
         translate([0,0,iz-10]) pilot(h=10.1);
     }
-    for(p=post_holes) translate([p[0],p[1],0]) difference() {
-        cylinder(r=post_r,h=bz);
-        translate([0,0,bz-9]) pilot(h=9.1);
-    }
-    for(p=[[58,17],[53,74]]) translate([p[0],p[1],0]) cylinder(r=2.5,h=bz);
-    bay(16,79,36,17);
-    bay(54,79,36,17);
-    bay(79,24,27,20,right=false);
-    bay(78,46,28.2,20,right=false);
-    bay(11,32,65,36,h=7);
+    product_body_mounts();
     // LED mounting rib: retained ahead of the PCB to avoid its front edge.
     difference() {
         translate([cx-50,rib_y,0]) cube([100,2,rib_h]);
         translate([cx-50-0.1,rib_y-0.1,0]) cube([9,2.2,9]);
+        translate([cx+40,rib_y-0.1,0]) cube([10.1,2.2,9]);
     }
 }
 module lid() {
@@ -81,6 +76,9 @@ module rail() {
             // Front lintel prints upward from rail top on the bed.
             translate([cx-window_w/2,-wall,window_top])
                 cube([window_w,wall+sheet_y,iz-window_top+0.05]);
+            // Lower ceiling retains the unchanged-height sheet in the taller R6 rail.
+            translate([cx-sheet_w/2,sheet_y,sheet_z+sheet_h+fit])
+                cube([sheet_w,sheet_t+slot_clear,iz-sheet_z-sheet_h-fit+0.05]);
             // Rear keeper traps the top of the sheet without tape or glue.
             translate([cx-sheet_w/2,sheet_y+sheet_t+slot_clear,window_top])
                 cube([sheet_w,1.2,iz-window_top+0.05]);

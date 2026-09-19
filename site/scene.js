@@ -42,7 +42,16 @@ window.DarkMothScene = (host) => {
         far: 800,
       });
       light.shadow.bias = -0.0002;
-      light.shadow.normalBias = 0.08;
+      // Two shadow-map texels in scene millimetres prevent self-shadow stripes
+      // on flat imported PCBs while preserving shadows between separate parts.
+      light.shadow.normalBias =
+        2 *
+        Math.max(
+          (light.shadow.camera.right - light.shadow.camera.left) /
+            light.shadow.mapSize.x,
+          (light.shadow.camera.top - light.shadow.camera.bottom) /
+            light.shadow.mapSize.y,
+        );
     }
     scene.add(light);
   }

@@ -4,8 +4,8 @@ window.DarkMothElectronicsOverview = (() => {
   const clusterPrefixes = {
     module_esp: "esp_",
     module_charger: "charger_",
-    module_boost: "boost_",
-    module_driver: "driver_",
+    module_reg5: "reg5_",
+    module_reg12: "reg12_",
     led_strip: "led_emitter_",
   };
   function allowed(metadata) {
@@ -18,9 +18,27 @@ window.DarkMothElectronicsOverview = (() => {
   function included(id, metadata, mode) {
     if (!allowed(metadata)) return false;
     if (mode === "system") return true;
-    const selected = mode === "pcb" ? "pcb_main" : mode.slice(5);
+    const selected = mode === "pcb" ? "pcb_carrier" : mode.slice(5);
     if (id === selected) return true;
-    if (selected === "pcb_main") return metadata.category === "pcb_component";
+    if (selected === "pcb_carrier")
+      return (
+        metadata.carrier_member === true ||
+        metadata.parent_carrier === "pcb_carrier" ||
+        id.startsWith("carrier_") ||
+        [
+          "module_esp",
+          "module_charger",
+          "module_reg5",
+          "module_reg12",
+        ].includes(metadata.parent_module) ||
+        [
+          "module_esp",
+          "module_charger",
+          "module_reg5",
+          "module_reg12",
+        ].includes(id)
+      );
+    if (metadata.parent_module === selected) return true;
     if (clusterPrefixes[selected])
       return id.startsWith(clusterPrefixes[selected]);
     return (
@@ -37,6 +55,15 @@ window.DarkMothElectronicsOverview = (() => {
       const id = object.userData.part_id;
       if (id && !roots.has(id)) roots.set(id, object);
     });
+    for (const id of [
+      "pcb_carrier",
+      "module_esp",
+      "module_charger",
+      "module_reg5",
+      "module_reg12",
+    ])
+      if (!roots.has(id) || !metadata[id])
+        throw new Error(`R6 assembly required; missing current part ${id}`);
     const group = new THREE.Group(),
       parts = new Map(),
       entries = [],
@@ -127,9 +154,9 @@ window.DarkMothElectronicsOverview = (() => {
     group.updateMatrixWorld(true);
     const title =
       mode === "system"
-        ? "All electronics · original PCB assembly"
+        ? "R6 electronics · current assembly"
         : mode === "pcb"
-          ? "Original manufactured main PCB"
+          ? "R6 populated carrier"
           : catalog.find((item) => item.id === mode.slice(5))?.label || "Part";
     return {
       model: {
@@ -144,7 +171,7 @@ window.DarkMothElectronicsOverview = (() => {
           id: mode,
           name: title,
           description:
-            "Existing assembly geometry. Purchased module packages and wire routes are illustrative; the main PCB follows the corrected KiCad file.",
+            "R6 prototype / physical verification pending. Check each part’s confidence metadata. Nominal package detail and logical wire callouts do not establish measured pin locations or hardware qualification.",
           components: [],
           jumpers: [],
           rows: ["A"],

@@ -1,6 +1,6 @@
 {
-  "revision": "R5 perfboard guide",
-  "checked_at": "2026-09-18T23:11:40.357Z",
+  "revision": "R6 product and carrier guide",
+  "checked_at": "2026-09-19T01:24:25.955Z",
   "method": "Playwright Chromium, isolated ephemeral HTTP server; desktop 1440x1100, mobile390x844; live WebGL and fallback paths",
   "passed": true,
   "checks": [
@@ -97,15 +97,23 @@
       "passed": true
     },
     {
-      "name": "Default is the 18 × 24 carrier with three complete modules and 24 discrete parts",
+      "name": "Every external connector and billboard label fits every preset on desktop and mobile",
       "passed": true
     },
     {
-      "name": "Both ESP maps connect exact carrier joints to printed module labels",
+      "name": "Default is the 18 × 24 carrier with four complete modules and 33 component assemblies",
       "passed": true
     },
     {
-      "name": "Carrier construction places retained legs before mounting and wiring all modules",
+      "name": "Confirmed C3 uses exact printed labels and exposes R6 buying and bring-up instructions",
+      "passed": true
+    },
+    {
+      "name": "R6 construction places adapters before mounting and wiring all four modules",
+      "passed": true
+    },
+    {
+      "name": "Three matched-kit plugs identify every external endpoint",
       "passed": true
     },
     {
@@ -161,39 +169,43 @@
       "passed": true
     },
     {
-      "name": "Earlier R5 reference shows all 101 supported electronics parts",
+      "name": "Current R6 reference exposes every supported electronics part",
       "passed": true
     },
     {
-      "name": "Selecting a modeled wire exposes its actual named endpoint pairs",
+      "name": "Selecting a current wire exposes the declared endpoint pairs",
       "passed": true
     },
     {
-      "name": "Main PCB view exposes its 11 installed parts and replacement explanation",
+      "name": "Populated carrier contains current adapters and all four modules",
       "passed": true
     },
     {
-      "name": "Part inspector opens the full ESP module including all nine modeled subparts",
+      "name": "ESP isolation retains modeled installed packages without uninstalled long headers",
       "passed": true
     },
     {
-      "name": "part:module_charger: module view retains its complete modeled parts",
+      "name": "module_charger: complete current module remains inspectable",
       "passed": true
     },
     {
-      "name": "part:module_boost: module view retains its complete modeled parts",
+      "name": "module_reg5: complete current module remains inspectable",
       "passed": true
     },
     {
-      "name": "part:battery: module view retains its complete modeled parts",
+      "name": "module_reg12: complete current module remains inspectable",
       "passed": true
     },
     {
-      "name": "part:led_strip: module view retains its complete modeled parts",
+      "name": "battery: complete current module remains inspectable",
       "passed": true
     },
     {
-      "name": "part:remote_switch: module view retains its complete modeled parts",
+      "name": "led_strip: complete current module remains inspectable",
+      "passed": true
+    },
+    {
+      "name": "remote_switch: complete current module remains inspectable",
       "passed": true
     },
     {
@@ -213,35 +225,19 @@
       "passed": true
     },
     {
-      "name": "Existing complete-device assembled mode remains selectable",
+      "name": "Current product inventory includes printed tier, all R6 electronics, connectors and fasteners",
       "passed": true
     },
     {
-      "name": "Existing complete-device internals mode remains selectable",
+      "name": "Inside, populated carrier and side-button views preserve current visibility",
       "passed": true
     },
     {
-      "name": "Existing complete-device board mode remains selectable",
+      "name": "Exploded and diffuser access move the real retained R6 parts",
       "passed": true
     },
     {
-      "name": "Existing complete-device wiring mode remains selectable",
-      "passed": true
-    },
-    {
-      "name": "Existing complete-device exploded mode remains selectable",
-      "passed": true
-    },
-    {
-      "name": "Existing complete-device diffuser mode remains selectable",
-      "passed": true
-    },
-    {
-      "name": "Existing complete-device xray mode remains selectable",
-      "passed": true
-    },
-    {
-      "name": "Home and etched-PCB guide point to blank-board instructions",
+      "name": "Current product and print pages fit mobile and point to R6 downloads",
       "passed": true
     },
     {
@@ -250,62 +246,79 @@
     }
   ],
   "source_sha256": {
-    "index.html": "b62207ee579ec91727c991a1ffbbcbefd35f39913af93a57a69148cb0f784334",
-    "board.html": "69d0b9d2ae308be7765801395107b2a9006769314b1aabf765a7429cc19f9c75",
-    "print.html": "e0fa8db732bb5d70165bd63f4973ca690072e071edb21fb0e7f3f26b05aaf74f",
-    "perfboard.html": "a891da1cd53de5650de0e862c99b92688f051fe9a4d2dcd45952e34b40a0252d",
-    "PCB_GUIDE.md": "c4e5f71952db6672ee30ec47ab5b268d9f631f8f17d2cef9775565bfdcddcc53",
-    "CARRIER_GUIDE.md": "e714a57e25aaa61d3fdcd7256b6e425a982e2a8995332cf68ff525b90551f609",
-    "site/perfboard-carrier.js": "4c8d610369ee60cdf4b505edbaec2a49095b13dc87136d9a7580cae3568c2ebb",
+    "index.html": "2a2580daecf7a9cf682b60c3ea83b9147cdc5d52e410a36550e657aabbd7918d",
+    "preview/assembly-parts.json": "f1e33d75efa1905db10e10ee2a89a6652c1eb0839506ab74780825ebe4baad40",
+    "preview/full-assembly.glb": "1b08adb522ce39718cb397e982d5acc5f2f450a51e2f7d088794744ac3939f84",
+    "preview/render_manifest.json": "92fcb52f5ac0a21aa2b63c467d31793d79025d9f58e7e7234db63fb718c6667a",
+    "board.html": "8e61c606b198e96ee1c58797a80f60f44675a50fac621e9ba98b690378407986",
+    "print.html": "58b7090fe005ead7c39f1bca3dd63fe15c6b3491c66c4d4b22afd4947372f833",
+    "perfboard.html": "79dad3d974f6f0dbeaaacb9ce965102e847114ba4301f0cb8687204e787e57be",
+    "PCB_GUIDE.md": "573bbe406107c5651dd4c6ba7d37ea60b8f2f3b13ad631ac3598395dba0f1429",
+    "PRINT_GUIDE.md": "9346f07ee0bc043f529f90b770880c17e3fc6847cbdad4b65f9e93e3991ca07b",
+    "CHARGER_REVIEW.md": "2f34e53895dcd4104fe7d5cf28c0fe5678c24f83ba9e50b339f6c620b795b0b4",
+    "CARRIER_GUIDE.md": "e6184a4a4bda9d73c93135dd56551da253d49024d68b244b3ce22c51598cdee9",
+    "site/perfboard-carrier.js": "d489e2208cc758b4343ed0da5090ee82f555f86bbf002e2f1bfa8d24eb04214e",
+    "site/perfboard-adapters.js": "938ef1b07dc30f1b178a89a8095893b76098745ff7c3e655f4d6eaceec94eae7",
+    "site/board-template.html": "cc271bdcc1b5b663fcbb2b3e9b1802399e3633e9a4e7ebb781e82d5ed9952243",
+    "site/print-template.html": "6f18699527a70897a8b6175f2cab2897b10156abf2707f41d66a8360e7f5da24",
+    "FIRMWARE_GUIDE.md": "5eecbce64d6263eefc2d5765bfd30b00b0103853bdba10ba9e96c3f81acf6191",
+    "tools/perfboard_r6_parts.py": "c39bd261749d019de517145ac596a6bef2fb0dd777672549887a44b584b04b3a",
+    "tools/perfboard_r6_routes.py": "fd9028b81159f361b1ac48cc493c1f6efbb6268621846f1227a77ae5c527b27d",
+    "tests/test_perfboard_adapters.mjs": "fa8ef80d16f4f9584340fe20b114f74e8103adcb332b368daa5560ed9d4d61c8",
+    "tests/test_charging_guidance.mjs": "598f4f80252614a3ef5cff908cb1fcef58eedb0437896103392d7ec378b35e36",
+    "tests/product_browser_checks.mjs": "d33827ab6da4b39c390618513e5d3090572efe1bea5c04c26d8a9047b3e473aa",
+    "tests/rendering_browser_checks.mjs": "f8e31fdc7371753e578406aff76bfd82d17c68668981daf3fae16a45f57b065b",
+    "site/perfboard-external-connectors.js": "f12ab4af31f8c220ad1cbdac203117264f52dfd89cc9e847feb24258c42c561f",
+    "tools/perfboard_external.py": "ae62d1819f77172ce6741d5b8b62602916f40a342e0eca61dc5bbf43c41b736e",
     "site/perfboard-module-links.js": "2ee7d80d5949d2a2066eb8ba6cda215252fdd7777023ab5f783c80b58834f8ff",
-    "site/perfboard-carrier-panel.js": "0d8b4a774a164d7f6138d88ce144255bba237215bdccd11c9e48df4d852c99de",
-    "tools/perfboard_carrier.py": "15520c309eb5077f1d02e832409d673f1a9d29c9949eae38a3e913c6890c746e",
-    "tools/perfboard_carrier_sheets.py": "1c6f58d92ade8b7c3322c02780a2e1307e95330f4130de6d65702b654464655c",
-    "tests/carrier_browser_checks.mjs": "df84ac6e88c3d2979e735ef8befc73e2b39e0d3cafdf09236556fafb65e55a4c",
-    "electronics/perfboard-carrier-modules.svg": "780af5db864a1a9097a9541e5c79838f4be005d0f5f9da7ab83b6c5fa8ca34db",
-    "PERFBOARD_GUIDE.md": "ce226405b77201eb84a99d5e656dd23e89b4e0c2ba89899d982827c1cdc2cd3a",
+    "site/perfboard-carrier-panel.js": "ca62056f979b1fc8e0caa2d86b2912f1d66bad85b4ce1ee7aebd0e85002d148d",
+    "tools/perfboard_carrier.py": "78c765719a37bbc1d290fdd84a834d7d9e45908aeafb04d9ebfb20e7264cc77e",
+    "tools/perfboard_carrier_sheets.py": "7bac9f227104182e3bc291b550546a92157a78b5c21007d1f4d9a8861a29dfd4",
+    "tests/carrier_browser_checks.mjs": "05a6fffadb375b242810be3701334a778c66f5a216f2289a28789f07562a570c",
+    "electronics/perfboard-carrier-modules.svg": "891dece19959e2876db00f46d558757d5920954cb283ab8d74a57f707396efbb",
+    "PERFBOARD_GUIDE.md": "c3886839b546c4475bde0c54857eb664667d67f5ba1d130af9110f2102873cab",
     "PERFBOARD_REVIEW.md": "e5986b6a0a7667a2e6f63ae846b24de64d9444849a110909a50b84eacb69e88f",
-    "electronics/perfboard-layout.json": "006a3652f5379e34815ed5014512564d32f5353ff7a941a65b844e60ccee5ed6",
-    "electronics/perfboard-components.csv": "bd24a1300241fecfe917311219a5612fff71ec1a06a6c23ae151bcb4e1f086a0",
-    "electronics/perfboard-connections.csv": "bd118218133df7bf39dccc61b4295260fc0b95239a5eed649118e0a92917f149",
-    "site/perfboard-state.js": "3819253c3f10a956652ac0b53281d275bbd367de814c34257144b50372be6299",
-    "site/electronics-overview.js": "4134ecc39534c624eea282e765d92f0339fb9079dc7eb987581bd45758b483dd",
-    "site/electronics-panel.js": "03a9c68a915837319f19266835852207243ceed5f335e85e146eec23523873a3",
+    "electronics/perfboard-layout.json": "95ec1234fa51cf4318eb5bab99813a182f3b090c7c50160364e8d39b2902d573",
+    "electronics/perfboard-components.csv": "0103ca2ae5863f8a7c353b499493f417d4187935040d7b9d24c6bd00a7fb5e34",
+    "electronics/perfboard-connections.csv": "6f2c4cc0db7696245cf8e2bd141f6ba2d2165987b1a5617cd74cff6d276d7eea",
+    "site/perfboard-state.js": "5003b45feb9b5ac60ffa4a949f97099bf5187c639d2992c101502376cb9eb074",
+    "site/electronics-overview.js": "8ae1d7206d382c48c12f625e26b1d16617182b338cc6eb8bf27fac568efa8a9f",
+    "site/electronics-panel.js": "ee59ba47726b71d2cace24915e2263a416603210702341924736426cae60b264",
     "site/electronics-panel.css": "01e0832ca04ef8db373e00b8cd77527234f8c3e56b92b66591a6367eeb7c8da0",
     "vendor/TrackballControls.js": "0b7608fec2ba6c02282cbc41212dc6ef88ece998007e52e32663c1631b032134",
     "vendor/README.md": "522ff8a6888872a84da89dbbbbc9a8ca42ae53f873257b6211b632cdeaa11c77",
     "tests/viewer_navigation_checks.mjs": "75497a4c5469967b51ee656688a8568cfeecce103a6c831c1238c54ab96eaae2",
-    "tests/electronics_browser_checks.mjs": "6fd5d867be92362ed8dc95984f9559ac8ba3186c790d20491579069ca8c905fa",
+    "tests/electronics_browser_checks.mjs": "9bdd753bbf46e5fdfe35cb6d6a2d931a5629db5b4c8a4ea179c4c77b47a61f10",
     "tests/perfboard_build_checks.mjs": "4e88222891ffe63898a36f795ae9480dc26a1d206dfcd2fc37d31f9aff1de68f",
-    "tests/perfboard_test_helpers.mjs": "fff796aac0944358d3be357f72e1f1d4074baf002262d9acd077a6b8b4fe7571",
-    "site/perfboard-guide.js": "583fb06159b76ff75fd4f08e7ef7a1335fe64629ec4d9cf2d15d9b028ae6b53d",
-    "site/perfboard-geometry.js": "5cb5124cbff76b5adc3dadffd1481776dc2027a5f6290694a0dd6a268400db92",
-    "site/perfboard-connections.js": "ac4531c65aa4b7755ae430c9407e9d111eed697f6020015783d025af9d9013a8",
-    "site/perfboard-scene.js": "1d9b786d3552e17cfdb7d0396791e945fe8dceb6271424f75a6757f09610ab64",
-    "site/perfboard.css": "3c340d2d061b4840d2f8c3addb0751e957da272ddad0a57d3a44c745efdaa571",
-    "site/perfboard-template.html": "d6e9f7b337213bd3b041884eafb77e7b65c9d93debfa347a3a7601368e197211",
+    "tests/perfboard_test_helpers.mjs": "fc37cc2ef9578cb3ef9bebcaa4782de9da699acb207c2faa5c4fa383a8cc25a1",
+    "site/perfboard-guide.js": "1c842d4b089b999a2f49e4ffdf81dcde457925b0203e2fcba35aca21f08d5526",
+    "site/perfboard-geometry.js": "4ec0b3f33c20ce3e4980c806f67cd60ccb25841d8c45e913cef774e96b66185b",
+    "site/perfboard-connections.js": "8610f9cde810980568e0ada4b2a27143511d2a781b5f7affaf453b7eda790beb",
+    "site/perfboard-scene.js": "77372cc77cddae019a6b6c62f344d5d395286cead1c91339f1946cca1138aee9",
+    "site/perfboard.css": "5bd740726692cc46c18016a3523f84fed702f0f4e158dc0769741c0cb8480585",
+    "site/perfboard-template.html": "05e5555c0b04177af277a89e7046dc08f9b286d888f5ddbb43a8bac38caed4ec",
     "site/style.css": "3aedf374335b9b5445ae575a1bc35829a5e57f3a9ea71d087754c5df20bbefdb",
     "site/viewer.css": "2987c6fa2c313892c6d352350cc6f029096ee6ded425750bf68ff786c48f4fcb",
     "site/sections.css": "a2a423e1dfd87ebdd46570612344603ff14fc897f34c50e31e5abbd9ee192a1f",
     "site/board.css": "0278c12e522f0c3cd24d4cde491b4b0b603694712cfcf0883bc44c359d7a87a8",
-    "site/assembly-state.js": "52225cdec1456a5725c18ab795cead971f4d9d8df1bb377b5084b59e0355adfb",
-    "site/assembly-viewer.js": "0f51de79183cf0800313b014329608c38cc7bbb5f29863e3f9f50fed3221d473",
-    "site/scene.js": "03dcd8d5cbee36e5017ed30d4eb31340814ca67d394ea5b4fc30d44c0a61365f",
-    "tools/build_guide.py": "050072755589a0f077d444eb099ca267daa69658e217b8c172710ba9476995ef",
+    "site/assembly-state.js": "46333f92db4057717ffae1a3174bf2a92ea97398646f6e9446d2fd5200079ff7",
+    "site/assembly-viewer.js": "1c567ec078018c71bfb960f0b51c7688495aca03c2b67d8dde50a3e085b24db1",
+    "site/scene.js": "08f6a4fb9601aebf1226674f1633f2b13ec876b174eb277bcac0943b03db5787",
+    "tools/build_guide.py": "f41a126da9bea494eeb737d51b3c55989809d6aa3d11972411e9ae6f58d95fc9",
     "tools/build_perfboard_layout.py": "2b4d0fae06fb385357d406d9de05017678c3df923af9e7bd8152bd687719d82f",
-    "tools/perfboard_core.py": "0614899131c3affeb8e922fcceec2b11e7bad5cfb83883c0cb243e369c149acc",
+    "tools/perfboard_core.py": "d745f084ba5ac2334b85e08360623a51447ba6c24cab5739722cce39975cdae5",
     "tools/perfboard_compact.py": "d5c9fe36d618bb472efd1f8a2d1e226b9c0a053b86db96193eaaaf7b098869bd",
-    "tools/build_perfboard_worksheets.py": "077e41c0713ac407bf2ae7c6a88c33c84aaef9e32c3950877eb5163829fe560b",
+    "tools/build_perfboard_worksheets.py": "12fd1a3ec0eb6911a73cd934e5f3f1253b14c594121e0d8584a3e8b0c6907357",
     "tools/perfboard_connection_sheets.py": "95bf465cb42b50016fced2180561885582ebc9807c61eb7890fbb85e8a64455b",
-    "tests/test_perfboard_browser.mjs": "01e1c3229fa4b44cbafe05f7a8e17e284e8321ee1204c3e6630662046e1d3305",
+    "tests/test_perfboard_browser.mjs": "85e3fb8016f4bd94586b9c51ee773ec349c68d216efd8dc3a155b6e5e29ff6d8",
     "electronics/perfboard-latch-top.svg": "be4df4d7f6793066c4740650d398dbe288e176c7690fdef2ff9570d6d9a170a5",
     "electronics/perfboard-latch-bottom.svg": "bab40c9c33eb4bd436682b4d2b73ac5f429ffdba79a2d34daf69f6330808d313",
     "electronics/perfboard-driver-top.svg": "a022ab6ba6e412b08a0675f20fa47c24d6754b03443f18e0d9ca5767610c6585",
     "electronics/perfboard-driver-bottom.svg": "b889f2833ea6c03b3cf0ba5f49debd0538656e18cc225b22c2bfe9893f374132",
     "electronics/perfboard-combined-top.svg": "501fc6f276290a2e15f4de552090cf4d2763e2dfac7b85dcbafdaebf8bd876c5",
     "electronics/perfboard-combined-bottom.svg": "92e0d9f9a2f88ef1063304ad562f44613e44c86ef0be236c09ff77012d3d7936",
-    "electronics/perfboard-carrier-top.svg": "a1f5439086767960b81649ebb0d5c72f2203825ffdb464d9f833d926fc89146d",
-    "electronics/perfboard-carrier-bottom.svg": "f3439e7933e8aedf0b4b227d66c86c0acd30deec7974e646049d0181fec984fb"
+    "electronics/perfboard-carrier-top.svg": "3ca7b2070ee7cb59e8e43c3b601e8de15a6a49bda7b2cf435425568ff19c7199",
+    "electronics/perfboard-carrier-bottom.svg": "e14519a6294f7513dd69e72a244dd21ccef23b46a41bb30b2cba63d62ddc5d01"
   },
   "physical_hardware_tested": false
 }

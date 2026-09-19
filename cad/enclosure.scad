@@ -2,6 +2,7 @@
 // Print exports sit on Z=0. assembly=true retains original assembly coordinates.
 include <dimensions.scad>
 include <primitives.scad>
+include <carrier.scad>
 include <shell.scad>
 include <control.scad>
 $fn=64;
@@ -21,6 +22,7 @@ module select_part() {
     else if(part=="switch_carrier") switch_carrier();
     else if(part=="diffuser") diffuser();
     else if(part=="coupon") coupon();
+    else product_part(part);
 }
 if(part=="all") {
     color("#242629") body();
@@ -29,6 +31,7 @@ if(part=="all") {
     color("#333638") button();
     color("#303235") switch_carrier();
     color([0.08,0.08,0.08,0.7]) diffuser();
+    color("#303235") for(p=["carrier_tray","carrier_keeper","module_tier","clamp_esp","clamp_charger","clamp_reg5","clamp_reg12","connector_saddles","battery_bridge"]) product_part(p);
 } else if(assembly || part=="coupon") select_part();
 else if(part=="body") translate([wall,wall,floor_t]) select_part();
 else if(part=="lid" || part=="rail")
@@ -38,3 +41,4 @@ else if(part=="button")
 else if(part=="switch_carrier")
     translate([carrier_w/2,carrier_d/2,-carrier_bottom]) switch_carrier_local();
 else if(part=="diffuser") cube([sheet_w,sheet_h,sheet_t]);
+else product_print(part);

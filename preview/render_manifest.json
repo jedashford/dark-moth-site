@@ -6,9 +6,9 @@
   "parts": {
     "body": {
       "file": "build/assembly/body.stl",
-      "sha256": "281a963c5d6915eb9f560f4a659d22f26de428efa932cd328b0412efb7939f18",
-      "vertices": 3163,
-      "triangles": 6334,
+      "sha256": "b61ea674acb8fc52b8c04d08e95d22f564d1e58353fc762206b0cf8a62600209",
+      "vertices": 5565,
+      "triangles": 11134,
       "bounds_mm": [
         [
           -2.4,
@@ -17,32 +17,32 @@
         ],
         [
           108.6,
-          100.6,
-          31.2
+          112.6,
+          35.2
         ]
       ]
     },
     "lid": {
       "file": "build/assembly/lid.stl",
-      "sha256": "2e3ce4165de87f19a4746b4990df920fe8f035227efea79f59f35aa1f98dfc10",
-      "vertices": 68675,
-      "triangles": 137354,
+      "sha256": "e97e51540bec1807810601404ec22886b38c2b42fe94dd7ba5877a3aafdc5033",
+      "vertices": 68677,
+      "triangles": 137358,
       "bounds_mm": [
         [
           -2.4,
           9.85,
-          29.7
+          33.7
         ],
         [
           108.6,
-          100.6,
-          33.6
+          112.6,
+          37.6
         ]
       ]
     },
     "rail": {
       "file": "build/assembly/rail.stl",
-      "sha256": "b8beb8f2d82b8a81ac3f56e649545bd823a48786d457cc3e2c7d0e7abe9b383a",
+      "sha256": "33ca0197ff16ddbae4c75c93dd55beadcf73c09158f90aa69f00b35e52a4489f",
       "vertices": 748,
       "triangles": 1500,
       "bounds_mm": [
@@ -54,42 +54,42 @@
         [
           108.6,
           9.6,
-          33.6
+          37.6
         ]
       ]
     },
     "button": {
       "file": "build/assembly/button.stl",
-      "sha256": "ffd442613cdad36c2de1b52f89015f6752c7a8242f929108a120b1b3ef3c8102",
+      "sha256": "6e49a318edd12628b51a7eaa884cac61e9ca51f03207962385f61cc321a8242f",
       "vertices": 400,
       "triangles": 796,
       "bounds_mm": [
         [
           -3.2,
-          79.5,
+          91.5,
           8.0
         ],
         [
           3.7,
-          90.5,
+          102.5,
           23.0
         ]
       ]
     },
     "switch_carrier": {
       "file": "build/assembly/switch_carrier.stl",
-      "sha256": "30b61f32a11b3540ea92272d44445b60a49720b04aa927805c2924f5caefb910",
+      "sha256": "50f0625eb9cc48ec64bc97c006a5b80f6b906196d2580cc4af6859b275ed5fd8",
       "vertices": 469,
       "triangles": 946,
       "bounds_mm": [
         [
           1.35,
-          76.5,
+          88.5,
           1.5
         ],
         [
           11.7,
-          93.5,
+          105.5,
           29.5
         ]
       ]
@@ -111,6 +111,186 @@
           31.2
         ]
       ]
+    },
+    "carrier_tray": {
+      "file": "build/assembly/carrier_tray.stl",
+      "sha256": "01f8f8195e56a539cdb3bfcf9c62cd7b27055d142c45594c10af7cc729f78611",
+      "vertices": 1550,
+      "triangles": 3120,
+      "bounds_mm": [
+        [
+          1.5,
+          16.5,
+          1.0
+        ],
+        [
+          57.0,
+          88.45,
+          10.85
+        ]
+      ]
+    },
+    "carrier_keeper": {
+      "file": "build/assembly/carrier_keeper.stl",
+      "sha256": "9b7cba424406bfe4fcf7399f130a3785439e37416940e46f8e846a675bbb6587",
+      "vertices": 528,
+      "triangles": 1060,
+      "bounds_mm": [
+        [
+          18.0,
+          84.22,
+          8.2
+        ],
+        [
+          42.0,
+          88.45,
+          11.65
+        ]
+      ]
+    },
+    "module_tier": {
+      "file": "build/assembly/module_tier.stl",
+      "sha256": "b4bdc02216fc5e3012bf95531ef5deb8b5e8a5fbf5ae19ea581e9ac71e917bc6",
+      "vertices": 3542,
+      "triangles": 7168,
+      "bounds_mm": [
+        [
+          0.4,
+          16.8,
+          20.2
+        ],
+        [
+          54.0,
+          90.45,
+          24.45
+        ]
+      ]
+    },
+    "clamp_esp": {
+      "file": "build/assembly/clamp_esp.stl",
+      "sha256": "0c39d376f3a984848ff195e5c5067d39dcd044873db6376cd88bc6fe0513621f",
+      "vertices": 272,
+      "triangles": 548,
+      "bounds_mm": [
+        [
+          23.7,
+          23.0,
+          23.65
+        ],
+        [
+          28.2,
+          41.0,
+          24.85
+        ]
+      ]
+    },
+    "clamp_charger": {
+      "file": "build/assembly/clamp_charger.stl",
+      "sha256": "44557671cc9c9145d8ff5f4e620f069042a4257c346030e878656e52a973f716",
+      "vertices": 264,
+      "triangles": 532,
+      "bounds_mm": [
+        [
+          21.2,
+          50.875,
+          23.65
+        ],
+        [
+          25.7,
+          64.875,
+          24.85
+        ]
+      ]
+    },
+    "clamp_reg5": {
+      "file": "build/assembly/clamp_reg5.stl",
+      "sha256": "7e3df322895ce05ff555cea2c43cdef336951ddb79ba737541ce1d8db7122418",
+      "vertices": 264,
+      "triangles": 532,
+      "bounds_mm": [
+        [
+          16.3,
+          76.0,
+          23.65
+        ],
+        [
+          20.8,
+          84.1,
+          24.85
+        ]
+      ]
+    },
+    "clamp_reg12": {
+      "file": "build/assembly/clamp_reg12.stl",
+      "sha256": "4489329c697bfc2346f4837d158b892c911307427433fb937cc825675bfcac4b",
+      "vertices": 264,
+      "triangles": 532,
+      "bounds_mm": [
+        [
+          33.3,
+          76.0,
+          23.65
+        ],
+        [
+          37.8,
+          84.1,
+          24.85
+        ]
+      ]
+    },
+    "connector_saddles": {
+      "file": "build/assembly/connector_saddles.stl",
+      "sha256": "7e423121b1abb6788d1060ff2b6cb1d742f251301ab29a600cdd539e1d441bd3",
+      "vertices": 576,
+      "triangles": 1176,
+      "bounds_mm": [
+        [
+          17.0,
+          87.2,
+          1.0
+        ],
+        [
+          96.0,
+          108.8,
+          7.0
+        ]
+      ]
+    },
+    "battery_bridge": {
+      "file": "build/assembly/battery_bridge.stl",
+      "sha256": "62649ff8b545ea228e6e09594d2cb14041cc5894946a1a027ecbfcd055fcd4d3",
+      "vertices": 276,
+      "triangles": 556,
+      "bounds_mm": [
+        [
+          58.0,
+          48.0,
+          2.0
+        ],
+        [
+          102.0,
+          56.0,
+          15.5
+        ]
+      ]
+    },
+    "battery_insert": {
+      "file": "build/assembly/battery_insert.stl",
+      "sha256": "34a1c5c49745d0f17bdf5e3c98824acdbaa3aa00bd165d856683b5f5399cc197",
+      "vertices": 32,
+      "triangles": 60,
+      "bounds_mm": [
+        [
+          62.0,
+          19.0,
+          1.0
+        ],
+        [
+          98.0,
+          86.0,
+          4.8
+        ]
+      ]
     }
   },
   "views": [
@@ -121,7 +301,7 @@
     "board",
     "side"
   ],
-  "samples": 96,
+  "samples": 128,
   "resolution": [
     1600,
     1200
@@ -157,34 +337,88 @@
       -24,
       0,
       0
+    ],
+    "carrier_tray": [
+      0,
+      0,
+      20
+    ],
+    "carrier_keeper": [
+      0,
+      0,
+      55
+    ],
+    "module_tier": [
+      0,
+      0,
+      70
+    ],
+    "connector_saddles": [
+      0,
+      0,
+      20
+    ],
+    "battery_bridge": [
+      0,
+      0,
+      30
+    ],
+    "battery_insert": [
+      0,
+      0,
+      18
+    ],
+    "clamp_esp": [
+      0,
+      0,
+      102
+    ],
+    "clamp_charger": [
+      0,
+      0,
+      102
+    ],
+    "clamp_reg5": [
+      0,
+      0,
+      102
+    ],
+    "clamp_reg12": [
+      0,
+      0,
+      102
     ]
   },
-  "assembly_part_count": 108,
+  "assembly_part_count": 169,
   "assembly_sources": {
-    "electronics/assembly.json": "2048bbafae1b8fbdd5460b5fdaa9013e65cc76d4115f049455130b0afe294a93",
-    "electronics/driver-layout.json": "b8a241f1f52401c7fbb07c4d62f665b931f58b1090d8ddd542730d79e47b404f",
-    "electronics/firmware-builds.json": "0e1d95db27ee9277fbd89745b0152769ca49be3dad32932de66abbde2cf64571",
-    "electronics/interconnects.json": "904425da5590e0bd5c28d946177641f4be425c2af5fada42544b95c38a94fd02",
-    "electronics/modules.json": "65583ebd931327a5915979a22ecf93460fd41139bf6cc5179e47616592fabc8c",
-    "electronics/pcb-pads.json": "24b33756d0ae64dd39c0f99976be44767f4ac5db9a299b746970cb4b0853ca93",
-    "electronics/source/board_full.glb": "024a98e530dbf3e176ad623846f69a584118ae04cfa012a561719ad02f488a85",
-    "electronics/source/power_button_fixed.kicad_pcb": "c798650596b9dbe1a9a02e66f729ba90ca6bdb2413234685fccc961d18b5b981",
-    "electronics/verification.json": "59d0840a2e3e6efb28c768e108ed4891ac04d18ac5fbb4bab45b24c05daaeccd",
-    "tools/assembly_model.py": "3ba3703c14c09d6b2af8a4f443f1b9b5c0a2883f2b77fb3f4f0ef125855bed31",
-    "tools/electronics_model.py": "5a82cb4b3395f3320f2bd48d5453b7ef58e8898ff6785d2ee33ebc8d23472af3",
-    "tools/parts_manifest.py": "56e0f8a6a5788408c966777b9f916314871c975b8484614340848d3e9c39c03f",
-    "tools/render.py": "1a5e78e631c0f7da3b396275d2f00a2418730899ef1f861fa0013602ba63413c"
+    "build/carrier-board.stl": "710fd91754d8ba0abfd6af5eedf6e259a7f2d7647c151c4676df7e214550471b",
+    "cad/carrier.scad": "46b8ce05d38c8b5138f228747fd2dd5a1b1b1c471dd8ad3f146fb20e558b1a97",
+    "cad/control.scad": "370fd64e03a05e66979b12587b53dfd3d830d9d72ffed3d664bcbc3300c6d4f5",
+    "cad/dimensions.scad": "d464ab620929dc5ae299eed80b8a5aa4abdc4b0f438f4a5e2ab809d60307a605",
+    "cad/enclosure.scad": "8f2d9d3276ed2f4973e86300e2a54dde55c3ce5f3c5e83c0bdd1d2217078c2ac",
+    "cad/parts.json": "90a5be14dc8edc34db535dfddbd9ad337c263dab27a24f3fa68a1c07cf773919",
+    "cad/primitives.scad": "ad41079d84a48638610304c1b5a94fd552d3988255c384629a221667c5c1e8bd",
+    "cad/shell.scad": "898eb26e0fae9bd09f4019d1f0c338d192c7c7c01c0ec931a230337d0dc216c8",
+    "electronics/perfboard-layout.json": "95ec1234fa51cf4318eb5bab99813a182f3b090c7c50160364e8d39b2902d573",
+    "tools/assembly_model.py": "0996cc112fd4d9e60f3e5dc08570277f37008480c76d95f3e5c3adb187ad534b",
+    "tools/carrier_assembly.py": "cf5187d8b1dcc046dbb91ccc5a74ae62cc4bfea5b84e8be0273e2d2bf3ae0e51",
+    "tools/carrier_modules.py": "33eeaccc5c67268c674f98e07c88033b471fb2e8eda850a30ba0a1817dfb4177",
+    "tools/carrier_wiring.py": "13b097d0ae2debf6568cd808b3e3578c7a45c7b414c630e023446dd9a118ca7a",
+    "tools/export_carrier.py": "0e39833cbada3061152b5af7b01b637bd25a0417209aafebf42f3e657a29ad8c",
+    "tools/product_hardware.py": "de02d721aee8268a90c793b807603184e27a0c974dcf44fe5e18bd21c213edc9",
+    "tools/product_parts.py": "47670866fa30225bddc0071e1fd846f7aa5ee0b96547c955e889b5533c80f5ab",
+    "tools/render.py": "bfb58c59472009d2f591fdb882a48d09440600b10ea9aa4e9b6abde1ed2fa1d7"
   },
-  "assembly_model_sha256": "5f5ebe56eaf7d54e776f68ed4f8f08647ccc8aee3987e72a4252b777e8deaf3c",
+  "assembly_model_sha256": "1b08adb522ce39718cb397e982d5acc5f2f450a51e2f7d088794744ac3939f84",
   "view_sha256": {
-    "hero": "b7a22967f6c54c046bd4eddde6d500e553c1d1e89bee759adcd9c3fda425d671",
-    "exploded": "92aaaa4d434847a0903a57a0cf5350636e275b5e3f20567b97a9146bd4c758b6",
-    "top": "0d23d260dae6c2288d219371db2dc9b49954eec332dab333080d272085711515",
-    "internals": "1d89ec5d2a1a784871dba7317764769e16af76d8b8ee9f6036579517f196f784",
-    "board": "84f561ff1af25d604fccaabc83445afe2c97cac62e99a6e0a829998773d1e388",
-    "side": "74359542af27f60d5ded5890918b12e635d560c7272046a010c45c678a91a74b"
+    "hero": "59ecb2c0b091deceecb99a15855b8a791fea27c889ff0e37351160be5cf770a4",
+    "exploded": "c101fb68de8ba42c0c332de68dbbb8dc72872b10a9db621e2253680e5114f8b3",
+    "top": "ab85e24b20f834378c8af3ab21476fc188ca2b678958bee286755896634576f7",
+    "internals": "e0ab9024dc9a15c75fde83240170d5f359e97617d9a688d5b86a58891e547d7f",
+    "board": "5dd45235c0dbc2dc7ab507b37bb5286f57ee92090f2220fc9a6c3d2c27dbf00d",
+    "side": "3b95984d923e81df1aa8b1368d913764db86bcbe94b03e4d30747bcb76fa1aaa"
   },
-  "enclosure_model_sha256": "ac99566381db8086863fdcfad89781559805c785fc64205d8739fafeee599593",
-  "assembly_metadata_sha256": "bc1386f5e972f1676afeb462ed38d717b98d90958e3413ee81fe2fa635ff7adb",
+  "enclosure_model_sha256": "652509bb6b195c000c9874c38640a0b2814da8033e87e3d6975a00eb2f2d4444",
+  "assembly_metadata_sha256": "f1e33d75efa1905db10e10ee2a89a6652c1eb0839506ab74780825ebe4baad40",
   "limitations": "Illustrative materials; unlit CAD views do not validate optical diffusion or printed fit."
 }

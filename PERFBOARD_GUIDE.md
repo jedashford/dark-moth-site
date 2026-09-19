@@ -1,5 +1,7 @@
 # Earlier perfboard layouts
 
+**Historical R5 layouts — do not build these as R6.** Their circuit, modules, button wiring and firmware differ from the current device. Use the [R6 carrier workbench](perfboard.html?board=carrier#workbench), [current assembly overview](PCB_GUIDE.md), and [carrier instructions](CARRIER_GUIDE.md). These older maps are retained only to identify earlier prototypes.
+
 For the **18 × 24 carrier with ESP, charger and boost mounted on it**, use [the carrier guide](CARRIER_GUIDE.md). The layouts below keep those modules separate and have different hole coordinates.
 
 # Dark Moth — fewer wires, one shared perfboard

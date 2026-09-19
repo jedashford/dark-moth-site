@@ -306,7 +306,16 @@ window.DarkMothPerfboardGeometry = (() => {
         .normalize();
       const length = size[axisIndex],
         radius = Math.min(...size.filter((_, i) => i !== axisIndex)) / 2;
-      if (kind.includes("resistor")) {
+      if (["sot23_adapter", "service_header"].includes(kind)) {
+        if (!window.DarkMothPerfboardAdapters)
+          throw new Error("Adapter renderer unavailable");
+        window.DarkMothPerfboardAdapters.draw(component, {
+          mesh,
+          point,
+          positions,
+          descriptor,
+        });
+      } else if (kind.includes("resistor")) {
         cylinder(center, axis, length, radius, 0xc2b19a, descriptor);
         resistorBands(component, center, axis, length, radius, descriptor);
       } else if (kind.includes("diode")) {
@@ -358,7 +367,7 @@ window.DarkMothPerfboardGeometry = (() => {
       } else {
         const body = mesh(
           new THREE.BoxGeometry(size[0], size[2], size[1]),
-          0x343b3e,
+          kind.includes("capacitor") ? 0xb37d43 : 0x343b3e,
           descriptor,
           "components",
         );

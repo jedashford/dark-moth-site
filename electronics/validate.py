@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Verify manifest coordinates, driver net isolation and nominal packing; use KiCad Python."""
+"""Historical R5 KiCad checks only; R6 uses tools/verify_r6_electronics.py.
+
+This script never updates the current R6 verification report.
+"""
 
 import hashlib
 import json
@@ -151,5 +154,7 @@ report = {
         "Electrical load and thermal behavior untested",
     ],
 }
-(ROOT / "verification.json").write_text(json.dumps(report, indent=2) + "\n")
+(ROOT / "verification-r5-historical.json").write_text(
+    json.dumps(report, indent=2) + "\n"
+)
 print(json.dumps(report))

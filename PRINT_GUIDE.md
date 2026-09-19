@@ -1,72 +1,124 @@
-# Print the Dark Moth case
+# Print the Dark Moth R6 case
 
-**The body and button need supports. Keep the body floor-down, with the open cavity facing up.** The “floating cantilever” warning is reproducible when supports are off. The portable 3MF does not set up supports for you.
+**Body, button and carrier tray require supports.** Keep every supplied print
+orientation. The portable 3MF contains geometry only; it does not enable supports.
 
-[Download the updated print pack](dark-moth-r5-print-pack.zip) · [Inspect the assembly in 3D](index.html?mode=inside#explore) · [Measured review of all seven parts](PRINTABILITY.md)
+[Download the R6 print pack](dark-moth-r6-print-pack.zip) ·
+[Inspect the assembly](index.html?mode=inside#explore) ·
+[Review all 17 printable parts](PRINTABILITY.md)
 
-## 1. Set up the body
+This is a nominal prototype. Confirm the actual perfboard outside dimensions,
+charger, connector housings, battery and acrylic before printing fitted fixtures.
+An 18 × 24 hole count does not establish the blank's outside size.
 
-**Bambu reference projects with supports saved:** [Body — P1S / 0.4 mm / PETG](profiles/body-p1s-petg.3mf) · [Button — P1S / 0.4 mm / PETG](profiles/button-p1s-petg.3mf).
+## 1. Open the reference projects
 
-Open these **as projects**, keeping their settings, rather than importing geometry alone. They are unsliced reference projects for **P1S, 0.4 mm nozzle, Generic PETG and Textured PEI**. Select your actual printer, nozzle, plate and filament before slicing; recheck the support values below after changing presets. Each project was reopened in an isolated slicer and generated real supports using only its embedded settings. They contain standard printer profile templates but no sliced print G-code.
+Support-bearing Bambu reference projects are provided for:
 
-For another slicer or a fresh setup, import [body.stl](prints/body.stl) and [button.stl](prints/button.stl) separately, keeping their supplied orientations. Use these starting process settings:
+- [Body](profiles/body-p1s-petg.3mf)
+- [Button](profiles/button-p1s-petg.3mf)
+- [Carrier tray](profiles/carrier_tray-p1s-petg.3mf)
 
-| Setting                       | Value                        |
-| ----------------------------- | ---------------------------- |
-| Layer height                  | 0.20 mm; first layer 0.20 mm |
-| Wall loops                    | 4                            |
-| Top / bottom shell layers     | 6 / 6                        |
-| Sparse infill                 | 20%, gyroid                  |
-| Enable support                | On                           |
-| Type                          | Normal (auto)                |
-| On build plate only           | Off                          |
-| Support critical regions only | Off                          |
-| Threshold angle               | 30°                          |
-| Don't support bridges         | Off                          |
+Open each **as a project**, keeping its settings. These unsliced references use
+P1S, a 0.4 mm nozzle, Generic PETG and Textured PEI. Select your actual printer,
+nozzle, plate and filament before slicing, then recheck the support settings.
+Each project was reopened in an isolated slicer and generated real supports
+from its embedded settings. No sliced machine G-code is included.
 
-Enable Advanced settings if a control is hidden. The reference run uses a **0.4 mm nozzle and Generic PETG**. Use your filament manufacturer's temperatures. These are starting settings; the reference P1S profile is not confirmation of your printer model.
+For another slicer, import the individual STLs in their supplied orientations
+and use these reference process settings:
 
-**Slice, then inspect Preview with the line type / support colouring.** You must see actual support material beneath the two USB roofs, the LED wire-opening overhang and the side-button cradle/opening. Rotate the preview and scroll through those layers. Simply losing the warning does not prove that supports were generated: Bambu can suppress the check whenever support is enabled, even if the selected settings produce none.
+| Setting                                | Value          |
+| -------------------------------------- | -------------- |
+| Layer / first layer                    | 0.20 / 0.20 mm |
+| Wall loops                             | 4              |
+| Top / bottom shell layers              | 6 / 6          |
+| Infill                                 | 20%, gyroid    |
+| Supports on body, button, carrier tray | On             |
+| Support type                           | Normal (auto)  |
+| On build plate only                    | Off            |
+| Critical regions only                  | Off            |
+| Threshold angle                        | 30°            |
+| Don't support bridges                  | Off            |
 
-Build-plate-only supports produced **zero support toolpaths** in our body test. Normal supports everywhere, with bridge support enabled, produced **186 support toolpath sections**. These are sections of sliced paths, not 186 separate support towers. Keep the supports reachable from the cavity and ports; inspect the paths before starting a print.
+Use the filament manufacturer's temperatures. Enable Advanced controls if a
+setting is hidden. After changing presets, inspect Preview with support/line-
+type colouring. Check actual support paths under the charger-window roof, LED
+wire passages, side-button cradle, button flange and tray's retaining lips.
+A disappearing warning alone does not prove that support material exists.
+Supports must remain accessible for removal before electronics are installed.
 
 ## 2. Print the coupon first
 
-Use the new [coupon.stl](prints/coupon.stl). Its **moth faces the bed**, matching the lid's 0.5 mm recess and surface orientation. The three slot banks face up. Older downloads put the coupon's moth on top and could not check the lid's underside finish correctly.
+[Coupon](prints/coupon.stl) prints **moth-down, slot banks up**, matching the lid's
+0.5 mm bed-facing recess. Leave its supports off. Use the intended lid material,
+plate and layer settings, then inspect the underside after cooling. Fine webs
+between the original 44 facets can merge with a 0.4 mm nozzle; inspect the sliced
+first layers and the real coupon before printing the full lid.
 
-Print the coupon with supports off, using the intended lid material, plate and layer settings. After cooling, turn it over to inspect the moth. Some plastic webs between facets are only **0.30 mm** wide; a 0.4 mm nozzle may merge those details. Inspect the sliced first layers and the actual coupon before printing the full lid. The artwork remains the original 44 facets.
+With the slot banks nearest you, viewed from above, their widths are
+**3.2 / 3.4 / 3.6 mm**, left to right. Test a deburred corner of the actual
+3 mm acrylic. The case uses a 3.4 mm channel, giving 0.4 mm total nominal
+clearance. Confirm sliding fit before cutting the 104 × 28 × 3 mm smoked sheet.
 
-With the slot banks nearest you and viewed from above, the slots are **3.2 / 3.4 / 3.6 mm**, left to right. Test a deburred corner or offcut of the actual 3 mm acrylic. The case uses the middle, 3.4 mm channel width: 0.4 mm total clearance around nominal 3 mm stock. Confirm sliding fit before cutting the final **104 × 28 × 3 mm** sheet.
+## 3. Print each part in its supplied orientation
 
-## 3. Check every part
+<!-- markdownlint-disable MD013 -->
 
-All meshes are supplied in their intended print orientation. Do not use automatic orientation on the whole plate.
+| Part                                              | Bed face                  | Supports / first-print check                                         |
+| ------------------------------------------------- | ------------------------- | -------------------------------------------------------------------- |
+| [Body](prints/body.stl)                           | Exterior floor; cavity up | **Required.** Clear window, cradle and internal roofs.               |
+| [Lid](prints/lid.stl)                             | Moth / outside face down  | Off. Inspect coupon and fine moth details.                           |
+| [Front rail](prints/rail.stl)                     | Outside face down         | Off. Inspect long footprint and acrylic keeper.                      |
+| [Button](prints/button.stl)                       | Visible key face down     | **Required.** Clean the flange and check free return.                |
+| [Switch carrier](prints/switch_carrier.stl)       | Flat back down            | Off. Check daughterboard retaining lips.                             |
+| [Coupon](prints/coupon.stl)                       | Moth down; slot banks up  | Off. Check real acrylic thickness.                                   |
+| [Diffuser template](prints/diffuser.stl)          | Broad face down           | Off. Optional template; use smoked acrylic for the diffuser.         |
+| [Carrier tray](prints/carrier_tray.stl)           | Broad underside down      | **Required.** Clean the board ledges, wire ports and retaining lips. |
+| [Carrier keeper](prints/carrier_keeper.stl)       | Flat keeper face down     | Off. Check screw bores and rear board capture.                       |
+| [Module tier](prints/module_tier.stl)             | Open frame underside down | Off. Inspect rims, keepers and small pilot bores.                    |
+| [ESP clamp](prints/clamp_esp.stl)                 | Broad underside down      | Off. Preserve the USB clearance notch.                               |
+| [Charger clamp](prints/clamp_charger.stl)         | Broad underside down      | Off. Fits the nominal 18 × 14 mm UMLIFE seat.                        |
+| [5 V clamp](prints/clamp_reg5.stl)                | Broad underside down      | Off. Check small holes without splitting the plastic.                |
+| [12 V clamp](prints/clamp_reg12.stl)              | Broad underside down      | Off. Keep distinct from the other module fixtures.                   |
+| [Connector saddles](prints/connector_saddles.stl) | Broad underside down      | Off. Clear strap slots and pack-lead notches.                        |
+| [Battery bridge](prints/battery_bridge.stl)       | Roof down; legs up        | Off. Keep this orientation so its bores print vertically.            |
+| [Small-pack insert](prints/battery_insert.stl)    | Broad underside down      | Off. Optional; remove for the 67 × 36 × 10 mm battery.               |
 
-| Part                                        | Bed face                          | Support / first-print check                                                                                                                          |
-| ------------------------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Body](prints/body.stl)                     | Flat exterior floor; cavity up    | **Required**, normal auto everywhere, bridges included. Inspect generated supports under internal roofs.                                             |
-| [Lid](prints/lid.stl)                       | Moth and outside face down        | Off. Check the matching coupon first; fine webs and recessed bridges determine appearance.                                                           |
-| [Front rail](prints/rail.stl)               | Outside face down                 | Off. Check the narrow retaining lip, screw seating and acrylic slide.                                                                                |
-| [Button key](prints/button.stl)             | Small visible key face down       | **Required**, normal auto everywhere, bridges included. The flange projects up to 2.95 mm at its corners; inspect and remove the support underneath. |
-| [Switch carrier](prints/switch_carrier.stl) | Flat back down; retaining lips up | Off. Check the small lips, board capture and screw clearance holes before assembly; the matching pilots are in the body.                             |
-| [Coupon](prints/coupon.stl)                 | Moth down; slot banks up          | Off. Use the same plate and profile as the lid.                                                                                                      |
-| [Diffuser template](prints/diffuser.stl)    | Broad flat face down              | Off. Optional cutting/fit template; the intended diffuser is purchased smoked acrylic.                                                               |
+<!-- markdownlint-enable MD013 -->
 
-The supported button reference slice generated **11 support sections** beneath its flange, adding approximately **0.20 g and one minute** compared with the unsupported test. A warning-free unsupported slice does not establish a clean flange. Check that the cleaned key returns freely before final assembly.
-
-The black portable plate contains six separate objects, including the coupon. Enable supports on **body and button only**. Support is a **per-object choice**: avoid turning it on indiscriminately for the moth recess or small clearance features. Slicing each part separately is the clearest first-print workflow.
+The black portable plate contains 16 separate objects, including the coupon and
+optional small-pack insert. The diffuser template has its own plate. Enable
+supports per object on **body, button and carrier tray only**. Printing parts
+separately is the clearest first-build workflow. Avoid automatic reorientation.
 
 ## 4. Remove supports and dry-fit
 
-Let the body cool, then remove supports **before installing any electronics**. The open cavity, USB openings and inboard opening of the side cradle provide access. Use small pliers and a flush cutter; avoid levering against thin ribs, the acrylic channels or screw posts.
+Let the parts cool, then remove supports before installing electronics. Access
+the body through its cavity, the single charging-USB opening and the side-button
+cradle. Clean the tray's lips and wire passages from its open sides. Avoid
+levering against thin ribs, acrylic channels or screw posts.
 
-Check that both USB openings and the side-button opening are clear. Remove debris from the cradle, grooves and screw pilots. Reject a cracked rib, split post or distorted channel. Test the button's press and complete release, slide the daughterboard into its carrier, and check the acrylic moves freely with the rail removed.
+Clear debris from grooves and pilots. Reject cracked posts or distorted slots.
+Test button press and complete release, the daughterboard capture, and acrylic
+removal with the front rail off. Fit the tray to the actual blank before soldering.
+Inspect module edge lands for pads or components where the clamps will bear.
+Do not compress the battery pouch with its bridge or screws.
 
-Then follow the [case assembly order](README.md#hardware-and-assembly-order) and [board assembly guide](board.html). Fit the side-button carrier before the boost module, which obstructs the lower carrier screw.
+Follow [Build in this order](README.md#build-in-this-order) and the
+[current carrier guide](CARRIER_GUIDE.md). Fit the side-button carrier before the
+rear connector saddles. The case's left port is charging USB; ESP programming
+USB is accessed with the lid removed and the service shunt removed.
 
-## What the review establishes
+The UMLIFE charger is used with the **complete device off while charging**.
+Turning LEDs black is not the same as switching the device off. Follow the
+[current charging procedure](README.md#charge-with-the-device-off).
 
-All seven meshes were checked for connected solids, a flat first layer, overhangs and reference slicing. The body warning is caused by real unsupported features; the files are not corrupt. The updated coupon now tests the same bed-facing moth as the lid. [The detailed printability record](PRINTABILITY.md) lists measured limits and the [verification record](VERIFICATION.md) identifies the generated artifacts.
+## What has been checked
 
-Support removal, surface finish, acrylic fit and button feel still need the first physical print. No machine G-code is supplied and no printer is contacted by the validation tools.
+All 17 meshes have one connected solid, a connected first layer and warning-free
+reference slices. The three native support projects were also round-trip sliced.
+[Printability](PRINTABILITY.md) and [Verification](VERIFICATION.md) record the
+scope. These checks do not establish support removal, surface finish, screw grip,
+acrylic fit, button feel, operating temperature or electrical safety of actual
+stock. No physical print has been performed or printer contacted.

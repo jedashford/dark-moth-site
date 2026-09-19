@@ -6,10 +6,31 @@
   }
   function visible(meta, mode) {
     if (!defaults(meta)) return false;
-    if (mode === "internals" || mode === "wiring")
-      return !shellIds.includes(meta.part_id);
+    if (mode === "internals")
+      return (
+        !shellIds.includes(meta.part_id) &&
+        !["wiring", "wires", "wire"].includes(meta.category)
+      );
+    if (mode === "wiring") return !shellIds.includes(meta.part_id);
     if (mode === "board")
-      return meta.part_id === "pcb_main" || meta.category === "pcb_component";
+      return (
+        meta.part_id === "pcb_carrier" ||
+        meta.carrier_member === true ||
+        meta.parent_carrier === "pcb_carrier" ||
+        meta.part_id?.startsWith("carrier_") ||
+        [
+          "module_esp",
+          "module_charger",
+          "module_reg5",
+          "module_reg12",
+        ].includes(meta.part_id) ||
+        [
+          "module_esp",
+          "module_charger",
+          "module_reg5",
+          "module_reg12",
+        ].includes(meta.parent_module)
+      );
     return true;
   }
   function offset(meta, mode, amount) {

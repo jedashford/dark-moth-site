@@ -1,20 +1,141 @@
 {
-  "revision": "R5",
-  "pcb_sha256": "c798650596b9dbe1a9a02e66f729ba90ca6bdb2413234685fccc961d18b5b981",
-  "source_footprints": 15,
-  "source_pads": 34,
-  "exact_pad_coordinates_and_nets_match": true,
-  "remote_switch_unpopulated": true,
-  "driver_component_leads": 35,
-  "driver_nominal_bodies": 15,
-  "driver_nominal_body_minimum_gap_mm": 1.092,
-  "driver_nominal_assembled_height_mm": 9.2,
-  "driver_gate_source_pwm_drain_nodes_isolated": true,
+  "revision": "R6",
+  "passed": true,
   "physical_validation": false,
-  "firmware_zip_matches_compiled_source": true,
+  "checks": [
+    {
+      "name": "revision_and_grid",
+      "passed": true
+    },
+    {
+      "name": "exact_component_roles",
+      "passed": true
+    },
+    {
+      "name": "component_values",
+      "passed": true
+    },
+    {
+      "name": "one_component_lead_per_hole",
+      "passed": true
+    },
+    {
+      "name": "pad_net_isolation",
+      "passed": true
+    },
+    {
+      "name": "holes_in_grid",
+      "passed": true
+    },
+    {
+      "name": "conductors_do_not_short_nets",
+      "passed": true,
+      "offending_joins": []
+    },
+    {
+      "name": "every_net_connected",
+      "passed": true
+    },
+    {
+      "name": "declared_nets_match",
+      "passed": true
+    },
+    {
+      "name": "every_solder_joint_reaches_pad_and_bus",
+      "passed": true,
+      "riser_count": 39
+    },
+    {
+      "name": "retained_leads_reach_bus_windows",
+      "passed": true
+    },
+    {
+      "name": "wire_lanes_clear_other_net_pins",
+      "passed": true,
+      "minimum_clearance_mm": 0.12
+    },
+    {
+      "name": "service_disconnect_isolates_5v",
+      "passed": true
+    },
+    {
+      "name": "supply_terminal_roles",
+      "passed": true
+    },
+    {
+      "name": "c3_gpio_roles",
+      "passed": true
+    },
+    {
+      "name": "no_raw_button_or_supply_on_gpio",
+      "passed": true
+    },
+    {
+      "name": "four_module_supply_contract",
+      "passed": true
+    },
+    {
+      "name": "module_pigtails_match_terminals",
+      "passed": true
+    },
+    {
+      "name": "three_external_plugs",
+      "passed": true
+    },
+    {
+      "name": "protected_module_ground_domains",
+      "passed": true
+    },
+    {
+      "name": "hardware_cutoff_contract",
+      "passed": true
+    },
+    {
+      "name": "manual_off_charging_contract",
+      "passed": true
+    },
+    {
+      "name": "sourced_adapter_pin_map",
+      "passed": true
+    },
+    {
+      "name": "nominal_body_clearance",
+      "passed": true,
+      "minimum_axis_gap_mm": 2.54
+    },
+    {
+      "name": "components_inside_carrier",
+      "passed": true
+    },
+    {
+      "name": "removable_tier_height",
+      "passed": true
+    },
+    {
+      "name": "wire_insulation_and_envelope",
+      "passed": true
+    }
+  ],
+  "counts": {
+    "checks": 27,
+    "components": 33,
+    "nets": 32,
+    "conductors": 17,
+    "module_links": 18
+  },
   "limitations": [
-    "Nominal body clearance excludes bent leads and solder",
-    "Purchased parts and wire routes unmeasured",
-    "Electrical load and thermal behavior untested"
-  ]
+    "Declared netlist and nominal envelopes only; actual soldering is untested.",
+    "Module pad locations, battery leads/contact ratings, RF and final fit remain unmeasured.",
+    "No physical current, thermal, charging, low-battery or optical qualification."
+  ],
+  "input_sha256": {
+    "electronics/perfboard-layout.json": "95ec1234fa51cf4318eb5bab99813a182f3b090c7c50160364e8d39b2902d573",
+    "tools/build_perfboard_layout.py": "2b4d0fae06fb385357d406d9de05017678c3df923af9e7bd8152bd687719d82f",
+    "tools/perfboard_core.py": "d745f084ba5ac2334b85e08360623a51447ba6c24cab5739722cce39975cdae5",
+    "tools/perfboard_carrier.py": "78c765719a37bbc1d290fdd84a834d7d9e45908aeafb04d9ebfb20e7264cc77e",
+    "tools/perfboard_r6_parts.py": "c39bd261749d019de517145ac596a6bef2fb0dd777672549887a44b584b04b3a",
+    "tools/perfboard_r6_routes.py": "fd9028b81159f361b1ac48cc493c1f6efbb6268621846f1227a77ae5c527b27d",
+    "tools/perfboard_external.py": "ae62d1819f77172ce6741d5b8b62602916f40a342e0eca61dc5bbf43c41b736e",
+    "tools/verify_r6_electronics.py": "de7fbe39ed7d3c175cedb47da9a466fc9b0feaf1fd1b2ac70203a3b74bd4c82c"
+  }
 }

@@ -19,7 +19,9 @@ from assembly_mesh import Export
 from verify import solid
 
 ROOT = Path(__file__).resolve().parents[1]
-PARTS = ("body", "lid", "rail", "button", "switch_carrier", "diffuser")
+sys.path.insert(0, str(ROOT / "tools"))
+from product_parts import INSTALLED as PARTS
+
 TOLERANCE = 0.01
 
 
@@ -132,7 +134,13 @@ def main():
             try:
                 values.append(solid(mesh))
             except ValueError as error:
-                report["skipped"].append({"part": key, "reason": str(error)})
+                report["skipped"].append(
+                    {
+                        "part": key,
+                        "reason": str(error),
+                        "wire": meta["category"] == "wiring",
+                    }
+                )
         if not values:
             continue
         value = reduce(lambda a, b: a + b, values)
@@ -148,6 +156,15 @@ def main():
                 }
                 report["intersections"].append(finding)
                 print(finding, flush=True)
+    required_wires = {
+        key
+        for key, meta in catalog.items()
+        if meta["category"] == "wiring" and meta.get("default_visible", True)
+    }
+    for key in sorted(required_wires - set(report["tested"])):
+        report["skipped"].append(
+            {"part": key, "wire": True, "reason": "No tested solid wire geometry"}
+        )
     report["passed"] = not report["intersections"] and not any(
         row.get("wire") for row in report["skipped"]
     )

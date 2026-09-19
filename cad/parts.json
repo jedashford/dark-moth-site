@@ -1,0 +1,32 @@
+{
+  "revision": "R6",
+  "parts": [
+    { "id": "body", "assembly": true, "support": true },
+    { "id": "lid", "assembly": true, "support": false },
+    { "id": "rail", "assembly": true, "support": false },
+    { "id": "button", "assembly": true, "support": true },
+    { "id": "switch_carrier", "assembly": true, "support": false },
+    {
+      "id": "diffuser",
+      "assembly": true,
+      "support": false,
+      "material": "cut_acrylic_template"
+    },
+    { "id": "coupon", "assembly": false, "support": false },
+    { "id": "carrier_tray", "assembly": true, "support": true },
+    { "id": "carrier_keeper", "assembly": true, "support": false },
+    { "id": "module_tier", "assembly": true, "support": false },
+    { "id": "clamp_esp", "assembly": true, "support": false },
+    { "id": "clamp_charger", "assembly": true, "support": false },
+    { "id": "clamp_reg5", "assembly": true, "support": false },
+    { "id": "clamp_reg12", "assembly": true, "support": false },
+    { "id": "connector_saddles", "assembly": true, "support": false },
+    { "id": "battery_bridge", "assembly": true, "support": false },
+    {
+      "id": "battery_insert",
+      "assembly": true,
+      "support": false,
+      "optional": true
+    }
+  ]
+}

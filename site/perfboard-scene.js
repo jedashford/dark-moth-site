@@ -53,7 +53,16 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
         near: 1,
         far: 300,
       });
-      light.shadow.normalBias = 0.015;
+      // Two shadow-map texels in scene millimetres prevent self-shadow stripes
+      // on flat imported PCBs while preserving shadows between separate parts.
+      light.shadow.normalBias =
+        2 *
+        Math.max(
+          (light.shadow.camera.right - light.shadow.camera.left) /
+            light.shadow.mapSize.x,
+          (light.shadow.camera.top - light.shadow.camera.bottom) /
+            light.shadow.mapSize.y,
+        );
       light.shadow.bias = -0.0001;
     }
     scene.add(light);
@@ -173,12 +182,26 @@ window.DarkMothPerfboardScene = (host, { onSelect = () => {} } = {}) => {
           projected.push(
             new THREE.Vector3(x, y, z).applyMatrix4(camera.matrixWorldInverse),
           );
-    projectedWidth =
-      Math.max(...projected.map((p) => p.x)) -
-      Math.min(...projected.map((p) => p.x));
-    projectedHeight =
-      Math.max(...projected.map((p) => p.y)) -
-      Math.min(...projected.map((p) => p.y));
+    // Sprites face the camera; their rendered extent differs from Box3's
+    // world-axis rectangle. Include all four real label corners in the fit.
+    model?.group.traverse((object) => {
+      if (!object.isSprite || !object.visible) return;
+      const anchor = object
+        .getWorldPosition(new THREE.Vector3())
+        .applyMatrix4(camera.matrixWorldInverse);
+      const scale = object.getWorldScale(new THREE.Vector3());
+      for (const x of [0, 1])
+        for (const y of [0, 1])
+          projected.push(
+            new THREE.Vector3(
+              anchor.x + (x - object.center.x) * scale.x,
+              anchor.y + (y - object.center.y) * scale.y,
+              anchor.z,
+            ),
+          );
+    });
+    projectedWidth = 2 * Math.max(...projected.map((p) => Math.abs(p.x)));
+    projectedHeight = 2 * Math.max(...projected.map((p) => Math.abs(p.y)));
     controls.update();
     resize();
   }

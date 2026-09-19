@@ -1,33 +1,38 @@
-// Dark Moth enclosure R5. All dimensions in mm; provenance in README.md.
+// Dark Moth enclosure R6. Nominal purchased-part dimensions require dry fit.
 // X right, Y rearward, Z upward. Interior floor is Z=0; front inside face Y=0.
 wall=2.4;
 floor_t=2.4;
 lid_t=2.4;
 ix=106.2;
-iy=98.2;
-iz=31.2;
+iy=110.2;
+iz=35.2;
 corner_r=4;
 edge_chamfer=0.6;
 seam=0.25;
 rail_end=9.6;
 lap_h=1.5;
 fit=0.25;
-// PCB and floor-mounted modules: retained from the v3-button CAD layout.
-bx=6.1;
-by=16;
-bz=16;
-bw=94;
-bd=60;
+// One integrated perfboard; its component face points upward.
+bx=3;
+by=22;
+bz=8.2;
+bw=47.78;
+bd=63.02;
 bt=1.6;
-post_r=3.25;
-post_holes=[[10.1,20],[96.1,20],[10.1,72],[96.1,72]];
-case_holes=[[2,6.2],[104.2,6.2],[2,95.5],[104.2,95.5]];
-battery=[11,32,0,65,36,11];
-boost=[16,79,0,36,17,14];
-driver=[54,79,0,36,17,10];
-charger=[81.2,25.75,0,25,16.5,6];
-esp=[79.2,47,0,27,18,12];
-usb_centers=[34,56];
+case_holes=[[2,6.2],[104.2,6.2],[2,107.5],[104.2,107.5]];
+battery=[62,19,1,36,67,10];
+tray_mounts=[[24,19],[54.5,25],[54.5,82]];
+tier_mounts=[[8,19.5],[46,19.5],[15,87.75],[46,87.75]];
+battery_mounts=[[60,52],[100,52]];
+connector_mounts=[[20,106],[58,106],[93,106]];
+tier_z=bz+bt+12;
+// PCB bottoms at tier_z; module support pockets have an open underside.
+module_seats=[[2,23,22.5,18],[4,50.875,18,14],[4,76,13.1,8.1],[21,76,13.1,8.1]];
+// Charger USB opening is provisional until the purchased module is measured.
+charge_y=57.875;
+charge_z=tier_z+3.2;
+charge_w=16;
+charge_h=9;
 // Removable sheet. Default is cut stock, NOT the old pre-cut 94.8 mm sheet.
 sheet_w=104;
 sheet_h=28;
@@ -45,7 +50,7 @@ rib_h=25.5;
 // Left-side key: local u -> +Z, v -> +Y, w -> -X (outward).
 // Local w=0 is the inner sidewall. The two-wire daughterboard faces -X.
 key_x=0;
-key_y=85;
+key_y=97;
 key_z=15.5;
 key_w=11;
 key_d=7;
@@ -72,7 +77,7 @@ key_tip=carrier_bottom+carrier_t+remote_pcb_t+switch_h+switch_gap;
 key_stop=-key_flange_t-key_travel;
 logo_w=44;
 logo_depth=0.5;
-logo_y=48;
+logo_y=54;
 cx=ix/2;
 cy=iy/2;
 outer_w=ix+2*wall;

@@ -1,39 +1,88 @@
-# Dark Moth R5 — design review
+# Dark Moth R6 — design review
 
-R5 keeps the original faceted moth, moves the control to the **left side**, and makes the smoked diffuser replaceable without opening the electronics lid. It is a separate enclosure folder built from the retained v3-button hand-build layout and the earlier dark-sheet case.
+R6 integrates the 18 × 24 carrier, selected C3, compact UMLIFE charger, two
+regulated supplies and three removable plugs into the Dark Moth case. The
+original faceted moth, side button and removable smoked diffuser are retained.
+The larger protected battery has a dedicated bay, smooth pad, removable bridge
+and an optional insert for the smaller pack.
 
-## Decisions and resolved findings
+## Mechanical decisions
 
-| Requirement or prior problem                                  | R5 decision                                                                                                                               |
-| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| The aperture symbol replaced the requested moth               | Preserve the exact 44 original path definitions, 44 mm wide and 0.5 mm debossed, without a medallion border                               |
-| A central top button interrupted the lid                      | Plain lid and direct side plunger at Y=85, Z=15.5; press inward along +X                                                                  |
-| Earlier captured-cap geometry obstructed its claimed travel   | Explicit 0.35 mm travel, 0.10 mm initial gap, captive release flange and carrier hard stop                                                |
-| A loose switch board depended on tape                         | Side carrier has retaining lips; the body cradle closes the board's escape path when its two screws are fitted                            |
-| Side-carrier installation could be blocked by a module        | Install key/carrier and both interior screws before the boost module                                                                      |
-| Old diffuser stack used tape and inconsistent thicknesses     | Default 3 mm acrylic, bottom stop, side grooves and a separately screwed top keeper                                                       |
-| A 100 mm window created a long printed bridge                 | Open-top body window; its lintel prints as the removable rail                                                                             |
-| The remembered dark sheet had no explicit compatibility check | The old approximately 94.8 mm sheet is too narrow; R5 needs confirmed 104 × 28 × 3 mm cut stock                                           |
-| Earlier renders implied optical validation                    | Use actual CAD and clearly label smoked appearance as illustrative and unlit                                                              |
-| Enclosure-only models omitted assembly context                | Full specified BOM model with individual components, screws, connectors and logical wire groups; nominal commodity geometry is identified |
-| Reusing the PCB switch could join incompatible pad nets       | Leave SW unpopulated; detachable remote switch uses exact OUT+/BTN_N holes by coordinates and net                                         |
+<!-- markdownlint-disable MD013 -->
 
-The original artwork is preserved in [cad/moth.svg](cad/moth.svg), matching [branding/assets/logo_vector.svg](https://github.com/jedashford/lights/blob/main/branding/assets/logo_vector.svg). The earlier dark-sheet reference is [hardware/case_v2/case.scad](https://github.com/jedashford/lights/blob/main/hardware/case_v2/case.scad). Historical case comparison: [original v3-button CAD](https://github.com/jedashford/lights/blob/v3-button-case/v3-button/case/dark_moth_v3_button_case.scad).
+| Requirement                                         | Implemented R6 decision                                                                                                                   |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Preserve the original appearance                    | Original 44-path moth, 44 mm wide and 0.5 mm recessed; dark case and smoked front sheet.                                                  |
+| Fit the integrated carrier                          | Removable tray, insulating liner and rear keeper for the nominal 47.78 × 63.02 × 1.6 mm board; no invented carrier mounting holes.        |
+| Fit the selected modules above the discrete circuit | Open insulating tier with individual rims and removable clamps; PCB undersides 12 mm above the carrier top.                               |
+| Use the user's compact charger                      | Nominal UMLIFE 18 × 14 × 5 mm envelope, left-facing USB, compact holder. Full device must be off while charging.                          |
+| Fit the larger protected pack                       | 67 × 36 × 10 mm nominal pack with 1 mm smooth pad, restraint screws outside the pouch and rear lead clearance.                            |
+| Make external connections removable                 | Two-pin battery, two-pin button and six-pin LED plug pairs, each labeled and retained in a saddle.                                        |
+| Keep the side control serviceable                   | Captive key centered at Y97, Z15.5; 0.35 mm nominal travel and a separate retained switch daughterboard.                                  |
+| Replace the diffuser independently                  | 104 × 28 × 3 mm sheet in side grooves and a lower stop; remove two front screws and the rail.                                             |
+| Avoid a long printed front bridge                   | Open-top body window; the removable rail supplies its lintel.                                                                             |
+| Show every specified assembly item                  | One canonical model inventory with 169 selectable groups, including 33 carrier assemblies, 28 screws, six plug halves and 55 wire groups. |
+| Keep print exports and rendering consistent         | Import exact assembly STLs into the full model; shared `cad/parts.json` drives print and assembled-part inventories.                      |
 
-## Electronics and assembly representation
+<!-- markdownlint-enable MD013 -->
 
-The main board is freshly exported from the corrected KiCad source with actual outline, mounting holes, tracks, pads, solder mask, silkscreen and library components. A translation preserves its handedness: case X=6.1+board-local X, Y=76−board-local Y. Independent checks locate actual drill rings at the header, transistor, resistor, remote-switch solder point and a mounting hole.
+The case is 111 × 115 × 40 mm outside. The original 9.2 mm LED-to-acrylic gap
+is retained without claiming optical uniformity. The side charger window is
+16 × 9 mm; ESP programming USB is reached with the lid off and service shunt
+removed. [The mechanical plan](PRODUCT_MECHANICAL_PLAN.md) records placements,
+fixture details and outstanding measurements.
 
-The 108-group assembly includes the six case parts, the specified electronic BOM and wiring, ten screws, and an unsupported PCB-switch reference that starts hidden. It does not claim a supplier-specific inventory of every tiny component on an unidentified module. Purchased module packages, wire paths, connector envelopes and screw forms are nominal. The proposed separate driver layout uses fifteen discrete parts on 35 × 15 mm isolated-pad perfboard; its upright resistors and formed leads require a dry build.
+## Electrical representation
 
-[PCB_GUIDE.md](PCB_GUIDE.md) is the authoritative electrical assembly reference. It corrects the old battery-return and button-sense instructions, requires the PCB switch footprint to remain empty, and identifies the inherited power-path limitations. The case cannot fix regulator dropout, unknown transistor variants or an electrically unsuitable load.
+The current source is the integrated carrier in `electronics/perfboard-layout.json`.
+The model contains its 432 drilled isolated pads, all 33 placed component
+assemblies and their leads, 17 underside conductors, and all 39 intermediate
+solder joints. The seven added riser wires are distinct from the 32 retained
+component leads. A low-battery supervisor and nonpolar bypass capacitor are
+included in the revised carrier.
 
-## What remains to validate physically
+The current build no longer uses the manufactured KiCad main PCB, BQ25185
+charger, its NTC arrangement, or the former TP4056/MT3608 placement. The UMLIFE
+module has distinct battery and output negative nodes; the model and guide
+preserve that distinction. The authoritative instructions are
+[CARRIER_GUIDE.md](CARRIER_GUIDE.md) and
+[PRODUCT_ELECTRICAL_PLAN.md](PRODUCT_ELECTRICAL_PLAN.md).
 
-The **344 default geometry checks, 547 parameter checks and seven successful slices** establish modeled geometry and printability in the reference slicer. They do not measure print shrink, screw grip, switch force or stroke, solder tails, purchased-module dimensions, USB cable shells or connector retention.
+Purchased modules, connector housings, screws and wiring are nominal models.
+The C3 details are illustrative clone geometry; the charger and regulator
+models do not invent unidentified chips or physical pad coordinates. Module
+wire ends are explicitly marked unresolved and parked loose above each module
+until the actual labeled pads are identified. The complete device must be
+switched off before charging; no automatic charging lockout is claimed.
 
-The actual smoked sheet remains unmeasured. R5 preserves a **9.2 mm LED-to-acrylic gap**, without a claim about hotspots or transmission. An extra opal layer is not included in the retained default stack. Light output, colour, thermal behaviour, charging and battery protection require the staged tests in the electronics guide before a closed-case operating test.
+The full model preserves every wire. The Inside view hides wiring to expose
+the mechanical arrangement, while the wiring and exploded views retain it.
+The exploded stack is checked so modules appear above their tier and clamps
+above the modules. Rendered smoke/transmission and other materials are
+illustrative; the views are unlit geometry evidence.
 
-A final mesh audit found and corrected the keyed connector's overlap with the side cradle and the nominal screw-head seating planes. After correction, 101 electronics/hardware groups, including 29 wire nets, have no detected intersection with the six printed parts above 0.01 mm³. Non-solid surfaces in 24 of those groups are excluded, so this remains a partial geometry check; [verification](VERIFICATION.md) records the scope.
+## Verification and physical boundary
 
-Print the coupon first, then dry-fit the side control and actual electronics. The replaceable rail, key and carrier make those adjustments local. Delivered models are ready for that first-print process; they are not a physically certified assembly.
+Current compact-charger checks pass: 734 default geometry checks, 979 parameter
+checks, 17 actual slices and three support-project round-trips. Ten GLB tests
+inspect actual mesh buffers for inventory, placement, drill rings, component
+leads, solder-joint contacts and the exploded order.
+
+The solid collision audit checks 153 logical groups, including **all 55 wire
+groups**, against all 15 installed printed parts, with zero intersections above
+0.01 mm³. Seven items contain excluded label/emitter surface fragments; no wire
+is skipped. This is a partial check against printed obstacles, not a supplier
+fit or conductor-to-conductor clearance certificate.
+
+All 17 printable exports are connected solids with connected first layers.
+[Printability](PRINTABILITY.md) identifies the three support-bearing parts and
+[Verification](VERIFICATION.md) links the reports. Actual carrier outline,
+module projections, connector dimensions, screw forms, acrylic thickness and
+battery seams/lead exit still require measurement and dry fit. The retained
+nominal carrier outline must not be inferred solely from the 18 × 24 hole count.
+
+No physical print or operating electrical prototype has been qualified.
+Charging, cutoff behavior, temperature, switch feel, connector retention,
+support removal and light output require the staged physical checks in the
+build guides. This release supplies a digitally checked prototype for that
+first-build process.

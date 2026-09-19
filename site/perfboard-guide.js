@@ -17,6 +17,7 @@
   const netButton = (net) =>
     `<button type="button" class="pin-link" data-net="${esc(net)}">${esc(net)}</button>`;
   let boards = [],
+    legacyModuleConnections = [],
     board,
     scene,
     sequence = [],
@@ -104,7 +105,7 @@
         } catch (error) {
           if (ticket !== requestId) return;
           $("inspection").innerHTML =
-            "<h2>Module models unavailable</h2><p>The carrier and exact wiring tables still work. Reload to retry loading the three purchased modules.</p>";
+            "<h2>Module models unavailable</h2><p>The carrier and exact wiring tables still work. Reload to retry loading the purchased modules.</p>";
           window.console.error(error);
         }
         $("board-canvas").classList.remove("loading-model");
@@ -114,7 +115,7 @@
     board = null;
     $("board-dimensions").textContent = "Loading the complete electronics…";
     $("inspection").textContent =
-      "Loading the original main PCB, controller and modules…";
+      "Loading the current R6 carrier, controller and modules…";
     try {
       const data = await window.DarkMothElectronicsOverview.load(id);
       if (ticket !== requestId) {
@@ -144,7 +145,9 @@
       return;
     }
     if (stepIndex >= 0) endSteps();
-    if (info.type === "module")
+    if (info.type === "external-connector")
+      carrierPanel.inspectConnector(info.connector);
+    else if (info.type === "module")
       carrierPanel.inspectModule(info.module || info.component, info.label);
     else if (info.type === "module-link")
       carrierPanel.inspectLink(info.jumper || info.id);
@@ -167,7 +170,7 @@
     $("part-select").value = ref;
     if (scene) scene.highlight({ component: ref });
     $("inspection").innerHTML =
-      `<p class="inspection-label">Component · ${esc(part.mounting.replaceAll("_", " "))}</p><h2>${esc(ref)} <small>${esc(part.value)}</small></h2><p>${esc(state.componentInstructions(board, part))}</p><h3>Put each identified leg here</h3><ul>${part.pins.map((pin) => `<li><strong>${esc(pin.role)}</strong> → ${hole(pin.hole)}<br />${netButton(pin.net)}</li>`).join("")}</ul>${part.pin_order_status ? `<p>${esc(part.pin_order_status)}</p>` : "<p>Each end belongs to a different net. Do not add a wire across this component.</p>"}`;
+      `<p class="inspection-label">Component · ${esc(part.mounting.replaceAll("_", " "))}</p><h2>${esc(ref)} <small>${esc(part.value)}</small></h2><p>${esc(state.componentInstructions(board, part))}</p><h3>Put each identified leg here</h3><ul>${part.pins.map((pin) => `<li><strong>${esc(pin.role)}</strong> → ${hole(pin.hole)}<br />${netButton(pin.net)}</li>`).join("")}</ul>${part.pin_order_status ? `<p>${esc(part.pin_order_status)}</p>` : part.kind === "service_header" ? "<p>The removable shunt joins these two 5 V contacts only during battery operation. Remove it before ESP USB; do not replace it with a permanent solder bridge.</p>" : "<p>Each end belongs to a different net. Do not add a wire across this component.</p>"}`;
   }
   function inspectNet(net, selected) {
     const definition = board.nets.find((item) => item.id === net);
@@ -196,7 +199,7 @@
   function renderTerminals() {
     const variant = $("esp-select").value;
     $("controller-note").textContent =
-      `Showing ESP32-${variant} GPIO numbers. Use this same controller choice throughout the selected layout. Verify your module's printed pin labels; physical header order varies.`;
+      `ESP32-${variant}${board.hardware_revision === "R6" ? " SuperMini is the confirmed R6 controller" : " GPIO reference"}. Verify the printed pin labels; physical header order varies.`;
     $("terminal-rows").innerHTML = state
       .terminalRows(board, variant)
       .map(
@@ -244,7 +247,10 @@
       scene.setLayerMode("all");
       scene.showStep(step);
     }
-    if (step.type === "module") {
+    if (step.type === "external-connector") {
+      carrierPanel.inspectConnector(step.connector);
+      setView("angle");
+    } else if (step.type === "module") {
       setView("angle");
       carrierPanel.inspectModule(step.module);
     } else if (step.type === "module-link") {
@@ -267,6 +273,10 @@
   function loadBoard(id) {
     board = boards.find((item) => item.id === id) || boards[0];
     $("board-select").value = board.id;
+    const current = board.hardware_revision === "R6";
+    if (current) $("esp-select").value = "C3";
+    $("esp-select").querySelector('option[value="S3"]').disabled = current;
+    $("esp-select").parentElement.hidden = current;
     endSteps();
     if (scene) {
       scene.loadBoard(board);
@@ -277,9 +287,17 @@
     $("board-dimensions").textContent =
       `${board.name.replace(/ · \d+ × \d+ holes$/, "")} · ${board.columns} × ${board.rows.length} holes · 2.54 mm pitch`;
     $("board-fit-note").textContent = board.case_fit;
+    $("ground-return-note").textContent =
+      board.hardware_revision === "R6"
+        ? `Every ground leg needs its own joint to the listed ground network. The LED source returns and controller return join at the supply ground; keep LED current out of the controller’s ground lead. ${board.ground_note || ""}`
+        : "Every ground leg needs its own joint to the listed ground network. Historical R5 system ground returns to protected CHG.OUT−; keep raw BAT− separate.";
+    $("ground-boundary-note").textContent =
+      board.hardware_revision === "R6"
+        ? "Each GPIO needs its own 100 Ω gate resistor and each gate its own 10 kΩ pulldown. Do not combine gates or LED drains. REG5 powers ESP VIN; REG12 powers LED +12V. Their positive outputs never join."
+        : "Do not share one resistor between gates. Keep each LED return on its own drain. Do not bridge the historical protected charger’s BAT− to OUT−.";
     const counts = state.connectionCounts(board);
     $("connection-summary").textContent =
-      `${counts.retainedLeads} reused component leads · ${counts.addedWires} added wire pieces (${counts.insulatedWires} links + ${counts.busWires} ground bus). External module cables are additional.`;
+      `${counts.retainedLeads} reused component leads · ${counts.addedWires} added wire pieces (${counts.insulatedWires} links + ${counts.busWires} ground bus${counts.riserWires ? ` + ${counts.riserWires} risers` : ""}). External module cables are additional.`;
     $("top-map").href = `electronics/perfboard-${board.id}-top.svg`;
     $("bottom-map").href = `electronics/perfboard-${board.id}-bottom.svg`;
     $("part-select").innerHTML =
@@ -320,10 +338,18 @@
       })
       .join("");
     renderTerminals();
+    $("module-rows").innerHTML = (
+      board.module_connections || legacyModuleConnections
+    )
+      .map(
+        (wire) =>
+          `<tr><td>${esc(wire.from)}</td><td>${esc(typeof wire.to === "string" ? wire.to : wire.to.C3)}</td><td>${esc(wire.net)}</td></tr>`,
+      )
+      .join("");
     carrierPanel.render();
     if (board.modules)
       $("connection-summary").textContent =
-        `${counts.retainedLeads} reused component leads · ${counts.addedWires} internal wire pieces · ${board.module_links.length} short module wires. Battery, LED and remote-button cables are additional.`;
+        `${counts.retainedLeads} reused component leads · ${counts.addedWires} internal wire pieces${counts.riserWires ? ` (${counts.connections} main conductors + ${counts.riserWires} risers)` : ""} · ${board.module_links.length} short module wires. Battery, LED and remote-button cables are additional.`;
     sequence = state.steps(board);
     $("step-select").innerHTML = sequence
       .map(
@@ -342,6 +368,7 @@
         throw new Error(`Layout request failed (${response.status})`);
       const data = await response.json();
       boards = data.boards;
+      legacyModuleConnections = data.module_connections;
       $("module-rows").innerHTML = data.module_connections
         .map(
           (wire) =>
@@ -367,6 +394,14 @@
         const ref = $("part-select").value;
         if (!carrierPanel.inspectModule(ref) && board.modules)
           carrierPanel.welcome();
+      });
+      $("carrier-connectors").addEventListener("click", (event) => {
+        const button = event.target.closest("[data-carrier-connector]");
+        if (button) {
+          endSteps();
+          carrierPanel.inspectConnector(button.dataset.carrierConnector);
+          setView("angle");
+        }
       });
       $("carrier-reference").addEventListener("click", (event) => {
         const module = event.target.closest("[data-carrier-module]");

@@ -31,6 +31,14 @@
     }
     return [...groups.values()];
   }
+  function jointInstruction(board, joint) {
+    const depth = (
+      -Math.min(...joint.points_mm.map((point) => point[2])) - board.size_mm[2]
+    ).toFixed(1);
+    return joint.formation === "retained_component_lead"
+      ? `Do not trim ${joint.component_ref} leg ${joint.pin_role} at ${joint.hole} yet: retain it to the ${joint.net} wire window ${depth} mm below the board underside. Solder there, then trim only excess.`
+      : `Fit one added solid-wire riser at ${joint.hole}. Join its lower end to the ${joint.net} wire window ${depth} mm below the board underside; lap-solder the module/button cable at the pad, without adding a second wire through that hole.`;
+  }
   function connectionInfo(board, connection) {
     connection =
       connections(board).find(
@@ -43,6 +51,11 @@
     let kind = "Insulated wire",
       label = `Wire ${connection.from} → ${connection.to}`,
       text = `On the solder side, add an insulated wire between ${connection.from} and ${connection.to} for ${connection.net}. Solder only the named pads or their component legs. A crossing is not a connection. Check continuity between the two endpoints.`;
+    if (holes.length > 2 && !reusedLead && !groundBus) {
+      kind = "Insulated net conductor";
+      label = `Wire all ${connection.net} joints`;
+      text = `Use one insulated conductor along ${route}. Make a stripped solder window at every named joint; keep all other spans and crossings insulated. These ${holes.length} joints share ${connection.net}. A drawn crossing does not join another net. Check continuity to every listed joint, not just the first and last. ${connection.instructions || ""}`;
+    }
     if (reusedLead) {
       const source = sourceName(connection),
         length = connection.retained_lead_mm;
@@ -61,9 +74,11 @@
       label = `Ground bus ${connection.from} → ${connection.to}`;
       text =
         connection.insulated === false
-          ? `Use one dedicated ground-bus conductor along ${fullRoute}. Solder every named tap. Size this conductor for the measured module and LED return current; a resistor leg must not carry that load. Insulate any crossing that is not a declared joint. Check continuity from every named tap to protected CHG.OUT−; keep BAT− separate.`
+          ? `Use one dedicated ground-bus conductor along ${fullRoute}. Solder every named tap. Size this conductor for the measured module and LED return current; a resistor leg must not carry that load. Insulate any crossing that is not a declared joint. ${board.hardware_revision === "R6" ? "Check continuity from every named tap to the specified supply ground. Keep the LED power-return conductor separate from the controller ground lead until their supply junction." : "Check continuity from every named tap to protected CHG.OUT−; keep BAT− separate."}`
           : `Run one dedicated insulated ground-bus wire from ${connection.from} to ${connection.to}. The complete bus visits ${fullRoute}. Strip a small window only at each named pad, solder the tap, and keep spans insulated. Size the conductor for the measured return current. Check continuity at every named tap.`;
     }
+    for (const joint of connection.solder_joints || [])
+      text += " " + jointInstruction(board, joint);
     return {
       kind,
       label,
@@ -93,10 +108,26 @@
         else counts.insulatedWires++;
       }
     }
+    const joints = unique.flatMap((wire) => wire.solder_joints || []);
+    if (joints.length) {
+      counts.retainedRisers = joints.filter(
+        (joint) => joint.formation === "retained_component_lead",
+      ).length;
+      counts.riserWires = joints.filter(
+        (joint) => joint.formation === "single_riser_wire",
+      ).length;
+      counts.retainedLeads += counts.retainedRisers;
+      counts.addedWires += counts.riserWires;
+    }
     return counts;
   }
   function componentInstructions(board, part) {
-    const notes = [...part.notes];
+    const notes = [...(part.notes || [])];
+    if (part.adapter)
+      notes.push(
+        `${part.adapter.product}: ${part.adapter.face}. ${part.adapter.packages.length} SOT23 package(s) on this adapter. The carrier pin roles below refer to this adapter, not a TO92 package.`,
+      );
+    if (part.adapter?.instructions) notes.push(part.adapter.instructions);
     for (const connection of board.jumpers.filter(
       (item) =>
         item.connection_style === "component_lead_bridge" &&
@@ -105,6 +136,10 @@
       notes.push(
         `Do not trim leg ${connection.source_pin.role}: retain at least ${connection.retained_lead_mm} mm below the seated board for ${connection.id} (${joinedHoles(connection).join(" → ")}). Check the actual leg is long enough before soldering.`,
       );
+    for (const joint of board.jumpers
+      .flatMap((wire) => wire.solder_joints || [])
+      .filter((joint) => joint.component_ref === part.ref))
+      notes.push(jointInstruction(board, joint));
     return notes.join(" ");
   }
   function members(board, net) {
@@ -192,10 +227,26 @@
         jumperIds: [...jumperIds],
       });
     }
+    for (const connector of board.external_connectors || []) {
+      componentIds.push(connector.ref);
+      jumperIds.push(connector.ref);
+      result.push({
+        type: "external-connector",
+        connector: connector.ref,
+        label: `Connect ${connector.label}`,
+        text:
+          connector.pins
+            .map((pin) => `${pin.number}: ${pin.from} → ${pin.to}`)
+            .join("; ") +
+          ". Disconnect battery and USB; match mating contacts by continuity before connecting devices.",
+        componentIds: [...componentIds],
+        jumperIds: [...jumperIds],
+      });
+    }
     result.push({
       type: "harness",
       label: "Attach the external wires",
-      text: "Use the terminal table and the three module-to-module connections below, then the written guide for your selected layout. Use one matching ESP model throughout. Disconnect battery and USB. Every listed terminal needs its external connection; follow this layout's ground routing.",
+      text: "Use the terminal table and the module-to-module connection list, then the written guide for your selected layout. Use one matching ESP model throughout. Disconnect battery and USB. Every listed terminal needs its external connection; follow this layout's ground routing.",
       componentIds: [...componentIds],
       jumperIds: [...jumperIds],
     });

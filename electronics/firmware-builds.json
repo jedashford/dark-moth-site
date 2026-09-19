@@ -1,28 +1,47 @@
 {
-  "revision": "R5",
-  "arduino_esp32_core": "3.3.8",
+  "revision": "R6",
+  "primary_target": "C3",
   "source_sha256": {
-    "dark_moth_ble_v3.ino": "16d065398dd35e3c289293e1f85e22d44bb7fa8c894fa08915a4458d288335fc",
-    "button_sense.h": "9083f57a4aa237a85dba087aa8cd332390e849d03080b30911acf22ef342ec42"
+    "battery_telemetry.h": "83c885ad0223e3f4c09a334d9f919c8b597fe64d6b418c4caefbad67a616af11",
+    "ble_callbacks.h": "583ec2bb50c1f4bb2ffdd83592d922f8e631b6010e01d0ca57e6eb3f7d198fde",
+    "button_sense.h": "19558a601c0becd80af6524aca041d82eecba0cf9def298a16724bc4406d726b",
+    "dark_moth_ble_v3.ino": "3dbd9540a60ccde197f81624a3f380cc8e1b9f831a2341e41a8db04212e0a250",
+    "hardware_config.h": "4c306dfe28ea8799580e2dff1b7c24d3ed51a0b70244a194bee1965078044634",
+    "power_control.h": "e4d17a6b70891b5b074b53cb430f6131df0c10841234c8161fd8f85cff4d4058"
   },
   "battery_sense_enabled_default": false,
-  "battery_characteristic_without_divider": "Present, empty payload, no ADC read or notifications",
-  "button_adc_press_mv": 1000,
-  "button_adc_release_mv": 500,
-  "host_cpp_test": "passed, Clang C++11 -Wall -Wextra -Werror",
+  "battery_characteristic_without_divider": "Present with empty payload",
+  "button_sense": "isolated digital active LOW; cold-start press consumed",
+  "power_hold": "HIGH at beginning of setup, LOW for shutdown on release",
+  "charging_mode": "manual complete shutdown before UMLIFE charger USB; no simultaneous operation",
+  "low_battery_cutoff": "external TLV803EA30 supervisor sinks H_BASE; no ADC",
+  "host_tests": {
+    "button_sense": {
+      "passed": true,
+      "output": "R6 button: boot, debounce, tap, long-release and wrap passed"
+    },
+    "power_control": {
+      "passed": true,
+      "output": "R6 power: early HOLD, digital button, cue restore and idle passed"
+    }
+  },
+  "upload_performed": false,
+  "physical_button_test_performed": false,
+  "optical_calibration_performed": false,
+  "arduino_esp32_core": "3.3.8",
   "C3": {
     "fqbn": "esp32:esp32:esp32c3:CDCOnBoot=cdc",
     "passed": true,
-    "flash_bytes": 643587,
-    "ram_bytes": 19148
+    "flash_bytes": 635233,
+    "ram_bytes": 18996,
+    "build_log_sha256": "443af0053745e166a5176b95196b606dce4f636e235886de90afcd0b28528700"
   },
   "S3": {
     "fqbn": "esp32:esp32:esp32s3:USBMode=hwcdc,CDCOnBoot=cdc",
     "passed": true,
-    "flash_bytes": 620252,
-    "ram_bytes": 28240
+    "flash_bytes": 611996,
+    "ram_bytes": 28128,
+    "build_log_sha256": "5d8eaea090060377b35812b94c949ea703ae136753d8b28c69cf3e721944f662"
   },
-  "upload_performed": false,
-  "physical_button_test_performed": false,
-  "firmware_zip_sha256": "449bfbca711ac8df4773fa19d5ade96f0c216f07f663016e1dd629a51eb5e160"
+  "firmware_zip_sha256": "97a1ecba39d78acf6ceb6575a61c8315a0814cac7890996436aeb03cd2125b4c"
 }

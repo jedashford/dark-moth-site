@@ -35,18 +35,18 @@
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const notes = {
     assembled:
-      "Earlier R5 enclosure arrangement. The new 18 × 24 carrier is not represented in this retained model.",
+      "R6 prototype / physical verification pending. Inspect the enclosure and complete current assembly.",
     internals:
-      "Earlier R5 internals: original latch PCB and floor modules. New carrier mounting requires a separate fit check.",
+      "R6 modules and mounts, with wires hidden for clarity. Choose Wiring for every cable, or select a wire to reveal it. Check part confidence before fabrication.",
     board:
-      "Earlier 94 × 60 mm latch PCB. This board is not required for the integrated 18 × 24 carrier.",
+      "R6 populated carrier and its purchased modules. Use the exact-hole workbench for soldering order and every electrical role.",
     wiring:
-      "Earlier case harness reference. Its PCB endpoints and nominal routes do not describe the new carrier.",
+      "R6 harness and three external plugs. Dashed or nominal routes describe connection roles; unmeasured module pad positions are not physical pin instructions.",
     exploded:
-      "Earlier R5 assembly, exploded. Spacing is illustrative; wires keep their old assembled route.",
+      "R6 assembly, exploded. Separation is illustrative; verify actual part dimensions, supports and clearances on one prototype.",
     diffuser:
       "Lift the front screws and rail, then slide the acrylic upward. The electronics lid stays fitted.",
-    xray: "Earlier R5 arrangement through a translucent case. New carrier placement is not shown.",
+    xray: "Current R6 assembly through a translucent case. This model does not establish physical fit or powered operation.",
   };
   const requested = new URLSearchParams(window.location.search);
   if (Object.hasOwn(notes, requested.get("mode")))
@@ -129,7 +129,17 @@
     toggle.disabled = false;
     toggle.checked = part.visible;
     const m = part.userData;
-    info.textContent = `${m.label || id}. ${m.description || ""} ${m.confidence ? `Model: ${m.confidence}.` : ""}`;
+    if (
+      state.mode === "internals" &&
+      ["wiring", "wire", "wires"].includes(m.category)
+    ) {
+      part.visible = true;
+      syncCounts();
+    }
+    const endpoints = (m.endpoints || [])
+      .map((pair) => (Array.isArray(pair) ? pair.join(" ↔ ") : String(pair)))
+      .join("; ");
+    info.textContent = `${m.label || id}. ${m.description || ""} ${endpoints ? `Connections: ${endpoints}.` : ""} ${m.confidence ? `Model: ${m.confidence}.` : ""}`;
     host.dataset.selectedPart = id;
     updateStyles();
     if (zoom) {
@@ -314,13 +324,23 @@
         });
       });
       if (
-        !["body", "lid", "rail", "button", "switch_carrier", "diffuser"].every(
-          (id) => parts.has(id),
-        ) ||
+        ![
+          "body",
+          "lid",
+          "rail",
+          "button",
+          "switch_carrier",
+          "diffuser",
+          "pcb_carrier",
+          "module_esp",
+          "module_charger",
+          "module_reg5",
+          "module_reg12",
+        ].every((id) => parts.has(id)) ||
         parts.size < 20
       ) {
         fail(
-          "The complete assembly did not load. Use the renders and downloadable model below.",
+          "The current R6 assembly did not load. Use the renders and downloadable model below.",
         );
         return;
       }
